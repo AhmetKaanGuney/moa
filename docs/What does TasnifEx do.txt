@@ -1,0 +1,33 @@
+
+WHAT'S THIS PROGRAM IS FOR?
+
+TasnifEx is a tool for editing your matrices.
+You can :
+- Group/Ungroup your rows and columns
+- Name your groups
+- The program will handle the adding of values (and future functions)
+- Export the edited matrix into a new file
+
+Supported read/write formats:
+CSV:
+    - *.csv (Comma separated values)
+    - CSV (Macintosh)
+    - CSV (MS-DOS)
+
+(Optional):
+- *.xls
+- *.xlsx
+
+Difference between CSV- MS and Mac:
+
+The difference between [them] is if you have certain
+special characters in text fields; for example,
+an accented (foreign language) character.
+If you export as Windows CSV, those fields are encoded
+using the Windows-1252 code page. DOS encoding usually
+uses code page 437, which maps characters used in old
+pre-Windows PCs. If you export as one and then import
+with a tool that expects the other, most things will
+look fine but you'll get unexpected results if, for example,
+you know someone with an umlaut (or other foreign character)
+in their name.

@@ -1,0 +1,15 @@
+Dependencies
+
+import libs:
+
+For CSV;
+- csv
+
+For Excel;
+- openpyxl
+
+For GUI;
+- PySimpleGUI
+
+For platform;
+- os
