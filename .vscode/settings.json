@@ -1,0 +1,12 @@
+{
+    "python.linting.pylintEnabled": false,
+    "python.linting.enabled": true,
+    "python.linting.pylamaEnabled": true,
+    "code-runner.defaultLanguage": "python",
+    // "python.formatting.provider": "black",
+    // "editor.formatOnSave": true,
+    // "python.formatting.blackArgs": [
+    //     "--line-length",
+    //     "119"
+    // ],
+}

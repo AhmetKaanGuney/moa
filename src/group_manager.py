@@ -2,8 +2,8 @@ from matrix import Matrix
 from notification import Notification
 
 
-class Groups:
-    """Groups is an abstraction of the Matrix() object. Groups makes it easy to reorganize the Matrix() object.
+class GroupManager:
+    """GroupManager is an abstraction of the Matrix() object. GroupManager makes it easy to reorganize the Matrix() object.
     When converting the groupings back to a Matrix() object,
     this class will sum the values of the grouped rows and columns.
     It holds:
@@ -11,9 +11,10 @@ class Groups:
         - source_rows, source_cols: from source_matrix()
         - source_rows = ["John", "Jack", Daniel", "Jane", "Jennifer", "Samantha"]
         - user_row_group1 = {"Men": ["John", "Jack", Daniel"], "Women": ["Jane", "Jennifer", "Samantha"]}
-    With Groups the user is just managing lists of rows and cols names, not actual rows and cols. After user is done
+    With GroupManager the user is just managing lists of rows and cols names, not actual rows and cols. After user is done
     with grouping rows and cols, call a method that takes user's Groups() object
     and returns a Matrix() object."""
+
 
     def __init__(self, source_matrix: Matrix):
         self.source_matrix: Matrix = source_matrix
@@ -21,7 +22,7 @@ class Groups:
         self.source_cols: list = source_matrix.get_cols()
         self.user_row_groups: dict = {}
         self.user_col_groups: dict = {}
-
+        
     # ----------------- #
     #    GET METHODS    #
     # ----------------- #
@@ -149,7 +150,6 @@ class Groups:
         output_matrix = self._sum_groups()
         return output_matrix
 
-
     def _sum_groups(self):
         """Each child method in this function takes a matrix then returns a new matrix with summed values.
         The returning matricies' have updated row or col depending on the method.
@@ -175,7 +175,7 @@ class Groups:
             rows_to_be_summed = row_groups[group]
 
             if len(rows_to_be_summed) < 1:
-                Notification.raise_warning(f" WARNING! Empty row group detected: '{g}'.")
+                Notification.raise_warning(f" WARNING! Empty row group detected: '{group}'.")
                 return "ERROR"
             else:
                 summed_rows[group] = matrix.sum_rows(rows_to_be_summed)
@@ -209,7 +209,7 @@ class Groups:
             cols_to_be_summed = col_groups[group]
 
             if len(cols_to_be_summed) < 1:
-                Notification.raise_warning(f" WARNING! Empty row group detected: '{g}'.")
+                Notification.raise_warning(f" WARNING! Empty row group detected: '{group}'.")
                 return "ERROR"
             else:
                 summed_cols[group] = matrix.sum_cols(cols_to_be_summed)
@@ -231,3 +231,20 @@ class Groups:
 
         cols_summed_matrix = Matrix(matrix_name, updated_rows, summed_cols)
         return cols_summed_matrix
+
+
+class Group:
+
+    _id = -1
+
+    def __init__(self, name: str, elements: list[str]):
+        self.name = name
+        self.elements = elements
+        self.id = self._id + 1
+
+    def get_elements(self):
+        return self.elements
+
+    def get_name(self):
+        return self.name
+
