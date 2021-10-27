@@ -3,6 +3,8 @@
     "python.linting.enabled": true,
     "python.linting.pylamaEnabled": true,
     "code-runner.defaultLanguage": "python",
+    "terminal.integrated.cursorStyle": "line",
+    "terminal.integrated.detectLocale": "on",
     // "python.formatting.provider": "black",
     // "editor.formatOnSave": true,
     // "python.formatting.blackArgs": [
