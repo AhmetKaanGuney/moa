@@ -1,5 +1,6 @@
 from matrix import Matrix
 from notification import Notification
+from converters import json_to_dict
 
 
 class GroupManager:
@@ -14,7 +15,6 @@ class GroupManager:
     With GroupManager the user is just managing lists of rows and cols names, not actual rows and cols. After user is done
     with grouping rows and cols, call a method that takes user's Groups() object
     and returns a Matrix() object."""
-
 
     def __init__(self, source_matrix: Matrix):
         self.source_matrix: Matrix = source_matrix
@@ -231,6 +231,13 @@ class GroupManager:
 
         cols_summed_matrix = Matrix(matrix_name, updated_rows, summed_cols)
         return cols_summed_matrix
+    
+    # ------------------------------ #
+    #    CONSTRUCT WITH BLUEPRINT    #
+    # ------------------------------ #
+    def build_with(blueprint):
+        bp = json_to_dict(blueprint)
+        
 
 
 class Group:
