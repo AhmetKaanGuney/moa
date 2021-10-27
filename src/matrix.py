@@ -9,7 +9,7 @@ class Matrix:
         - cols : a dict that has cols name as keys and lists as their values
         - example row: {'row1': [val1, val2, val3], 'row2': [val4, val5], ...}"""
 
-    def __init__(self, name: str, rows: dict, cols: dict):
+    def __init__(self, rows: dict, cols: dict, name=None):
         self.name = name
         self.rows = rows
         self.cols = cols

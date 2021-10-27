@@ -2,11 +2,23 @@
 import xlrd
 import xlwt
 import openpyxl
+import json
 
 from matrix import Matrix
 from notification import Notification
 
 ENCODING = "UTF-8"
+
+
+def json_to_matrix(json_string):
+    js = json.loads(json_string)
+    rows = js["rows"]
+    cols = js["cols"]
+    return Matrix(rows, cols)
+
+
+def json_to_dict(json_string):
+    return json.loads(json_string)
 
 
 class XlsFile:
