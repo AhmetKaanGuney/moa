@@ -40,10 +40,10 @@ class TestXlsFile(unittest.TestCase):
         file_path = parentdir + "/moa/test/input_files/5-5.xls"
         matrix_coords = matrix_coordinates((2, 6), ("B", "F"))
         self.xf = XlsFile(file_path, matrix_coords)
-        workbook = xlrd.open_workbook(file_path,
-                                           encoding_override=ENCODING, 
+        self.workbook = xlrd.open_workbook(file_path,
+                                           encoding_override=ENCODING,
                                            on_demand=True)
-        self.worksheet = workbook.sheet_by_index(self.sheet_index)
+        self.worksheet = self.workbook.sheet_by_index(self.xf.sheet_index)
 
     def tearDown(self) -> None:
         pass
@@ -63,23 +63,25 @@ class TestXlsFile(unittest.TestCase):
         print("--- parse_rows() ---")
         ws = self.worksheet
         f = self.xf._parse_rows(ws)
-        self.assertEqual(f, {
-            "ali": [10, 0, 5, 8, 1],
-            "esma": [0, 12, 9, 3, 4],
-            "ahmet": [5, 7, 6, 0, 11],
-            "ibrahim": [14, 3, 8, 7, 0],
-            "derya": [2, 5, 9, 0, 5]})
+        expected = {
+            "ali": [10.0, 0.0, 5.0, 8.0, 1.0],
+            "esma": [0.0, 12.0, 9.0, 3.0, 4.0],
+            "ahmet": [5.0, 7.0, 6.0, 0.0, 11.0],
+            "ibrahim": [14.0, 3.0, 8.0, 7.0, 0.0],
+            "derya": [2.0, 5.0, 9.0, 0.0, 5.0]}
+
+        self.assertEqual(f, expected)
 
     def test_parse_cols(self):
         print("--- parse_cols() ---")
         ws = self.worksheet
-        f = self.xf._parse_rows(ws)
+        f = self.xf._parse_cols(ws)
         self.assertEqual(f, {
-            "elma": [10, 0, 5, 8, 1],
-            "ıspanak": [0, 12, 9, 3, 4],
-            "armut": [5, 7, 6, 0, 11],
-            "fasulye": [14, 3, 8, 7, 0],
-            "muz": [2, 5, 9, 0, 5]})
+            "elma": [10.0, 0.0, 5.0, 14.0, 2.0],
+            "ıspanak": [0.0, 12.0, 7.0, 3.0, 5.0],
+            "armut": [5.0, 9.0, 6.0, 8.0, 9.0],
+            "fasulye": [8.0, 3.0, 0.0, 7.0, 0.0],
+            "muz": [1.0, 4.0, 11.0, 0.0, 5.0]})
 
     # def test_pop_row_name(self):
     #     print("--- pop_row() ---")
