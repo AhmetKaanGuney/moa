@@ -17,10 +17,6 @@ def json_to_matrix(json_string):
     return Matrix(rows, cols)
 
 
-def json_to_dict(json_string):
-    return json.loads(json_string)
-
-
 class XlsFile:
     """This class is for reading and writing XLS files.
     It takes file_path's path, the coordinates and sheet_index of the

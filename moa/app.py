@@ -76,8 +76,10 @@ def matrix_to_blueprint(source_file, coordinates, user_id):
 #     BLUEPRINT TO MATRIX     #
 # --------------------------- #
 # get blueprint (json format) from client
-blueprint = "../test/input_files/5-5.json"
 
+blueprint_file = "../test/input_files/blueprint.json"
+with open(blueprint_file) as f:
+    blueprint = json.load(f)
 # get export format from user
 export_format = ".xls"
 # get corresponding source Matrix() from db
@@ -89,11 +91,17 @@ cur.close()
 conn.close()
 # convert json to matrix object
 source_matrix = json_to_matrix(json_string)
+print(source_matrix.rows)
+print(source_matrix.cols)
 
 # initialize GroupManager with source matrix
 gm = GroupManager(source_matrix)
+
 # create groups according to blueprint
-gm.build_with()
+# !!! Getting random KeyError when sum_cols get_col[name]
+processed_matrix = gm.build_with(blueprint)
+print(processed_matrix.rows)
+print(processed_matrix.cols)
 # export to the wanted format
 # return processed file to client
 

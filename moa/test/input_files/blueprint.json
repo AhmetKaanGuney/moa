@@ -1,0 +1,24 @@
+{
+    "rows": {
+        "erkekler": [
+            "ali",
+            "ahmet",
+            "ibrahim"
+        ],
+        "kadınlar": [
+            "esma",
+            "derya"
+        ]
+    },
+    "cols" : {
+        "meyveler": [
+            "elma",
+            "armut",
+            "muz"
+        ],
+        "sebzeler": [
+            "ıspanak",
+            "fasulye"
+        ]
+    }
+}

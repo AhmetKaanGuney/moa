@@ -1,6 +1,6 @@
 from matrix import Matrix
 from notification import Notification
-from converters import json_to_dict
+import json
 
 
 class GroupManager:
@@ -235,9 +235,11 @@ class GroupManager:
     # ------------------------------ #
     #    CONSTRUCT WITH BLUEPRINT    #
     # ------------------------------ #
-    def build_with(blueprint):
-        bp = json_to_dict(blueprint)
+    def build_with(self, blueprint):
+        self.user_row_groups = blueprint["rows"]
+        self.user_col_groups = blueprint["cols"]
         
+        return self.convert_to_matrix()
 
 
 class Group:

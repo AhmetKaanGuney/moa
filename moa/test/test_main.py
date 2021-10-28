@@ -1,23 +1,36 @@
 import logging
-import os
-from src.notification import Notification
-from src.groups import Groups
-from src.matrix import Matrix
-from src.file_io import XlsFile
+import os, sys
+
+cwd = os.getcwd()
+parentdir = os.path.dirname(cwd)
+sys.path.append(parentdir)
+print(parentdir )
+
+from group_manager import GroupManager
+from matrix import Matrix
+from converters import XlsFile
+
 
 ENCODING = "UTF-8"
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 formatter = logging.Formatter("%(levelname)s:%(message)s")
-file_handler = logging.FileHandler("./logs/test.log", mode="a", encoding=ENCODING)
+
+parentdir = os.path.dirname(parentdir)
+sys.path.append(parentdir)
+
+file_handler = logging.FileHandler("/VsCodeProjects/moa/logs/engine_test.log", mode="a", encoding=ENCODING)
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 
 
 def clear_log():
-    my_log = open("logs/test.log", "w")
-    my_log.write("")
-    my_log.close()
+    try:
+        my_log = open("/VsCodeProjects/moa/logs/engine_test.log", "w")
+        my_log.write("")
+        my_log.close()
+    except FileNotFoundError:
+        pass
 
 
 # ------------------------ #
@@ -259,14 +272,14 @@ def convert_groups_to_matrix(groups):
 # ---------------- #
 clear_log()
 
-file_correct = '../input_files/test_cases/xls_5-5.xls'
-file_empty_row = '../input_files/test_cases/xls_5-5_empty_row.xls'
-file_empty_col = '../input_files/test_cases/xls_5-5_empty_col.xls'
+file_correct = 'D://VsCodeProjects/moa/src/test/input_files/5-5.xls'
+file_empty_col = 'D://VsCodeProjects/moa/src/test/input_files/5-5_empty_col.xls'
+file_empty_row = 'D://VsCodeProjects/moa/src/test/input_files/5-5_empty_row.xls'
 
-file_empty_cell = '../input_files/test_cases/xls_5-5_empty_cell.xls'
-file_nan_cell = '../input_files/test_cases/xls_5-5_nan_cell.xls'
-file_row_name_duplication = '../input_files/test_cases/xls_5-5_row_name_duplication.xls'
-file_col_name_duplication = '../input_files/test_cases/xls_5-5_col_name_duplication.xls'
+file_empty_cell = 'D://VsCodeProjects/moa/src/test/input_files/5-5_empty_cell.xls'
+file_nan_cell = 'D://VsCodeProjects/moa/src/test/input_files/5-5_nan_cell.xls'
+file_row_name_duplication = 'D://VsCodeProjects/moa/src/test/input_files/5-5_row_name_duplication.xls'
+file_col_name_duplication = 'D://VsCodeProjects/moa/src/test/input_files/5-5_col_name_duplication.xls'
 
 coords_correct = matrix_coordinates(rows=(2, 6), cols=("B", "F"))
 coords_empty_row = matrix_coordinates(rows=(2, 7), cols=("C", "F"))
@@ -354,18 +367,8 @@ if matrix_correct == "ERROR":
 else:
     logger.info("")
     logger.info(f" --- GROUPS CORRECT ---")
-    groups_correct = Groups(matrix_correct)
+    groups_correct = GroupManager(matrix_correct)
     run_groups_methods(groups_correct)
     output_matrix = convert_groups_to_matrix(groups_correct)
 
     write_matrix_to_xls_file(output_matrix)
-
-
-
-
-
-
-
-
-
-
