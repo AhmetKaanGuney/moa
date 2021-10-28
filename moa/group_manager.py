@@ -240,20 +240,3 @@ class GroupManager:
         self.user_col_groups = blueprint["cols"]
         
         return self.convert_to_matrix()
-
-
-class Group:
-
-    _id = -1
-
-    def __init__(self, name: str, elements: list[str]):
-        self.name = name
-        self.elements = elements
-        self.id = self._id + 1
-
-    def get_elements(self):
-        return self.elements
-
-    def get_name(self):
-        return self.name
-

@@ -87,7 +87,7 @@ class Matrix:
 def matrix_coordinates(rows: tuple, cols: tuple):
     """You can think of the Matrix as a rectangle. The parser needs to know all the four coordinates.\n
     Every value is subtracted by 1 so user can enter what is shown on the Excel groups. \n
-    Then the program adjusts these values to be compatible with zero indexing.
+    Then this function adjusts these values to be compatible with zero indexing and returns.
     :param rows (first_row, last_row) >> takes int
     :param cols (first_col, last_col) >> takes string
     :returns dictionary
