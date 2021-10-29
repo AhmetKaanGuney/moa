@@ -28,12 +28,8 @@ class XlsFile:
     def __init__(self, file_path: str, matrix_coords: dict, sheet_index=0):
         self.file_path = file_path
         self.name = file_path.split("/")[-1].split(".")[0]
-<<<<<<< HEAD
         # example: self.name = C:/folder1/folder2/file_path.extension 
         # >>> returns 'file_path'
-=======
-        # example: self.name = C:/folder1/folder2/file_path.extension >>> returns 'file_path'
->>>>>>> fc1f8d95e066af5673b3b21adc716838ba99110b
         self.coordinates = matrix_coords
         self.sheet_index = sheet_index
 
@@ -61,12 +57,8 @@ class XlsFile:
     def parse(self):
         """- parses rows then cols
         - returns Matrix() object"""
-<<<<<<< HEAD
         workbook = xlrd.open_workbook(
             self.file_path, encoding_override=ENCODING, on_demand=True)
-=======
-        workbook = xlrd.open_workbook(self.file_path, encoding_override=ENCODING, on_demand=True)
->>>>>>> fc1f8d95e066af5673b3b21adc716838ba99110b
         worksheet = workbook.sheet_by_index(self.sheet_index)
 
         rows = self._parse_rows(worksheet)
@@ -93,29 +85,19 @@ class XlsFile:
         empty_row_index = 1  # tracking this for empty row error
 
         # Vertical Iteration / get rows' name
-<<<<<<< HEAD
         the_column_which_has_all_rows_names = self.first_col - \
             1  # This is the cols that has rows' names
         # Added 1 otherwise it isn't inclusive
         for each_row in range(first_row, last_row + 1):
             row_name = self._pop_row_name(
                 worksheet, rowx=each_row, start_colx=the_column_which_has_all_rows_names)
-=======
-        the_column_which_has_all_rows_names = self.first_col - 1  # This is the cols that has rows' names
-        for each_row in range(first_row, last_row + 1):  # Added 1 otherwise it isn't inclusive
-            row_name = self._pop_row_name(worksheet, rowx=each_row, start_colx=the_column_which_has_all_rows_names)
->>>>>>> fc1f8d95e066af5673b3b21adc716838ba99110b
             row_vals = []  # reset the values for each rows
 
             if row_name != "":
                 # Horizontal Iteration / get rows' values
                 for each_col in range(first_col, last_col + 1):
-<<<<<<< HEAD
                     value_of_each_column = self._pop_col_val(
                         worksheet, colx=each_col, start_rowx=each_row)
-=======
-                    value_of_each_column = self._pop_col_val(worksheet, colx=each_col, start_rowx=each_row)
->>>>>>> fc1f8d95e066af5673b3b21adc716838ba99110b
                     # check value
                     if value_of_each_column == "ERROR":
                         return Notification.raise_error(
@@ -127,24 +109,16 @@ class XlsFile:
                 empty_row_index += 1
             else:
                 error_message = (
-<<<<<<< HEAD
                     f"{self.get_order(empty_row_index)} row is empty!"
                     f"Make sure there are no gaps between rows."
-=======
-                    f"{self.get_order(empty_row_index)} row is empty!" f"Make sure there are no gaps between rows."
->>>>>>> fc1f8d95e066af5673b3b21adc716838ba99110b
                 )
                 return Notification.raise_error(error_message)
 
         return rows
 
     def _parse_cols(self, worksheet):
-<<<<<<< HEAD
         """The names of the cols are read horizontally. The values of cols
         are read vertically.
-=======
-        """The names of the cols are read horizontally. The values of cols are read vertically.
->>>>>>> fc1f8d95e066af5673b3b21adc716838ba99110b
         The first iteration is horizontal. The second iteration is vertical.
         :returns dictionary{'col': [val1, val2, ...]}"""
         first_row, last_row = self.first_row, self.last_row
@@ -153,7 +127,6 @@ class XlsFile:
         cols = {}
         empty_col_index = 1  # tracking this for empty col error
 
-<<<<<<< HEAD
         the_row_which_has_all_cols_names = first_row - \
             1  # This is the rows that has the cols' names
 
@@ -163,31 +136,17 @@ class XlsFile:
             col_name = self._pop_col_name(
                 worksheet, colx=each_col,
                 start_rowx=the_row_which_has_all_cols_names)
-=======
-        the_row_which_has_all_cols_names = first_row - 1  # This is the rows that has the cols' names
-
-        # Horizontal Iteration / get cols' name
-        for each_col in range(first_col, last_col + 1):  # Added 1 otherwise it isn't inclusive
-            col_name = self._pop_col_name(worksheet, colx=each_col, start_rowx=the_row_which_has_all_cols_names)
->>>>>>> fc1f8d95e066af5673b3b21adc716838ba99110b
             col_vals = []  # reset the values for each cols
 
             if col_name != "":
                 # Vertical Iteration / get cols' values
                 for each_row in range(first_row, last_row + 1):
-<<<<<<< HEAD
                     value_of_each_row = self._pop_row_val(
                         worksheet, rowx=each_row, start_colx=each_col)
                     # check value
                     if value_of_each_row == "ERROR":
                         return Notification.raise_error(
                             message="Invalid value in cell.")
-=======
-                    value_of_each_row = self._pop_row_val(worksheet, rowx=each_row, start_colx=each_col)
-                    # check value
-                    if value_of_each_row == "ERROR":
-                        return Notification.raise_error(message="Invalid value in cell.")
->>>>>>> fc1f8d95e066af5673b3b21adc716838ba99110b
                     col_vals.append(value_of_each_row)
                     empty_col_index += 1
 
@@ -204,12 +163,8 @@ class XlsFile:
     def _pop_row_name(self, worksheet, rowx, start_colx):
         """Keeps track of the row names. Raises error if there is a duplicate name.
         - returns: the name of the row"""
-<<<<<<< HEAD
         row_vals = worksheet.row_values(
             rowx=rowx, start_colx=start_colx)  # list has only 1 item in it
-=======
-        row_vals = worksheet.row_values(rowx=rowx, start_colx=start_colx)  # list has only 1 item in it
->>>>>>> fc1f8d95e066af5673b3b21adc716838ba99110b
         name = row_vals.pop(0)  # remove brackets from value
         if name in self.row_names:
             error_message = f"Duplication detected in row names: '{name}'." f"Make sure that all row names are unique."
@@ -221,12 +176,8 @@ class XlsFile:
     def _pop_col_name(self, worksheet, colx, start_rowx):
         """Keeps track of the col names. Raises if there's a duplicate name.
         - returns: the name of the col"""
-<<<<<<< HEAD
         col_vals = worksheet.col_values(
             colx=colx, start_rowx=start_rowx)  # list has only 1 item in it
-=======
-        col_vals = worksheet.col_values(colx=colx, start_rowx=start_rowx)  # list has only 1 item in it
->>>>>>> fc1f8d95e066af5673b3b21adc716838ba99110b
         name = col_vals.pop(0)  # remove brackets from value
         if name is self.row_names:
             error_message = (
@@ -241,12 +192,8 @@ class XlsFile:
     def _pop_row_val(worksheet, rowx, start_colx):
         """Checks the type of the value inside the cell. Raises error if value is NaN.
         - returns: the value of cell"""
-<<<<<<< HEAD
         row_vals = worksheet.row_values(
             rowx=rowx, start_colx=start_colx)  # list has only 1 item in it
-=======
-        row_vals = worksheet.row_values(rowx=rowx, start_colx=start_colx)  # list has only 1 item in it
->>>>>>> fc1f8d95e066af5673b3b21adc716838ba99110b
         value = row_vals.pop(0)  # remove brackets from value
         # type check
         if type(value) == int or float or None:
@@ -262,12 +209,8 @@ class XlsFile:
     def _pop_col_val(worksheet, colx, start_rowx):
         """Checks the type of the value inside the cell. Raises error if value is NaN.
         - returns: the value of cell"""
-<<<<<<< HEAD
         col_vals = worksheet.col_values(
             colx=colx, start_rowx=start_rowx)  # list has only 1 item in it
-=======
-        col_vals = worksheet.col_values(colx=colx, start_rowx=start_rowx)  # list has only 1 item in it
->>>>>>> fc1f8d95e066af5673b3b21adc716838ba99110b
         value = col_vals.pop(0)  # remove brackets from value
         if type(value) == int or float or None:
             return value
@@ -342,8 +285,3 @@ class XlsFile:
             return s_num + "rd"
         # else
         return s_num + "th"
-<<<<<<< HEAD
-=======
-
-
->>>>>>> fc1f8d95e066af5673b3b21adc716838ba99110b
