@@ -1,4 +1,4 @@
-moa/venv/
-moa/__pycache__/
-moa/test/__pycache__/
-moa/.vscode/
+/moa/venv/
+/moa/__pycache__/
+/moa/test/__pycache__/
+/moa/.vscode/
