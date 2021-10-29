@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from matrix import Matrix
 from group_manager import GroupManager
 from converters import XlsFile
@@ -10,6 +11,19 @@ cwd = os.getcwd()
 parentdir = os.path.dirname(cwd)
 sys.path.append(parentdir)
 print("parent dir: ", parentdir)
+=======
+import logging
+import os, sys
+
+cwd = os.getcwd()
+parentdir = os.path.dirname(cwd)
+sys.path.append(parentdir)
+print(parentdir )
+
+from group_manager import GroupManager
+from matrix import Matrix
+from converters import XlsFile
+>>>>>>> fc1f8d95e066af5673b3b21adc716838ba99110b
 
 
 ENCODING = "UTF-8"
@@ -20,15 +34,23 @@ formatter = logging.Formatter("%(levelname)s:%(message)s")
 parentdir = os.path.dirname(parentdir)
 sys.path.append(parentdir)
 
+<<<<<<< HEAD
 file_handler = logging.FileHandler(
     parentdir + "/moa/logs/engine_test.log", mode="a", encoding=ENCODING)
+=======
+file_handler = logging.FileHandler("/VsCodeProjects/moa/logs/engine_test.log", mode="a", encoding=ENCODING)
+>>>>>>> fc1f8d95e066af5673b3b21adc716838ba99110b
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 
 
 def clear_log():
     try:
+<<<<<<< HEAD
         my_log = open(parentdir + "/moa/logs/engine_test.log", "w")
+=======
+        my_log = open("/VsCodeProjects/moa/logs/engine_test.log", "w")
+>>>>>>> fc1f8d95e066af5673b3b21adc716838ba99110b
         my_log.write("")
         my_log.close()
     except FileNotFoundError:
@@ -63,8 +85,12 @@ def matrix_coordinates(rows: tuple, cols: tuple):
     # col_tup[0] = 'A' >>> 'A' == 1 >>> returns 'A' - 1
     f_col, l_col = col_to_num(cols[0]) - 1, col_to_num(cols[1]) - 1
 
+<<<<<<< HEAD
     coord = {"first_row": f_row, "last_row": l_row,
              "first_col": f_col, "last_col": l_col}
+=======
+    coord = {"first_row": f_row, "last_row": l_row, "first_col": f_col, "last_col": l_col}
+>>>>>>> fc1f8d95e066af5673b3b21adc716838ba99110b
     logger.debug(f" Returning coordinates. \n"
                  f"\t- first_row : {coord['first_row']}\n"
                  f"\t- last_row : {coord['last_row']}\n"
@@ -87,8 +113,12 @@ def run_matrix_methods(matrix):
         col = col_names[i]
         logger.info(f" Get Row : '{row}' :\t{matrix.get_row(row)}")
         logger.info(f" Get Col : '{col}' :\t{matrix.get_col(col)}")
+<<<<<<< HEAD
         logger.info(
             f" Get Cell : ({row},{col}) :\t{matrix.get_cell(row, col)}")
+=======
+        logger.info(f" Get Cell : ({row},{col}) :\t{matrix.get_cell(row, col)}")
+>>>>>>> fc1f8d95e066af5673b3b21adc716838ba99110b
 
 
 # ---------------------------- #
@@ -129,8 +159,12 @@ def run_groups_methods(groups):
     for i in range(0, 3):
         group_name = chr(90 - i)
         new_name = chr(65 + i)
+<<<<<<< HEAD
         logger.info(
             f" >>> Renaming Row Group : {group_name} --> to {new_name}")
+=======
+        logger.info(f" >>> Renaming Row Group : {group_name} --> to {new_name}")
+>>>>>>> fc1f8d95e066af5673b3b21adc716838ba99110b
         groups.rename_row_group(new_name=new_name, group_name=group_name)
     logger.info(f" User Row Groups : {groups.get_row_groups()}")
 
@@ -140,8 +174,12 @@ def run_groups_methods(groups):
     for i in range(0, 3):
         group_name = chr(90 - i)
         new_name = chr(65 + i)
+<<<<<<< HEAD
         logger.info(
             f" >>> Renaming Col Group : {group_name} --> to {new_name}")
+=======
+        logger.info(f" >>> Renaming Col Group : {group_name} --> to {new_name}")
+>>>>>>> fc1f8d95e066af5673b3b21adc716838ba99110b
         groups.rename_col_group(new_name=new_name, group_name=group_name)
     logger.info(f" User Col Groups : {groups.get_col_groups()}")
     logger.info("")
@@ -181,8 +219,12 @@ def run_groups_methods(groups):
     for i in range(0, 3):
         group_name = chr(65 + i)
         rows = [source_row_names[i]]
+<<<<<<< HEAD
         logger.info(
             f" >>> Remove Row : '{rows}' --> from Group : '{group_name}'")
+=======
+        logger.info(f" >>> Remove Row : '{rows}' --> from Group : '{group_name}'")
+>>>>>>> fc1f8d95e066af5673b3b21adc716838ba99110b
         groups.remove_rows_from_group(rows=rows, group=group_name)
     logger.info(f" User Row Groups : {groups.get_row_groups()}")
     logger.info(f" Source Rows : {groups.source_rows}")
@@ -194,8 +236,12 @@ def run_groups_methods(groups):
     for i in range(0, 3):
         group_name = chr(65 + i)
         cols = [source_col_names[i]]
+<<<<<<< HEAD
         logger.info(
             f" >>> Remove Col : '{cols}' --> from Group : '{group_name}'")
+=======
+        logger.info(f" >>> Remove Col : '{cols}' --> from Group : '{group_name}'")
+>>>>>>> fc1f8d95e066af5673b3b21adc716838ba99110b
         groups.remove_cols_from_group(cols=cols, group=group_name)
     logger.info(f" User Col Groups : {groups.get_col_groups()}")
     logger.info(f" Source Cols : {groups.source_cols}")
@@ -228,7 +274,10 @@ def run_groups_methods(groups):
     logger.info(f" Source Cols : {groups.source_cols}")
     logger.info("")
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> fc1f8d95e066af5673b3b21adc716838ba99110b
 def convert_groups_to_matrix(groups):
     source_row_names = [i for i in groups.source_rows]
     source_col_names = [i for i in groups.source_cols]
@@ -276,13 +325,17 @@ def convert_groups_to_matrix(groups):
             logger.info(f" Row : {name}: {output_matrix.get_row(name)}")
             logger.info(f" Col : {name}: {output_matrix.get_col(name)}")
         return output_matrix
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> fc1f8d95e066af5673b3b21adc716838ba99110b
 # ---------------- #
 #    TEST CASES    #
 # ---------------- #
 clear_log()
 
+<<<<<<< HEAD
 file_correct = parentdir + '/moa/test/input_files/5-5.xls'
 file_empty_col = parentdir + '/moa/test/input_files/5-5_empty_col.xls'
 file_empty_row = parentdir + '/moa/test/input_files/5-5_empty_row.xls'
@@ -293,6 +346,16 @@ file_row_name_duplication = parentdir + \
     '/moa/test/input_files/5-5_row_name_duplication.xls'
 file_col_name_duplication = parentdir + \
     '/moa/test/input_files/5-5_col_name_duplication.xls'
+=======
+file_correct = 'D://VsCodeProjects/moa/src/test/input_files/5-5.xls'
+file_empty_col = 'D://VsCodeProjects/moa/src/test/input_files/5-5_empty_col.xls'
+file_empty_row = 'D://VsCodeProjects/moa/src/test/input_files/5-5_empty_row.xls'
+
+file_empty_cell = 'D://VsCodeProjects/moa/src/test/input_files/5-5_empty_cell.xls'
+file_nan_cell = 'D://VsCodeProjects/moa/src/test/input_files/5-5_nan_cell.xls'
+file_row_name_duplication = 'D://VsCodeProjects/moa/src/test/input_files/5-5_row_name_duplication.xls'
+file_col_name_duplication = 'D://VsCodeProjects/moa/src/test/input_files/5-5_col_name_duplication.xls'
+>>>>>>> fc1f8d95e066af5673b3b21adc716838ba99110b
 
 coords_correct = matrix_coordinates(rows=(2, 6), cols=("B", "F"))
 coords_empty_row = matrix_coordinates(rows=(2, 7), cols=("C", "F"))
@@ -310,10 +373,15 @@ xls_empty_col = XlsFile(file_empty_col, coords_empty_col)
 
 xls_empty_cell = XlsFile(file_empty_cell, coords_empty_cell)
 xls_nan_cell = XlsFile(file_nan_cell, coords_nan_cell)
+<<<<<<< HEAD
 xls_row_name_duplication = XlsFile(
     file_row_name_duplication, coords_row_name_duplication)
 xls_col_name_duplication = XlsFile(
     file_col_name_duplication, coords_col_name_duplication)
+=======
+xls_row_name_duplication = XlsFile(file_row_name_duplication, coords_row_name_duplication)
+xls_col_name_duplication = XlsFile(file_col_name_duplication, coords_col_name_duplication)
+>>>>>>> fc1f8d95e066af5673b3b21adc716838ba99110b
 # ---------- #
 #    PARSE   #
 # ---------- #
@@ -368,6 +436,7 @@ else:
     logger.info(" --- MATRIX EMPTY CELL ---")
     run_matrix_methods(matrix_empty_cell)
 
+<<<<<<< HEAD
 
 def write_matrix_to_xls_file(matrix: Matrix):
     file_name = "test.xls"
@@ -377,6 +446,14 @@ def write_matrix_to_xls_file(matrix: Matrix):
     XlsFile.write(file_path, matrix)
 
 
+=======
+def write_matrix_to_xls_file(matrix: Matrix):
+    file_name = "test.xls"
+    folder_path = "../output_files/"
+    os.remove(folder_path+file_name)
+    file_path = file_name + folder_path
+    XlsFile.write(file_path, matrix)
+>>>>>>> fc1f8d95e066af5673b3b21adc716838ba99110b
 # ----------------------------- #
 #       RUN GROUP METHODS       #
 # ----------------------------- #

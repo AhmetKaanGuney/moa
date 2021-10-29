@@ -1,3 +1,7 @@
 moa/venv/
+<<<<<<< HEAD
 moa/__pycache__/    
+=======
+moa/__pycache__
+>>>>>>> fc1f8d95e066af5673b3b21adc716838ba99110b
 .vscode/
