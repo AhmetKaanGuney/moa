@@ -162,12 +162,13 @@ class XlsFile:
 
     def _pop_row_name(self, worksheet, rowx, start_colx):
         """Keeps track of the row names. Raises error if there is a duplicate name.
-        - returns: the name of the row"""
+            - returns: the name of the row"""
         row_vals = worksheet.row_values(
             rowx=rowx, start_colx=start_colx)  # list has only 1 item in it
         name = row_vals.pop(0)  # remove brackets from value
         if name in self.row_names:
-            error_message = f"Duplication detected in row names: '{name}'." f"Make sure that all row names are unique."
+            error_message = f"Duplication detected in row names: '{name}'."
+            f"Make sure that all row names are unique."
             return Notification.raise_error(error_message)
         else:
             self.row_names.append(name)
@@ -181,7 +182,8 @@ class XlsFile:
         name = col_vals.pop(0)  # remove brackets from value
         if name is self.row_names:
             error_message = (
-                f"Duplication detected in column names: '{name}'." f"Make sure that all column names are unique."
+                f"Duplication detected in column names: '{name}'." f"Make sure\
+                that all column names are unique."
             )
             return Notification.raise_error(error_message)
         else:

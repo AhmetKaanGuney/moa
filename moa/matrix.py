@@ -71,6 +71,9 @@ class Matrix:
 
     def sum_cols(self, cols: list):
         """sums the cols that in the given list and returns the resulting col values in a list."""
+        # !!! TEST MATRIX !!! #
+        print("input cols: ", cols)
+        print("matrix cols:", self.cols)
         col_len = len(self.get_col(cols[0]))
         result_col = [0*i for i in range(0, col_len)]
 
@@ -87,11 +90,7 @@ class Matrix:
 def matrix_coordinates(rows: tuple, cols: tuple):
     """You can think of the Matrix as a rectangle. The parser needs to know all the four coordinates.\n
     Every value is subtracted by 1 so user can enter what is shown on the Excel groups. \n
-<<<<<<< HEAD
     Then this function adjusts these values to be compatible with zero indexing and returns.
-=======
-    Then the program adjusts these values to be compatible with zero indexing.
->>>>>>> fc1f8d95e066af5673b3b21adc716838ba99110b
     :param rows (first_row, last_row) >> takes int
     :param cols (first_col, last_col) >> takes string
     :returns dictionary
@@ -117,28 +116,29 @@ def col_to_num(col):
     return num
 
 
-# m_name = "test"
-# m_rows = {}
-# m_cols = {}
-# for i in range(0, 5):
-#     row = chr(65 + i)
-#     m_rows[row] = [i + 1, i + 2, i + 3]
-#
-# for i in range(0, 5):
-#     col = chr(65 + i)
-#     m_cols[col] = [i + 1, i + 2, i + 3]
-#
-# matrix_test = Matrix(m_name, m_rows, m_cols)
-#
-# print("Get rows: ", matrix_test.get_rows())
-# for i in range(0, 5):
-#     print(f"{chr(65 + i)} :", matrix_test.get_row(chr(65+i)))
-# print("---")
-# print("Get cols: ", matrix_test.get_cols())
-# for i in range(0, 5):
-#     print(f"{chr(65 + i)} :", matrix_test.get_col(chr(65+i)))
-# print("---")
-#
-# print(matrix_test.sum_rows(["A", "E"]))
-# print(matrix_test.sum_cols(["A", "E"]))
+if __name__ == "__main__":
+    m_name = "test"
+    m_rows = {}
+    m_cols = {}
+    for i in range(0, 5):
+        row = chr(65 + i)
+        m_rows[row] = [i + 1, i + 2, i + 3]
+
+    for i in range(0, 5):
+        col = chr(65 + i)
+        m_cols[col] = [i + 1, i + 2, i + 3]
+
+    matrix_test = Matrix(m_name, m_rows, m_cols)
+
+    print("Get rows: ", matrix_test.get_rows())
+    for i in range(0, 5):
+        print(f"{chr(65 + i)} :", matrix_test.get_row(chr(65+i)))
+    print("---")
+    print("Get cols: ", matrix_test.get_cols())
+    for i in range(0, 5):
+        print(f"{chr(65 + i)} :", matrix_test.get_col(chr(65+i)))
+    print("---")
+
+    print(matrix_test.sum_rows(["A", "E"]))
+    print(matrix_test.sum_cols(["A", "E"]))
 

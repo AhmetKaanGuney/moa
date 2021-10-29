@@ -1,20 +1,22 @@
 from matrix import Matrix
 from notification import Notification
-import json
 
 
 class GroupManager:
-    """GroupManager is an abstraction of the Matrix() object. GroupManager makes it easy to reorganize the Matrix() object.
+    """GroupManager is an abstraction of the Matrix() object. GroupManager \
+        makes it easy to reorganize the Matrix() object.
     When converting the groupings back to a Matrix() object,
     this class will sum the values of the grouped rows and columns.
     It holds:
-        - user_rows , user_cols : from user_matrix()
-        - source_rows, source_cols: from source_matrix()
-        - source_rows = ["John", "Jack", Daniel", "Jane", "Jennifer", "Samantha"]
-        - user_row_group1 = {"Men": ["John", "Jack", Daniel"], "Women": ["Jane", "Jennifer", "Samantha"]}
-    With GroupManager the user is just managing lists of rows and cols names, not actual rows and cols. After user is done
-    with grouping rows and cols, call a method that takes user's Groups() object
-    and returns a Matrix() object."""
+        - source_rows, source_cols: from source_matrix
+        - source_rows = ["John", "Jack", Daniel", "Jane", \
+            "Jennifer", "Samantha"]
+        - user_row_group1 = {"Men": ["John", "Jack", Daniel"], "Women": \
+            ["Jane", "Jennifer", "Samantha"]}
+    With GroupManager the user is just managing lists of rows and cols names,\
+         not actual rows and cols with values. After user is done
+    with grouping rows and cols, call a method that takes user's groups \
+         and returns a Matrix() object."""
 
     def __init__(self, source_matrix: Matrix):
         self.source_matrix: Matrix = source_matrix
@@ -22,7 +24,7 @@ class GroupManager:
         self.source_cols: list = source_matrix.get_cols()
         self.user_row_groups: dict = {}
         self.user_col_groups: dict = {}
-        
+
     # ----------------- #
     #    GET METHODS    #
     # ----------------- #
@@ -46,7 +48,7 @@ class GroupManager:
     #    ADD/REMOVE METHODS    #
     # ------------------------ #
     def add_rows_to_group(self, rows: list, group: str):
-        """ 1. adds rows to the group
+        """1. adds rows to the group
         2. then removes the added rows from source rows
         A row can only exist in one place."""
         for r in rows:
@@ -54,12 +56,17 @@ class GroupManager:
             self.source_rows.remove(r)
 
     def add_cols_to_group(self, cols: list, group: str):
-        """ 1. adds cols to the group
+        """1. adds cols to the group
         2. then removes the added cols from source rows
         A col can only exist in one place."""
+        print("group: ", group)
+        print("add these cols: ", cols)
         for c in cols:
+            print("c: ", c)
             self.user_col_groups[group].append(c)
+            print("source_cols before: ", self.source_cols)
             self.source_cols.remove(c)
+            print("source_cols after: ", self.source_cols)
 
     def remove_rows_from_group(self, rows: str, group: str):
         """- remove rows from the group
@@ -84,7 +91,9 @@ class GroupManager:
     def create_row_group(self, name):
         """Creates a new key in the user_row_group. Raises error if name already exists."""
         if name in self.user_row_groups.keys():
-            return Notification.raise_error(message="Cannot create duplicate rows names.")
+            return Notification.raise_error(
+                message="Cannot create duplicate rows names."
+            )
         else:
             self.user_row_groups[name] = []
             return self.user_row_groups
@@ -92,7 +101,9 @@ class GroupManager:
     def create_col_group(self, name):
         """Creates a new key in the user_col_group. Raises error if name already exists."""
         if name in self.user_col_groups.keys():
-            return Notification.raise_error(message="Cannot create duplicate column names.")
+            return Notification.raise_error(
+                message="Cannot create duplicate column names."
+            )
         else:
             self.user_col_groups[name] = []
             return self.user_col_groups
@@ -110,7 +121,9 @@ class GroupManager:
             del self.user_row_groups[name]
             return self.user_row_groups
         else:
-            return Notification.raise_error(message=f" >>> Cannot Delete Row : '{name}' doesn't exist.")
+            return Notification.raise_error(
+                message=f" >>> Cannot Delete Row : '{name}' doesn't exist."
+            )
 
     def del_col_group(self, name):
         """1. copies col names inside the col group back to source cols.
@@ -125,20 +138,22 @@ class GroupManager:
             del self.user_col_groups[name]
             return self.user_col_groups
         else:
-            return Notification.raise_error(message=f" >>> Cannot Delete Col : '{name}' doesn't exist.")
+            return Notification.raise_error(
+                message=f" >>> Cannot Delete Col : '{name}' doesn't exist."
+            )
 
     # -------------------- #
     #    RENAME METHODS    #
     # -------------------- #
     def rename_row_group(self, new_name, group_name):
         """Copies the values of the group to a new group with the same name.
-         Then deletes the group with the old name"""
+        Then deletes the group with the old name"""
         self.user_row_groups[new_name] = self.user_row_groups[group_name]
         del self.user_row_groups[group_name]
 
     def rename_col_group(self, new_name, group_name):
         """Copies the values of the group to a new group with the new_name.
-         Then deletes the group with the old name"""
+        Then deletes the group with the old name"""
         self.user_col_groups[new_name] = self.user_col_groups[group_name]
         del self.user_col_groups[group_name]
 
@@ -175,7 +190,9 @@ class GroupManager:
             rows_to_be_summed = row_groups[group]
 
             if len(rows_to_be_summed) < 1:
-                Notification.raise_warning(f" WARNING! Empty row group detected: '{group}'.")
+                Notification.raise_warning(
+                    f" WARNING! Empty row group detected: '{group}'."
+                )
                 return "ERROR"
             else:
                 summed_rows[group] = matrix.sum_rows(rows_to_be_summed)
@@ -203,13 +220,15 @@ class GroupManager:
         col_groups = self.user_col_groups
         summed_cols = {}
         updated_rows = {}
-
+        print("col_groups: ", col_groups)
         # Sum Cols
         for group in col_groups:
             cols_to_be_summed = col_groups[group]
 
             if len(cols_to_be_summed) < 1:
-                Notification.raise_warning(f" WARNING! Empty row group detected: '{group}'.")
+                Notification.raise_warning(
+                    f" WARNING! Empty row group detected: '{group}'."
+                )
                 return "ERROR"
             else:
                 summed_cols[group] = matrix.sum_cols(cols_to_be_summed)
@@ -231,12 +250,18 @@ class GroupManager:
 
         cols_summed_matrix = Matrix(matrix_name, updated_rows, summed_cols)
         return cols_summed_matrix
-    
+
     # ------------------------------ #
     #    CONSTRUCT WITH BLUEPRINT    #
     # ------------------------------ #
     def build_with(self, blueprint):
-        self.user_row_groups = blueprint["rows"]
-        self.user_col_groups = blueprint["cols"]
-        
+        bp_rows = blueprint["rows"]
+        bp_cols = blueprint["cols"]
+        for g_name in bp_rows:
+            self.create_row_group(g_name)
+            self.add_rows_to_group(bp_rows[g_name], g_name)
+        for g_name in bp_cols:
+            self.create_col_group(g_name)
+            self.add_cols_to_group(bp_cols[g_name], g_name)
+
         return self.convert_to_matrix()
