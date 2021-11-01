@@ -1,3 +1,4 @@
+import copy
 from matrix import Matrix
 from notification import Notification
 
@@ -19,7 +20,7 @@ class GroupManager:
          and returns a Matrix() object."""
 
     def __init__(self, source_matrix: Matrix):
-        self.source_matrix: Matrix = source_matrix
+        self.source_matrix: Matrix = copy.deepcopy(source_matrix)
         self.source_rows: list = source_matrix.get_rows()
         self.source_cols: list = source_matrix.get_cols()
         self.user_row_groups: dict = {}
@@ -53,7 +54,12 @@ class GroupManager:
         A row can only exist in one place."""
         for r in rows:
             self.user_row_groups[group].append(r)
-            self.source_rows.remove(r)
+            try:
+                self.source_rows.remove(r)
+            except KeyError:
+                print(f"'{r}'", "key not in source_rows")
+                print("self.source_rows: ")
+                print(self.source_rows)
 
     def add_cols_to_group(self, cols: list, group: str):
         """1. adds cols to the group
@@ -64,9 +70,12 @@ class GroupManager:
         for c in cols:
             print("c: ", c)
             self.user_col_groups[group].append(c)
-            print("source_cols before: ", self.source_cols)
-            self.source_cols.remove(c)
-            print("source_cols after: ", self.source_cols)
+            try:
+                self.source_cols.remove(c)
+            except KeyError:
+                print(f"'{r}'", "key not in source_cols")
+                print("self.source_cols: ")
+                print(self.source_cols)
 
     def remove_rows_from_group(self, rows: str, group: str):
         """- remove rows from the group
@@ -107,7 +116,7 @@ class GroupManager:
         else:
             self.user_col_groups[name] = []
             return self.user_col_groups
-
+            
     def del_row_group(self, name):
         """1. copies row names inside the row group back to source rows.
         2. then deletes the group.
@@ -172,7 +181,6 @@ class GroupManager:
         What 'updated' means is that if it didn't got updated the corresponding values of the rows and cols would be
         out of sync. For example: The rows gets summed, but the values inside the columns wouldn't change.
         The cols would hold the old values of the rows. So rows and cols would clash with each other."""
-        matrix_name = self.source_matrix.get_name()
         rows_summed_matrix = self._sum_row_groups(self.source_matrix)
         row_and_cols_summed_matrix = self._sum_col_groups(rows_summed_matrix)
         return row_and_cols_summed_matrix

@@ -1,5 +1,6 @@
 #!../venv/Scripts/python.exe
 import os
+from sqlite3.dbapi2 import OperationalError
 import sys
 import json
 import logging
@@ -83,14 +84,23 @@ def matrix_to_blueprint(source_file, coordinates, user_id):
 #     BLUEPRINT TO MATRIX     #
 # --------------------------- #
 # get blueprint (json format) from client
+try:
+    blueprint_file = f"{cwd}/test/input_files/blueprint.json"
+    with open(blueprint_file, encoding="utf-8") as f:
+        blueprint = json.load(f)
+except FileNotFoundError:
+    blueprint_file = f"moa/test/input_files/blueprint.json"
+    with open(blueprint_file, encoding="utf-8") as f:
+        blueprint = json.load(f)
 
-blueprint_file = "./test/input_files/blueprint.json"
-with open(blueprint_file, encoding="utf-8") as f:
-    blueprint = json.load(f)
 # get export format from user
 export_format = ".xls"
 # get corresponding source Matrix() from db
-conn = sqlite3.connect("./db/matricies.db")
+try:
+    conn = sqlite3.connect(f"{cwd}/db/matricies.db")
+except OperationalError:
+    conn = sqlite3.connect("moa/db/matricies.db")
+    
 cur = conn.cursor()
 cur.execute("SELECT matrix FROM matricies WHERE user_id=?", (user_id,))
 json_string = cur.fetchone()[0]
@@ -103,8 +113,9 @@ print("source cols: ", source_matrix.cols)
 
 # initialize GroupManager with source matrix
 gm = GroupManager(source_matrix)
-print("gm rows:", gm.get_row_groups())
-print("gm cols: ", gm.get_col_groups())
+print("gm source rows: ", gm.source_rows)
+print("gm source cols: ", gm.source_cols)
+
 # create groups according to blueprint
 # !!! Getting random KeyError when sum_cols get_col[name]
 processed_matrix = gm.build_with(blueprint)

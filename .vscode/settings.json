@@ -12,4 +12,9 @@
     //     "--line-length",
     //     "119"
     // ],
+    "editor.bracketPairColorization.enabled": true,
+    "workbench.colorCustomizations": {
+        "editorBracketMatch.border": "#686868",
+        "editorBracketMatch.background": "#2f2f2f",
+    }
 }

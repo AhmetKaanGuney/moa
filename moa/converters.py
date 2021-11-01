@@ -14,7 +14,7 @@ def json_to_matrix(json_string):
     js = json.loads(json_string)
     rows = js["rows"]
     cols = js["cols"]
-    return Matrix(rows, cols)
+    return Matrix(rows=rows, cols=cols, name=None)
 
 
 class XlsFile:

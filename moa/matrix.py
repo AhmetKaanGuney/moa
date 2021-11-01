@@ -71,10 +71,17 @@ class Matrix:
 
     def sum_cols(self, cols: list):
         """sums the cols that in the given list and returns the resulting col values in a list."""
-        # !!! TEST MATRIX !!! #
-        print("input cols: ", cols)
-        print("matrix cols:", self.cols)
-        col_len = len(self.get_col(cols[0]))
+        # some functions side effect is modifying the matrix's rows and cols
+        # it's happening outside of the object i suppose
+        # probably in sum rows and cols in the group manager look at there
+        # make sure that is doesnt alter source rows and cols
+        # just copies the data and summs that data
+        col_len = 0
+        try:
+            col_len = len(self.get_col(cols[0]))
+        except KeyError:
+            print(f"The item: '{cols[0]}', not in self.cols \n{self.cols}")
+            raise KeyError
         result_col = [0*i for i in range(0, col_len)]
 
         for name in cols:
