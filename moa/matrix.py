@@ -9,18 +9,13 @@ class Matrix:
         - cols : a dict that has cols name as keys and lists as their values
         - example row: {'row1': [val1, val2, val3], 'row2': [val4, val5], ...}"""
 
-    def __init__(self, rows: dict, cols: dict, name=None):
-        self.name = name
+    def __init__(self, rows: dict, cols: dict):
         self.rows = rows
         self.cols = cols
 
     # ----------------- #
     #    GET METHODS    #
     # ----------------- #
-    def get_name(self):
-        """returns: self.name"""
-        return self.name
-
     def get_rows(self):
         """returns: all of the rows' name in a list"""
         row_names = []

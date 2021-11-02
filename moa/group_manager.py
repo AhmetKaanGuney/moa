@@ -169,18 +169,27 @@ class GroupManager:
     # ----------------------- #
     #    CONVERT TO MATRIX    #
     # ----------------------- #
-    def convert_to_matrix(self):
-        """- returns: Matrix()"""
+    def convert_to_matrix(self) -> Matrix:
+        """Uses: 
+            - self.source_matrix
+            - self.user_rows_groups
+            - self.user_col_groups"""
         output_matrix = self._sum_groups()
         return output_matrix
 
     def _sum_groups(self):
-        """Each child method in this function takes a matrix then returns a new matrix with summed values.
-        The returning matricies' have updated row or col depending on the method.
-        If _sum_row_groups() is called then it returns a Matrix() object with summed rows and 'updated' cols.
-        What 'updated' means is that if it didn't got updated the corresponding values of the rows and cols would be
-        out of sync. For example: The rows gets summed, but the values inside the columns wouldn't change.
-        The cols would hold the old values of the rows. So rows and cols would clash with each other."""
+        """Each child method in this function takes a matrix
+        then returns a new matrix with summed values.\n
+        The returning matricies' have updated row or col
+        depending on the method. If _sum_row_groups() is
+        called then it returns a Matrix() object with
+        summed rows and 'updated' cols.\n
+        What 'updated' means is that if it didn't got updated
+        the corresponding values of the rows and cols would be
+        out of sync. For example: The rows gets summed, but the
+        values inside the columns wouldn't change. The cols would
+        hold the old values of the rows. So rows and cols would
+        clash with each other."""
         rows_summed_matrix = self._sum_row_groups(self.source_matrix)
         row_and_cols_summed_matrix = self._sum_col_groups(rows_summed_matrix)
         return row_and_cols_summed_matrix
@@ -188,7 +197,6 @@ class GroupManager:
     def _sum_row_groups(self, matrix: Matrix):
         """Sums the rows and updates the cols values.
         returns: Matrix(summed_rows, updated_cols)"""
-        matrix_name = matrix.get_name()
         row_groups = self.user_row_groups
         summed_rows = {}
         updated_cols = {}
@@ -218,17 +226,15 @@ class GroupManager:
                 cell_val = summed_rows[r][c]
                 updated_cols[c_name].append(cell_val)
 
-        rows_summed_matrix = Matrix(matrix_name, summed_rows, updated_cols)
+        rows_summed_matrix = Matrix(summed_rows, updated_cols)
         return rows_summed_matrix
 
     def _sum_col_groups(self, matrix: Matrix):
         """Sums the cols and updates the rows values.
         returns: Matrix(updated_rows, summed_cols)"""
-        matrix_name = matrix.get_name()
         col_groups = self.user_col_groups
         summed_cols = {}
         updated_rows = {}
-        print("col_groups: ", col_groups)
         # Sum Cols
         for group in col_groups:
             cols_to_be_summed = col_groups[group]
@@ -256,7 +262,7 @@ class GroupManager:
                 cell_val = summed_cols[col_name][r]
                 updated_rows[row_name].append(cell_val)
 
-        cols_summed_matrix = Matrix(matrix_name, updated_rows, summed_cols)
+        cols_summed_matrix = Matrix(updated_rows, summed_cols)
         return cols_summed_matrix
 
     # ------------------------------ #
@@ -265,11 +271,7 @@ class GroupManager:
     def build_with(self, blueprint):
         bp_rows = blueprint["rows"]
         bp_cols = blueprint["cols"]
-        for g_name in bp_rows:
-            self.create_row_group(g_name)
-            self.add_rows_to_group(bp_rows[g_name], g_name)
-        for g_name in bp_cols:
-            self.create_col_group(g_name)
-            self.add_cols_to_group(bp_cols[g_name], g_name)
+        self.user_row_groups = bp_rows
+        self.user_col_groups = bp_cols
 
         return self.convert_to_matrix()

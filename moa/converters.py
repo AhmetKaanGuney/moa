@@ -14,7 +14,7 @@ def json_to_matrix(json_string):
     js = json.loads(json_string)
     rows = js["rows"]
     cols = js["cols"]
-    return Matrix(rows=rows, cols=cols, name=None)
+    return Matrix(rows=rows, cols=cols)
 
 
 class XlsFile:
@@ -28,7 +28,7 @@ class XlsFile:
     def __init__(self, file_path: str, matrix_coords: dict, sheet_index=0):
         self.file_path = file_path
         self.name = file_path.split("/")[-1].split(".")[0]
-        # example: self.name = C:/folder1/folder2/file_path.extension 
+        # example: self.name = C:/folder1/folder2/file_path.extension
         # >>> returns 'file_path'
         self.coordinates = matrix_coords
         self.sheet_index = sheet_index
@@ -72,7 +72,7 @@ class XlsFile:
             return "ERROR"
 
         self.dump_workbook(workbook)
-        return Matrix(name=self.name, rows=rows, cols=cols)
+        return Matrix(rows=rows, cols=cols)
 
     def _parse_rows(self, worksheet):
         """The names of the rows are read vertically. The values of rows are read horizontally.
