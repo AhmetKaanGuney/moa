@@ -58,7 +58,8 @@ class XlsFile:
         """- parses rows then cols
         - returns Matrix() object"""
         workbook = xlrd.open_workbook(
-            self.file_path, encoding_override=ENCODING, on_demand=True)
+            self.file_path, encoding_override=ENCODING, on_demand=True
+        )
         worksheet = workbook.sheet_by_index(self.sheet_index)
 
         rows = self._parse_rows(worksheet)
@@ -85,19 +86,22 @@ class XlsFile:
         empty_row_index = 1  # tracking this for empty row error
 
         # Vertical Iteration / get rows' name
-        the_column_which_has_all_rows_names = self.first_col - \
-            1  # This is the cols that has rows' names
+        the_column_which_has_all_rows_names = (
+            self.first_col - 1
+        )  # This is the cols that has rows' names
         # Added 1 otherwise it isn't inclusive
         for each_row in range(first_row, last_row + 1):
             row_name = self._pop_row_name(
-                worksheet, rowx=each_row, start_colx=the_column_which_has_all_rows_names)
+                worksheet, rowx=each_row, start_colx=the_column_which_has_all_rows_names
+            )
             row_vals = []  # reset the values for each rows
 
             if row_name != "":
                 # Horizontal Iteration / get rows' values
                 for each_col in range(first_col, last_col + 1):
                     value_of_each_column = self._pop_col_val(
-                        worksheet, colx=each_col, start_rowx=each_row)
+                        worksheet, colx=each_col, start_rowx=each_row
+                    )
                     # check value
                     if value_of_each_column == "ERROR":
                         return Notification.raise_error(
@@ -127,26 +131,29 @@ class XlsFile:
         cols = {}
         empty_col_index = 1  # tracking this for empty col error
 
-        the_row_which_has_all_cols_names = first_row - \
-            1  # This is the rows that has the cols' names
+        the_row_which_has_all_cols_names = (
+            first_row - 1
+        )  # This is the rows that has the cols' names
 
         # Horizontal Iteration / get cols' name
         # Added 1 otherwise it isn't inclusive
         for each_col in range(first_col, last_col + 1):
             col_name = self._pop_col_name(
-                worksheet, colx=each_col,
-                start_rowx=the_row_which_has_all_cols_names)
+                worksheet, colx=each_col, start_rowx=the_row_which_has_all_cols_names
+            )
             col_vals = []  # reset the values for each cols
 
             if col_name != "":
                 # Vertical Iteration / get cols' values
                 for each_row in range(first_row, last_row + 1):
                     value_of_each_row = self._pop_row_val(
-                        worksheet, rowx=each_row, start_colx=each_col)
+                        worksheet, rowx=each_row, start_colx=each_col
+                    )
                     # check value
                     if value_of_each_row == "ERROR":
                         return Notification.raise_error(
-                            message="Invalid value in cell.")
+                            message="Invalid value in cell."
+                        )
                     col_vals.append(value_of_each_row)
                     empty_col_index += 1
 
@@ -162,9 +169,10 @@ class XlsFile:
 
     def _pop_row_name(self, worksheet, rowx, start_colx):
         """Keeps track of the row names. Raises error if there is a duplicate name.
-            - returns: the name of the row"""
+        - returns: the name of the row"""
         row_vals = worksheet.row_values(
-            rowx=rowx, start_colx=start_colx)  # list has only 1 item in it
+            rowx=rowx, start_colx=start_colx
+        )  # list has only 1 item in it
         name = row_vals.pop(0)  # remove brackets from value
         if name in self.row_names:
             error_message = f"Duplication detected in row names: '{name}'."
@@ -178,11 +186,13 @@ class XlsFile:
         """Keeps track of the col names. Raises if there's a duplicate name.
         - returns: the name of the col"""
         col_vals = worksheet.col_values(
-            colx=colx, start_rowx=start_rowx)  # list has only 1 item in it
+            colx=colx, start_rowx=start_rowx
+        )  # list has only 1 item in it
         name = col_vals.pop(0)  # remove brackets from value
         if name is self.row_names:
             error_message = (
-                f"Duplication detected in column names: '{name}'." f"Make sure\
+                f"Duplication detected in column names: '{name}'."
+                f"Make sure\
                 that all column names are unique."
             )
             return Notification.raise_error(error_message)
@@ -195,7 +205,8 @@ class XlsFile:
         """Checks the type of the value inside the cell. Raises error if value is NaN.
         - returns: the value of cell"""
         row_vals = worksheet.row_values(
-            rowx=rowx, start_colx=start_colx)  # list has only 1 item in it
+            rowx=rowx, start_colx=start_colx
+        )  # list has only 1 item in it
         value = row_vals.pop(0)  # remove brackets from value
         # type check
         if type(value) == int or float or None:
@@ -212,7 +223,8 @@ class XlsFile:
         """Checks the type of the value inside the cell. Raises error if value is NaN.
         - returns: the value of cell"""
         col_vals = worksheet.col_values(
-            colx=colx, start_rowx=start_rowx)  # list has only 1 item in it
+            colx=colx, start_rowx=start_rowx
+        )  # list has only 1 item in it
         value = col_vals.pop(0)  # remove brackets from value
         if type(value) == int or float or None:
             return value
