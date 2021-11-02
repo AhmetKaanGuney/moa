@@ -2,3 +2,5 @@
 /moa/__pycache__/
 /moa/test/__pycache__/
 /moa/.vscode/
+/moa/logs/
+/moa/test/output_files/
