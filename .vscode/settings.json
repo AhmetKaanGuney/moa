@@ -14,7 +14,11 @@
     // ],
     "editor.bracketPairColorization.enabled": true,
     "workbench.colorCustomizations": {
+        "editorError.foreground": "#ff0000",
+        "editorWarning.foreground": "#ff990075",
+        "editorInfo.foreground": "#00aeff00",
         "editorBracketMatch.border": "#686868",
         "editorBracketMatch.background": "#2f2f2f",
-    }
+    },
+    "files.trimTrailingWhitespace": true
 }

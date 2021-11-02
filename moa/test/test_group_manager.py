@@ -14,23 +14,6 @@ sys.path.append(parentdir)
 print("parent dir: ", parentdir)
 
 
-ENCODING = "UTF-8"
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-formatter = logging.Formatter("%(levelname)s:%(message)s")
-
-file_handler = logging.FileHandler(
-    parentdir + "/moa/logs/grup_manager.log", mode="a", encoding=ENCODING
-)
-file_handler.setFormatter(formatter)
-logger.addHandler(file_handler)
-
-
-my_log = open(parentdir + "/moa/logs/engine_test.log", "w")
-my_log.write("")
-my_log.close()
-
-
 def sum_list(dictionary, items=None):
     result = []
     for k in dictionary:
@@ -51,7 +34,7 @@ source_matrix = Matrix(
         "ahmet": [5.0, 7.0, 6.0, 0.0, 11.0, 50],
         "ibrahim": [14.0, 3.0, 8.0, 7.0, 0.0, 50],
         "derya": [2.0, 5.0, 9.0, 0.0, 5.0, 50],
-        "sr1": [100, 100, 100, 100, 100, 150]
+        "sr1": [100, 100, 100, 100, 100, 150],
     },
     cols={
         "elma": [10.0, 0.0, 5.0, 14.0, 2.0, 100],
@@ -59,7 +42,7 @@ source_matrix = Matrix(
         "armut": [5.0, 9.0, 6.0, 8.0, 9.0, 100],
         "fasulye": [8.0, 3.0, 0.0, 7.0, 0.0, 100],
         "muz": [1.0, 4.0, 11.0, 0.0, 5.0, 100],
-        "sc1": [50, 50, 50, 50, 50, 150]
+        "sc1": [50, 50, 50, 50, 50, 150],
     },
 )
 
@@ -74,11 +57,8 @@ expected_matrix = Matrix(
         "men": [men_sum],
         "women": [women_sum],
     },
-    cols={
-        "vegetables": [vegetables_sum],
-        "fruits": [fruits_sum]
-    }
-    )
+    cols={"vegetables": [vegetables_sum], "fruits": [fruits_sum]},
+)
 
 
 user_row_groups = {"men": ["ali", "ahmet", "ibrahim"], "women": ["esma", "derya"]}
@@ -110,8 +90,7 @@ class TestGroupManager(unittest.TestCase):
         print("--- get_col_group() ---")
         print("gm col_group: ", self.gm.get_col_groups())
         print("user_col_groups: ", user_col_groups)
-        self.assertEqual(self.gm.get_col_group("fruits"),
-                         user_col_groups["fruits"])
+        self.assertEqual(self.gm.get_col_group("fruits"), user_col_groups["fruits"])
 
     def test_create_row_group(self):
         print("--- create_row_group() ---")
@@ -134,8 +113,9 @@ class TestGroupManager(unittest.TestCase):
         self.gm.source_rows = ["sr1"]
         self.assertEqual(self.gm.source_rows, ["sr1"])
         self.gm.add_rows_to_group(["sr1"], "men")
-        self.assertEqual(self.gm.user_row_groups["men"],
-                         ["ali", "ahmet", "ibrahim", "sr1"])
+        self.assertEqual(
+            self.gm.user_row_groups["men"], ["ali", "ahmet", "ibrahim", "sr1"]
+        )
         self.assertEqual(self.gm.source_rows, [])
 
     def test_add_cols_to_group(self):
@@ -143,8 +123,9 @@ class TestGroupManager(unittest.TestCase):
         self.gm.source_cols = ["sc1"]
         self.assertEqual(self.gm.source_cols, ["sc1"])
         self.gm.add_cols_to_group(["sc1"], "vegetables")
-        self.assertEqual(self.gm.user_col_groups["vegetables"],
-                         ["ıspanak", "fasulye", "sc1"])
+        self.assertEqual(
+            self.gm.user_col_groups["vegetables"], ["ıspanak", "fasulye", "sc1"]
+        )
         self.assertEqual(self.gm.source_cols, [])
 
     def test_convert_to_matrix(self):
