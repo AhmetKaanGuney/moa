@@ -20,5 +20,6 @@
         "editorBracketMatch.border": "#686868",
         "editorBracketMatch.background": "#2f2f2f",
     },
-    "files.trimTrailingWhitespace": true
+    "files.trimTrailingWhitespace": true,
+    "liveServer.settings.multiRootWorkspaceName": "moa"
 }

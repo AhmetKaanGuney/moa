@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block title %}Index{% endblock %}
+{% block body%}
+
+<form action="/index.html" method="post" enctype="multipart/form-data">
+    <input type="file" id="source_file" name="source_file" accept=".xls,.xlsx,.csv,.txt,.json">
+    <input type="submit">
+</form>
+
+{% endblock %}
+
+
