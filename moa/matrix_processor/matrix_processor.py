@@ -41,12 +41,12 @@ print("cwd: ", cwd)
 # !!! ALWAYS HANDLE JSON AS UTF-8 !!! #
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! #
 
-database = f"{cwd}/db/matricies.db"
+database = f"{cwd}/../db/matricies.db"
 fallback_database = "./moa/db/matricies.db"
 
 # get source file and matrix coordinates from client
 coordinates = matrix_coordinates((2, 6), ("b", "f"))
-source_file = f"{cwd}/test/input_files/5-5.xls"
+source_file = f"{cwd}/../test/input_files/5-5.xls"
 
 user_id = 0
 request = "blueprint_to_file"
@@ -63,7 +63,7 @@ def main(request: str, user_id: int):
         print(blueprint)
 
     if request == "blueprint_to_file":
-        with open(f"{cwd}/test/input_files/blueprint.json", encoding="utf-8") as f:
+        with open(f"{cwd}/../test/input_files/blueprint.json", encoding="utf-8") as f:
             blueprint = json.load(f)
         target_format = "xls"
         user_matrix = get_user_matrix_from_db(user_id)

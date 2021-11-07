@@ -1,8 +1,9 @@
-/moa/venv
-/moa/__pycache__
-/moa/test/__pycache__
 /moa/.vscode
-/moa/logs
+/moa/venv
+/moa/app/__pycache__
+/moa/test/__pycache__
+/moa/matrix_processor/__pycache__
+/logs
+/moa/app/config.py
 /moa/test/output_files
 remote.txt
-/moa/config.py

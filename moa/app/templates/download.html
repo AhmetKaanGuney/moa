@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block title %}UploadData{% endblock %}
+
+{% block body %}
+    <h3>Download</h3>
+        <a href="/download_file" download="output.txt">
+            <button>Download</button>
+        </a>
+
+    {% block data %}
+        {% for line in data %}
+            <p>{{line}}</p>
+        {% endfor %}
+    {% endblock %}
+{% endblock %}
+

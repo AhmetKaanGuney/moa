@@ -10,5 +10,16 @@
         <link href="/static/styles.css" rel="stylesheet">
         <title>{% block title %}{% endblock %} - MOA</title>
     </head>
-    <body>{% block body %}{% endblock %}{% block data %}{% endblock %}</body>
+    <body>
+        {% block body %}{% endblock %}
+        {% block data %}{% endblock %}
+        <br>
+        <h6>SESSION INFO</h6>
+        {% block session %}
+            {% for k, v in session.items() %}
+            <p>{{k}} : {{v}}</p><br>
+            {% endfor %}
+        {% endblock %}
+    </body>
+
 </html>
