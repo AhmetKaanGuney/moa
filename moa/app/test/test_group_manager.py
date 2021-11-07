@@ -1,17 +1,11 @@
 """test for group_manager"""
-from converters import Matrix
-from group_manager import GroupManager
-from converters import XlsFile
-import logging
+# import logging
 import os
-import sys
 import unittest
 
-# Go to upper directory and then import files
-cwd = os.getcwd()
-parentdir = os.path.dirname(cwd)
-sys.path.append(parentdir)
-print("parent dir: ", parentdir)
+from matrix_processor.converters import Matrix
+from matrix_processor.group_manager import GroupManager
+from matrix_processor.converters import XlsFile
 
 
 def sum_list(dictionary, items=None):
@@ -148,4 +142,6 @@ class TestGroupManager(unittest.TestCase):
 
 
 if __name__ == "__main__":
+    print("CWD: ", os.getcwd())
     unittest.main()
+

@@ -1,18 +1,12 @@
 """test for matrix"""
-from converters import Matrix
-from group_manager import GroupManager
-from converters import XlsFile
-import logging
 import os
-import sys
 import unittest
 from test.test_group_manager import sum_list
 
-# Go to upper directory and then import files
-cwd = os.getcwd()
-parentdir = os.path.dirname(cwd)
-sys.path.append(parentdir)
-print("parent dir: ", parentdir)
+from matrix_processor.converters import Matrix
+from matrix_processor.group_manager import GroupManager
+from matrix_processor.converters import XlsFile
+
 
 source_rows = {
         "ali": [10.0, 0.0, 5.0, 8.0, 1.0, 50],
@@ -55,7 +49,7 @@ class TestMatrix(unittest.TestCase):
         self.sm = source_matrix
 
     def test_get_rows(self):
-        rows = self.sm.get_rows()    
+        rows = self.sm.get_rows()
         self.assertEqual(rows, list(source_rows.keys()))
 
     def test_get_cols(self):
@@ -68,7 +62,7 @@ class TestMatrix(unittest.TestCase):
 
     def test_get_row(self):
         self.assertEqual(self.sm.get_row("ali"), source_rows["ali"])
-    
+
     def test_get_col(self):
         self.assertEqual(self.sm.get_col("elma"), source_cols["elma"])
 
@@ -81,4 +75,5 @@ class TestMatrix(unittest.TestCase):
         self.assertEqual(output, fruits_sum)
 
 if __name__ == "__main__":
+    print("CWD: ", os.getcwd())
     unittest.main()

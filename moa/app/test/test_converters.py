@@ -1,23 +1,17 @@
 """test for group_manager"""
 import xlrd
-from matrix import Matrix, matrix_coordinates
-from converters import XlsFile
-import logging
 import os
-import sys
 import unittest
-
-cwd = os.getcwd()
-parentdir = os.path.dirname(cwd)
-sys.path.append(parentdir)
-print("parent dir: ", parentdir)
+from matrix_processor.converters import XlsFile
+from matrix_processor.matrix import Matrix, matrix_coordinates
 
 
+ENCODING = "utf-8"
 FIRST_ROW_NAME = "ali"
 FIRST_COL_NAME = "elma"
 TOP_LEFT_CORNER_VALUE = 10
 BOTTOM_RIGHT_CORNER_VALUE = 5
-OUTPUT_PATH = parentdir + "/moa/test/output_files/test.xls"
+OUTPUT_PATH = os.getcwd() + "/test/output_files/test.xls"
 MATRIX = Matrix(rows={
             "ali": [10.0, 0.0, 5.0, 8.0, 1.0],
             "esma": [0.0, 12.0, 9.0, 3.0, 4.0],
@@ -35,10 +29,9 @@ MATRIX = Matrix(rows={
 class TestXlsFile(unittest.TestCase):
 
     def setUp(self):
-        file_path = parentdir + "/moa/test/input_files/5-5.xls"
         matrix_coords = matrix_coordinates((2, 6), ("B", "F"))
-        self.xf = XlsFile(file_path, matrix_coords)
-        self.workbook = xlrd.open_workbook(file_path,
+        self.xf = XlsFile(OUTPUT_PATH, matrix_coords)
+        self.workbook = xlrd.open_workbook(OUTPUT_PATH,
                                            encoding_override=ENCODING,
                                            on_demand=True)
         self.worksheet = self.workbook.sheet_by_index(self.xf.sheet_index)
@@ -135,4 +128,5 @@ class TestXlsFile(unittest.TestCase):
 
 
 if __name__ == "__main__":
+    print("CWD: ", os.getcwd())
     unittest.main()

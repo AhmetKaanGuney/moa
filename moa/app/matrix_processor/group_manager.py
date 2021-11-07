@@ -1,6 +1,6 @@
 import copy
-from matrix import Matrix
-from notification import Notification
+from .matrix import Matrix
+from .notification import Notification
 
 
 class GroupManager:
@@ -116,7 +116,7 @@ class GroupManager:
         else:
             self.user_col_groups[name] = []
             return self.user_col_groups
-            
+
     def del_row_group(self, name):
         """1. copies row names inside the row group back to source rows.
         2. then deletes the group.
@@ -170,7 +170,7 @@ class GroupManager:
     #    CONVERT TO MATRIX    #
     # ----------------------- #
     def convert_to_matrix(self) -> Matrix:
-        """Uses: 
+        """Uses:
             - self.source_matrix
             - self.user_rows_groups
             - self.user_col_groups"""

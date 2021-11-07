@@ -1,7 +1,7 @@
 {
-    "python.linting.pylintEnabled": false,
+    "python.linting.pylintEnabled": true,
     "python.linting.enabled": true,
-    "python.linting.pylamaEnabled": true,
+    "python.linting.pylamaEnabled": false,
     "code-runner.defaultLanguage": "python",
     "terminal.integrated.cursorStyle": "line",
     "terminal.integrated.detectLocale": "on",
