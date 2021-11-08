@@ -1,7 +1,8 @@
 {
-    "python.linting.pylintEnabled": true,
     "python.linting.enabled": true,
-    "python.linting.pylamaEnabled": false,
+    "python.linting.pylintEnabled": false,
+    "python.linting.pylamaEnabled": true,
+    "python.linting.flake8Enabled": false,
     "code-runner.defaultLanguage": "python",
     "terminal.integrated.cursorStyle": "line",
     "terminal.integrated.detectLocale": "on",
@@ -19,7 +20,10 @@
         "editorInfo.foreground": "#00aeff00",
         "editorBracketMatch.border": "#686868",
         "editorBracketMatch.background": "#2f2f2f",
+        "editor.selectionHighlightBorder": "#bbb38d85",
+        "editor.selectionHighlightBackground": "#58585862",
+        "editor.selectionBackground": "#5858587e"
     },
     "files.trimTrailingWhitespace": true,
-    "liveServer.settings.multiRootWorkspaceName": "moa"
+    "liveServer.settings.multiRootWorkspaceName": "moa",
 }

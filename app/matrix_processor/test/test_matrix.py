@@ -1,12 +1,9 @@
 """test for matrix"""
 import os
 import unittest
-from test.test_group_manager import sum_list
 
-from matrix_processor.converters import Matrix
-from matrix_processor.group_manager import GroupManager
-from matrix_processor.converters import XlsFile
-
+from converters import Matrix
+#  TODO FIX SUMS add sums to sr1 and sc1
 
 source_rows = {
         "ali": [10.0, 0.0, 5.0, 8.0, 1.0, 50],
@@ -27,11 +24,6 @@ source_cols = {
 
 source_matrix = Matrix(rows=source_rows, cols=source_cols)
 
-men_sum = sum_list(source_matrix.rows, ("ali", "ahmet", "ibrahim"))
-women_sum = sum_list(source_matrix.rows, ("esma", "derya"))
-vegetables_sum = sum_list(source_matrix.cols, ("ıspanak", "fasulye"))
-fruits_sum = sum_list(source_matrix.cols, ("elma", "armut", "muz"))
-
 summed_matrix = Matrix(
     rows={
         "men": [60, 25],
@@ -43,6 +35,8 @@ summed_matrix = Matrix(
     }
     )
 
+men_sum = [29,10,19,15,12]
+fruits_sum = [2,17,18,3,9]
 
 class TestMatrix(unittest.TestCase):
     def setUp(self) -> None:

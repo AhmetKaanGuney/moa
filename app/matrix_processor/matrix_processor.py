@@ -1,4 +1,3 @@
-#!../venv/Scripts/python.exe
 import os
 from sqlite3.dbapi2 import OperationalError
 import json

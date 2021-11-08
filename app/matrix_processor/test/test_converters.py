@@ -2,8 +2,9 @@
 import xlrd
 import os
 import unittest
-from matrix_processor.converters import XlsFile
-from matrix_processor.matrix import Matrix, matrix_coordinates
+
+from converters import XlsFile
+from matrix import Matrix, matrix_coordinates
 
 
 ENCODING = "utf-8"
@@ -11,7 +12,9 @@ FIRST_ROW_NAME = "ali"
 FIRST_COL_NAME = "elma"
 TOP_LEFT_CORNER_VALUE = 10
 BOTTOM_RIGHT_CORNER_VALUE = 5
+INPUT_PATH = os.getcwd() + "/test/input_files/5-5.xls"
 OUTPUT_PATH = os.getcwd() + "/test/output_files/test.xls"
+print(f"{OUTPUT_PATH=}")
 MATRIX = Matrix(rows={
             "ali": [10.0, 0.0, 5.0, 8.0, 1.0],
             "esma": [0.0, 12.0, 9.0, 3.0, 4.0],
@@ -30,8 +33,8 @@ class TestXlsFile(unittest.TestCase):
 
     def setUp(self):
         matrix_coords = matrix_coordinates((2, 6), ("B", "F"))
-        self.xf = XlsFile(OUTPUT_PATH, matrix_coords)
-        self.workbook = xlrd.open_workbook(OUTPUT_PATH,
+        self.xf = XlsFile(INPUT_PATH, matrix_coords)
+        self.workbook = xlrd.open_workbook(INPUT_PATH,
                                            encoding_override=ENCODING,
                                            on_demand=True)
         self.worksheet = self.workbook.sheet_by_index(self.xf.sheet_index)

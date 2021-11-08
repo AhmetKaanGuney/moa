@@ -1,6 +1,6 @@
 import copy
-from .matrix import Matrix
-from .notification import Notification
+from matrix import Matrix
+from notification import Notification
 
 
 class GroupManager:
@@ -65,10 +65,7 @@ class GroupManager:
         """1. adds cols to the group
         2. then removes the added cols from source rows
         A col can only exist in one place."""
-        print("group: ", group)
-        print("add these cols: ", cols)
         for c in cols:
-            print("c: ", c)
             self.user_col_groups[group].append(c)
             try:
                 self.source_cols.remove(c)

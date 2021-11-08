@@ -3,23 +3,8 @@
 import os
 import unittest
 
-from matrix_processor.converters import Matrix
-from matrix_processor.group_manager import GroupManager
-from matrix_processor.converters import XlsFile
-
-
-def sum_list(dictionary, items=None):
-    result = []
-    for k in dictionary:
-        if k in (items):
-            if result == []:
-                result = dictionary[k].copy()
-            else:
-                for i in range(0, len(dictionary[k])):
-                    result[i] += dictionary[k][i]
-
-    return result
-
+from converters import Matrix
+from group_manager import GroupManager
 
 source_matrix = Matrix(
     rows={
@@ -40,26 +25,16 @@ source_matrix = Matrix(
     },
 )
 
-
-men_sum = sum_list(source_matrix.rows, ("ali", "ahmet", "ibrahim"))
-women_sum = sum_list(source_matrix.rows, ("esma", "derya"))
-vegetables_sum = sum_list(source_matrix.cols, ("ıspanak", "fasulye"))
-fruits_sum = sum_list(source_matrix.cols, ("elma", "armut", "muz"))
-
 expected_matrix = Matrix(
-    rows={
-        "men": [men_sum],
-        "women": [women_sum],
-    },
-    cols={"vegetables": [vegetables_sum], "fruits": [fruits_sum]},
+    rows={"men": [60, 25], "women": [29, 20],},
+    cols={"fruits": [60, 29], "vegetables": [25, 20]},
 )
 
-
-user_row_groups = {"men": ["ali", "ahmet", "ibrahim"], "women": ["esma", "derya"]}
+user_row_groups = {"men": ["ali", "ahmet", "ibrahim"],
+                   "women": ["esma", "derya"]}
 user_col_groups = {
-    "vegetables": ["ıspanak", "fasulye"],
     "fruits": ["elma", "armut", "muz"],
-}
+    "vegetables": ["ıspanak", "fasulye"]}
 
 
 class TestGroupManager(unittest.TestCase):
@@ -82,63 +57,66 @@ class TestGroupManager(unittest.TestCase):
 
     def test_get_col_group(self):
         print("--- get_col_group() ---")
-        print("gm col_group: ", self.gm.get_col_groups())
-        print("user_col_groups: ", user_col_groups)
         self.assertEqual(self.gm.get_col_group("fruits"), user_col_groups["fruits"])
 
     def test_create_row_group(self):
         print("--- create_row_group() ---")
-        self.gm.create_row_group("test")
         urg = user_row_groups.copy()
         urg["test"] = []
+        self.gm.create_row_group("test")
         self.assertEqual(self.gm.user_row_groups, urg)
-        del urg
 
-    def test_create_col_gruop(self):
+    def test_create_col_group(self):
         print("--- create_col_group() ---")
-        self.gm.create_col_group("test")
         ucg = user_col_groups.copy()
         ucg["test"] = []
+        self.gm.create_col_group("test")
         self.assertEqual(self.gm.user_col_groups, ucg)
-        del ucg
 
     def test_add_rows_to_group(self):
         print("--- add_rows_to_group() ---")
-        self.gm.source_rows = ["sr1"]
-        self.assertEqual(self.gm.source_rows, ["sr1"])
         self.gm.add_rows_to_group(["sr1"], "men")
         self.assertEqual(
             self.gm.user_row_groups["men"], ["ali", "ahmet", "ibrahim", "sr1"]
         )
-        self.assertEqual(self.gm.source_rows, [])
 
     def test_add_cols_to_group(self):
         print("--- add_cols_to_group() ---")
-        self.gm.source_cols = ["sc1"]
-        self.assertEqual(self.gm.source_cols, ["sc1"])
         self.gm.add_cols_to_group(["sc1"], "vegetables")
         self.assertEqual(
             self.gm.user_col_groups["vegetables"], ["ıspanak", "fasulye", "sc1"]
         )
-        self.assertEqual(self.gm.source_cols, [])
+
 
     def test_convert_to_matrix(self):
         print("--- convert_to_matrix() ---")
+        self.gm.user_row_groups["men"].remove("sr1")
+        self.gm.user_col_groups["vegetables"].remove("sc1")
+        print()
+        print("BEFORE Covert: ")
+        print(f"{self.gm.user_row_groups=}")
+        print(f"{self.gm.user_col_groups=}\n")
         output_matrix = self.gm.convert_to_matrix()
+
+        print(f"{output_matrix.rows=}")
+        print(f"{output_matrix.cols=}\n")
+        print(f"{expected_matrix.rows=}")
+        print(f"{expected_matrix.cols=}\n")
+
         self.assertDictEqual(output_matrix.rows, expected_matrix.rows)
         self.assertDictEqual(output_matrix.cols, expected_matrix.cols)
 
-    def test_sum_groups(self):
-        print("--- sum_groups() ---")
+    # def test_sum_groups(self):
+    #     print("--- sum_groups() ---")
 
-    def test_sum_row_groups(self):
-        print("--- sum_row_groups() ---")
+    # def test_sum_row_groups(self):
+    #     print("--- sum_row_groups() ---")
 
-    def test_sum_col_groups(self):
-        print("--- sum_col_groups() ---")
+    # def test_sum_col_groups(self):
+    #     print("--- sum_col_groups() ---")
 
-    def test_build_with(self):
-        print("--- build_with() ---")
+    # def test_build_with(self):
+    #     print("--- build_with() ---")
 
 
 if __name__ == "__main__":
