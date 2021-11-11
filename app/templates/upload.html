@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+{% block title %}Upload{% endblock %}
+
+{% block main %}
+<!-- UPLOAD SECTION -->
+<div class="row pt-5 pb-3">
+    <!-- LEFT COLUMN -->
+    <div class="col-sm-4"></div>
+
+    <!-- MID COLUMN -->
+    <div class="col-sm-4">
+        <h1 style="text-align: center;">Do these thing with your matrix.<br>And more...</h1>
+        <!-- <img src="../static/upload_black_24dp.svg" alt=""> -->
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="col-sm-4"></div>
+</div>
+
+
+<div class="row">
+    <!-- LEFT COLUMN -->
+    <div class="col-sm-2"></div>
+
+    <!-- MID COLUMN -->
+    <!-- UPLOAD FORM -->
+    <div class="col border border-1 border text-center" id="file-upload-form-box">
+        <form action="/upload.html" method="post" enctype="multipart/form-data"  class="pt-2 pb-3">
+            <div>
+                <!-- <label for="file_input" style="font-size: x-large;" class="mb-3">Upload a File (.xls, .xlsx, .csv)</label> -->
+                <input type="file" class="form-control form-control-lg" id="file_input" name="file_input" accept=".xls,.xlsx,.csv,.txt,.json">
+                    <p>
+                        <span style="color: red; font-size: larger;">
+                        Flash error messages
+                        </span>
+                    </p>
+                </div>
+            <button type="submit" class="btn btn-outline-success btn-lg">Submit</button>
+        </form>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="col-sm-2"></div>
+</div>
+
+<div class="container mt-5 mb-5 text-center">
+    <h4>STEP BY STEP</h4>
+</div>
+
+<div class="row">
+    <!-- LEFT SPACE -->
+    <div class="col-sm-2 "></div>
+    <!-- BOX 1 -->
+    <div class="col">
+        <div class="container debug-bg">
+            <h5>STEP 1</h5>
+            <img src="../static/upload_black_24dp.svg" alt="" height="150px">
+            <p>Description for step one. It can be a bit long. asdasdşlkaskdşalksdlaksdşlkasşdlkasdlk.</p>
+        </div>
+    </div>
+    <!-- BOX 2 -->
+    <div class="col">
+        <div class="container debug-bg-2">
+            <h5>STEP 2</h5>
+            <img src="../static/upload_black_24dp.svg" alt="" height="150px">
+            <p>Description for step one. It can be a bit long. asdasdşlkaskdşalksdlaksdşlkasşdlkasdlk.</p>
+        </div>
+    </div>
+    <!-- RIGHT SPACE -->
+    <div class="col-sm-2"></div>
+</div>
+
+{% endblock %}
+
+

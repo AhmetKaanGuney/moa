@@ -1,0 +1,51 @@
+.body {
+    margin: 0;
+    height: 100%;
+    background-color: rgba(17, 71, 30, 0.432);
+}
+
+.main {
+    background-color: white;
+}
+
+.navbar {
+    background-color: rgb(30, 124, 52);
+}
+
+
+/* BLUEPRINT */
+.list-group {
+    overflow: auto;
+    max-height: 30em;
+}
+
+.list-group-item:nth-of-type(odd) {
+    background-color: rgb(230, 230, 230);
+}
+
+#file-upload-form-box {
+    border-radius: 0.5em;
+}
+
+.nav-link {
+    color: black;
+}
+
+.nav {
+    background-color: white;
+    border-bottom: 2em;
+    border-color: black;
+}
+
+.file-name-display {
+    font-size: large;
+    font-weight: 500;
+}
+
+.debug-bg {
+    background-color: rgb(199, 126, 126);
+}
+
+.debug-bg-2 {
+    background-color: rgb(126, 155, 199);
+}

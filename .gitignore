@@ -1,9 +1,10 @@
 .vscode
 venv
-/moa/app/__pycache__
-/moa/app/test/__pycache__
-/moa/app/matrix_processor/__pycache__
+/moa/app/__pycache__/
+/moa/app/test/__pycache__/
+/moa/app/matrix_processor/__pycache__/
 /logs
 /moa/app/config.py
 /moa/test/output_files
 remote.txt
+setup.ps1

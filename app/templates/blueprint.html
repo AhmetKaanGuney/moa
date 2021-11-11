@@ -1,0 +1,114 @@
+{% extends "layout.html" %}
+
+{% block title %}Blueprint{% endblock %}
+
+{% block main %}
+<!-- NAVBAR BUTTONS -->
+<div class="row">
+    <ul class="nav">
+        <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+                File
+            </a>
+            <ul class="dropdown-menu shadow-lg">
+                <li><a href="#" class="dropdown-item">File Action 1</a></li>
+                <li><a href="#" class="dropdown-item">File Action 2</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a href="#" class="dropdown-item">File Action 3</a></li>
+            </ul>
+        </li>
+        <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+                Group
+            </a>
+            <ul class="dropdown-menu shadow-lg">
+                <li><a href="#" class="dropdown-item">Group Action 1</a></li>
+                <li><a href="#" class="dropdown-item">Group Action 2</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a href="#" class="dropdown-item">Group Action 3</a></li>
+            </ul>
+        </li>
+        <li class="navbar-brand ms-auto file-name-display mb-0 pb-0">file_name.xls</li>
+    </ul>
+</div>
+
+<hr class="mb-2" style="margin-top: 0%;">
+<div class="row container">
+
+    <!-- DROPDOWN MENU -->
+    <div class="col">
+        <select class="form-select mb-3">
+            <option selected hidden>SOURCE GROUPS</option>
+            <option value="none" disabled>ROWS</option>
+            <option value="one">1</option>
+            <option value="two">2</option>
+            <option value="three">3</option>
+            <option value="none" disabled>COLUMNS</option>
+            <option value="one">1</option>
+            <option value="two">2</option>
+            <option value="three">3</option>
+        </select>
+
+        <ul class="list-group">
+            <li class="list-group-item">One</li>
+            <li class="list-group-item">Two</li>
+            <li class="list-group-item">Three</li>
+            <li class="list-group-item">Four</li>
+            <li class="list-group-item">Five</li>
+            <li class="list-group-item">Seven</li>
+            <li class="list-group-item">Eight</li>
+            <li class="list-group-item">Nine</li>
+            <li class="list-group-item">Ten</li>
+            <li class="list-group-item">Eleven</li>
+            <li class="list-group-item">Twelve</li>
+        </ul>
+    </div>
+
+    <!-- ADD/REMOVE BUTTONS -->
+    <div class="col-md-1">
+        <div class="row pt-5"></div>
+
+        <div class="row pt-5 mt-5">
+            <button class="btn btn-success">
+            >>>
+            </button>
+        </div>
+
+        <div class="row pt-2">
+            <button class="btn btn-success">
+            <<<
+            </button>
+        </div>
+    </div>
+
+    <!-- DROPDOWN MENU -->
+    <div class="col">
+        <select class="form-select mb-3">
+            <option selected hidden>USER GROUPS</option>
+            <option value="none" disabled>ROWS</option>
+            <option value="one">1</option>
+            <option value="two">2</option>
+            <option value="three">3</option>
+            <option value="none" disabled>COLUMNS</option>
+            <option value="one">1</option>
+            <option value="two">2</option>
+            <option value="three">3</option>
+        </select>
+
+        <ul class="list-group">
+            <li class="list-group-item">One</li>
+            <li class="list-group-item">Two</li>
+            <li class="list-group-item">Three</li>
+            <li class="list-group-item">Four</li>
+            <li class="list-group-item">Five</li>
+            <li class="list-group-item">Seven</li>
+            <li class="list-group-item">Eight</li>
+            <li class="list-group-item">Nine</li>
+            <li class="list-group-item">Ten</li>
+            <li class="list-group-item">Eleven</li>
+            <li class="list-group-item">Twelve</li>
+        </ul>
+    </div>
+
+</div>
+{% endblock %}
