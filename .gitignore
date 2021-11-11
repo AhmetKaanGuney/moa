@@ -1,6 +1,6 @@
 .vscode
 venv
-/moa/app/__pycache__/
+app/__pycache__/
 /moa/app/test/__pycache__/
 /moa/app/matrix_processor/__pycache__/
 /logs
