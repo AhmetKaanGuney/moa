@@ -1,3 +1,5 @@
+import os
+
 from flask import (
     Flask,
     render_template,
@@ -7,32 +9,20 @@ from flask import (
     flash,
     send_from_directory,
 )
+import flask
+
 from session_id import SessionID
+from matrix_processor import matrix_processor
 
+CWD = os.getcwd()
 # import matrix_processor
-
 
 app = Flask("app")
 app.config.from_pyfile("config.py")
 
 # TODO sessions
 # TODO name downloads files with user cookie
-
-
-def allowed_file(filename):
-    has_dot = "." in filename
-    return (
-        has_dot
-        and filename.rsplit(".", 1)[1].lower() in app.config["ALLOWED_EXTENTIONS"]
-    )
-
-
-def read_txt_file(file):
-    data = ""
-    with open(file, "rb", encoding="utf-8") as f:
-        for line in f.readlines():
-            data += line
-    return data
+# TODO on upload page get matrix coordinates
 
 
 @app.route("/", methods=["GET"])
@@ -70,6 +60,10 @@ def upload():
 
         if f and allowed_file(f.filename):
             print("filename is allowed")
+
+            # TODO blueprint = matrix_processor.main(
+            #                  request="file_to_blueprint", user_id=user_id)
+
             # Get file stream
             binary_data = f.stream.readlines()
             data = []
@@ -77,15 +71,17 @@ def upload():
             for line in binary_data:
                 data.append(line.decode("utf-8"))
 
-            # Delete old files at /downloads
+            # TODO Delete old files at /downloads
 
             # Write to file
             temp_filename = app.config["DOWNLOAD_FOLDER"] + f"/{session_id}" + ".txt"
+            # TODO
             with open(temp_filename, "w", encoding="utf-8") as temp_f:
                 for line in data:
                     temp_f.write(line)
 
-            # Render download page
+            # Render blueprint page
+            print("TODO -> return upload.html instead of download.html")
             return render_template("download.html", data=data, session=session)
 
         else:
@@ -106,8 +102,28 @@ def download_file():
 @app.route("/blueprint.html", methods=["GET", "POST"])
 def blueprint():
     if request.method == "GET":
-        return render_template("blueprint.html")
+        # TODO
+        # source_blueprint = matrix_processor.main("file_to_blueprint", 0)
+        temp_path = f"{CWD}/matrix_processor/test/input_files/source_blueprint.json"
+        with open(temp_path, encoding="utf-8") as f:
+            source_blueprint = flask.json.load(f)
+        return render_template("blueprint.html", blueprint=source_blueprint)
 
+
+def allowed_file(filename):
+    has_dot = "." in filename
+    return (
+        has_dot
+        and filename.rsplit(".", 1)[1].lower() in app.config["ALLOWED_EXTENTIONS"]
+    )
+
+
+def read_txt_file(file):
+    data = ""
+    with open(file, "rb", encoding="utf-8") as f:
+        for line in f.readlines():
+            data += line
+    return data
 
 if __name__ == "__main__":
     app.run()

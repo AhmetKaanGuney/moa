@@ -4,8 +4,8 @@ import xlwt
 import json
 # import openpyxl
 
-from matrix import Matrix
-from notification import Notification
+from .matrix import Matrix
+from .notification import Notification
 
 ENCODING = "UTF-8"
 

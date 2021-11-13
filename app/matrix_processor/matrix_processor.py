@@ -3,12 +3,11 @@ from sqlite3.dbapi2 import OperationalError
 import json
 import sqlite3
 
-from converters import XlsFile, json_to_matrix
-from matrix import matrix_coordinates
-from group_manager import GroupManager
+from .converters import XlsFile, json_to_matrix
+from .matrix import matrix_coordinates
+from .group_manager import GroupManager
 
-cwd = os.getcwd()
-print("cwd: ", cwd)
+CWD = os.getcwd()
 
 # How this program works :
 # There are 2 stages:
@@ -40,35 +39,40 @@ print("cwd: ", cwd)
 # !!! ALWAYS HANDLE JSON AS UTF-8 !!! #
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! #
 
-database = f"{cwd}/../db/matricies.db"
-fallback_database = "./moa/db/matricies.db"
+database = f"{CWD}/db/matricies.db"
+fallback_database = "./db/matricies.db"
 
 # get source file and matrix coordinates from client
 coordinates = matrix_coordinates((2, 6), ("b", "f"))
-source_file = f"{cwd}/../test/input_files/5-5.xls"
+source_file = f"{CWD}/matrix_processor/test/input_files/5-5.xls"
 
 user_id = 0
-request = "blueprint_to_file"
+action = ""
 
 
 # Entry Point
-def main(request: str, user_id: int):
-    """Handles request for specific user"""
+def main(action: str, user_id: int):
+    """Handles action for specific user"""
+    print("--- MATRIX_PROCESSOR ---")
+    print(f"CWD: {CWD}\n")
 
-    if request == "file_to_blueprint":
+    if action == "file_to_blueprint":
         blueprint = file_to_blueprint(source_file, coordinates, user_id)
         # return blueprint json to client
         print("TODO -> return blueprint to client")
         print(blueprint)
+        return blueprint
 
-    if request == "blueprint_to_file":
-        with open(f"{cwd}/../test/input_files/blueprint.json", encoding="utf-8") as f:
+    if action == "blueprint_to_file":
+        with open(f"{CWD}/../test/input_files/blueprint.json", encoding="utf-8") as f:
             blueprint = json.load(f)
         target_format = "xls"
         user_matrix = get_user_matrix_from_db(user_id)
         processed_matrix = blueprint_to_matrix(blueprint, user_matrix)
         f = convert_matrix_to_target_format(processed_matrix, target_format)
         print("TODO -> send file to client")
+
+    print("--- END ---\n")
 
 
 # --------------------------- #
@@ -140,4 +144,4 @@ def convert_matrix_to_target_format(processed_matrix, target_format):
 
 
 if __name__ == "__main__":
-    main(request, user_id)
+    main(action, user_id)

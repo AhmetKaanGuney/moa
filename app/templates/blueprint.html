@@ -35,33 +35,22 @@
 <hr class="mb-2" style="margin-top: 0%;">
 <div class="row container">
 
-    <!-- DROPDOWN MENU -->
+    <!-- Select MENU -->
     <div class="col">
-        <select class="form-select mb-3">
+        <select class="form-select mb-3" id="source-groups-select">
             <option selected hidden>SOURCE GROUPS</option>
-            <option value="none" disabled>ROWS</option>
-            <option value="one">1</option>
+            <option value="none" id="source-option-rows" disabled>ROWS</option>
+            <!-- <option value="one">1</option>
             <option value="two">2</option>
-            <option value="three">3</option>
-            <option value="none" disabled>COLUMNS</option>
-            <option value="one">1</option>
+            <option value="three">3</option> -->
+            <option value="none" id="source-option-cols" disabled>COLUMNS</option>
+            <!-- <option value="one">1</option>
             <option value="two">2</option>
-            <option value="three">3</option>
+            <option value="three">3</option> -->
         </select>
 
-        <ul class="list-group">
-            <li class="list-group-item">One</li>
-            <li class="list-group-item">Two</li>
-            <li class="list-group-item">Three</li>
-            <li class="list-group-item">Four</li>
-            <li class="list-group-item">Five</li>
-            <li class="list-group-item">Seven</li>
-            <li class="list-group-item">Eight</li>
-            <li class="list-group-item">Nine</li>
-            <li class="list-group-item">Ten</li>
-            <li class="list-group-item">Eleven</li>
-            <li class="list-group-item">Twelve</li>
-        </ul>
+        <ul class="list-group" id="source-rows-list"></ul>
+        <ul class="list-group" id="source-cols-list" hidden></ul>
     </div>
 
     <!-- ADD/REMOVE BUTTONS -->
@@ -81,34 +70,27 @@
         </div>
     </div>
 
-    <!-- DROPDOWN MENU -->
+    <!-- Select MENU -->
     <div class="col">
-        <select class="form-select mb-3">
+        <select class="form-select mb-3" id="user-groups-select">
             <option selected hidden>USER GROUPS</option>
-            <option value="none" disabled>ROWS</option>
-            <option value="one">1</option>
+            <option value="none" id="user-option-rows"  disabled>ROWS</option>
+            <!-- <option value="one">1</option>
             <option value="two">2</option>
-            <option value="three">3</option>
-            <option value="none" disabled>COLUMNS</option>
-            <option value="one">1</option>
+            <option value="three">3</option> -->
+            <option value="none" id="user-option-cols" disabled>COLUMNS</option>
+            <!-- <option value="one">1</option>
             <option value="two">2</option>
-            <option value="three">3</option>
+            <option value="three">3</option> -->
         </select>
 
-        <ul class="list-group">
-            <li class="list-group-item">One</li>
-            <li class="list-group-item">Two</li>
-            <li class="list-group-item">Three</li>
-            <li class="list-group-item">Four</li>
-            <li class="list-group-item">Five</li>
-            <li class="list-group-item">Seven</li>
-            <li class="list-group-item">Eight</li>
-            <li class="list-group-item">Nine</li>
-            <li class="list-group-item">Ten</li>
-            <li class="list-group-item">Eleven</li>
-            <li class="list-group-item">Twelve</li>
-        </ul>
+        <ul class="list-group" id="user-rows-list"></ul>
+        <ul class="list-group" id="user-cols-list" hidden></ul>
     </div>
 
 </div>
+<script>
+    var blueprint = JSON.parse('{{ blueprint | tojson | safe }}')
+</script>
+<script src="../static/scripts/blueprint.js" type="text/javascript"></script>
 {% endblock %}

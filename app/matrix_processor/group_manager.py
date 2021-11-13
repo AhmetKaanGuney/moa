@@ -1,6 +1,6 @@
 import copy
-from matrix import Matrix
-from notification import Notification
+from .matrix import Matrix
+from .notification import Notification
 
 
 class GroupManager:
