@@ -1,0 +1,19 @@
+{
+    "source": {
+        "rows": ["ali", "esma", "ahmet", "ibrahim", "derya" ],
+        "cols" : ["elma", "ıspanak", "armut", "fasulye", "muz"]
+    },
+
+    "user": {
+        "rows": {
+            "erkekler": ["ali", "ahmet", "ibrahim"],
+            "kadınlar": ["esma", "derya"]
+        },
+        "cols": {
+            "meyveler": ["elma", "armut", "muz"],
+            "sebzeler": ["ıspanak", "fasulye"]
+        }
+    }
+}
+// Usage blueprint.source.rows = []
+// Usage blueprint.user.rows["group"] = []

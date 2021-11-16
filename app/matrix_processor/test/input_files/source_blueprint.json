@@ -1,16 +1,11 @@
 {
-    "rows": {
-        "ali": [],
-        "esma": [],
-        "ahmet": [],
-        "ibrahim": [],
-        "derya": []
+    "source": {
+        "rows": ["ali", "esma", "ahmet", "ibrahim", "derya" ],
+        "cols" : ["elma", "ıspanak", "armut", "fasulye", "muz"]
     },
-    "cols" : {
-        "elma": [],
-        "ıspanak": [],
-        "armut": [],
-        "fasulye": [],
-        "muz": []
+
+    "user": {
+        "rowGroups": {},
+        "colGroups": {}
     }
 }

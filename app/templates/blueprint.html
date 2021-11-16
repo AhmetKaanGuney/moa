@@ -1,96 +1,124 @@
 {% extends "layout.html" %}
 
 {% block title %}Blueprint{% endblock %}
+{% block script %}
+    <script>
+        var blueprint = JSON.parse('{{ blueprint | tojson | safe }}')
+    </script>
+    <script defer type="module" src="../static/scripts/blueprint/group-manager.js"></script>
+    <script defer src="../static/scripts/blueprint/blueprint.js" type="module"></script>
+{% endblock %}
 
 {% block main %}
-<!-- NAVBAR BUTTONS -->
-<div class="row">
-    <ul class="nav">
-        <li class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
-                File
-            </a>
-            <ul class="dropdown-menu shadow-lg">
-                <li><a href="#" class="dropdown-item">File Action 1</a></li>
-                <li><a href="#" class="dropdown-item">File Action 2</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a href="#" class="dropdown-item">File Action 3</a></li>
-            </ul>
-        </li>
-        <li class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
-                Group
-            </a>
-            <ul class="dropdown-menu shadow-lg">
-                <li><a href="#" class="dropdown-item">Group Action 1</a></li>
-                <li><a href="#" class="dropdown-item">Group Action 2</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a href="#" class="dropdown-item">Group Action 3</a></li>
-            </ul>
-        </li>
-        <li class="navbar-brand ms-auto file-name-display mb-0 pb-0">file_name.xls</li>
-    </ul>
-</div>
+    <!-- Modal -->
+    <div class="modal" tabindex="-1" id="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title">Modal Title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
 
-<hr class="mb-2" style="margin-top: 0%;">
-<div class="row container">
+                <div class="modal-body" id="modal-body">
 
-    <!-- Select MENU -->
-    <div class="col">
-        <select class="form-select mb-3" id="source-groups-select">
-            <option selected hidden>SOURCE GROUPS</option>
-            <option value="none" id="source-option-rows" disabled>ROWS</option>
-            <!-- <option value="one">1</option>
-            <option value="two">2</option>
-            <option value="three">3</option> -->
-            <option value="none" id="source-option-cols" disabled>COLUMNS</option>
-            <!-- <option value="one">1</option>
-            <option value="two">2</option>
-            <option value="three">3</option> -->
-        </select>
+                    <!-- Modal Input Group -->
+                    <input class="form-control" type="text" id="modal-input">
+                    <select class="form-select-sm mt-2 modal-select" id="modal-group-type-select">
+                        <option value="row" selected>Row</option>
+                        <option value="col" >Col</option>
+                    </select>
+                </div>
 
-        <ul class="list-group" id="source-rows-list"></ul>
-        <ul class="list-group" id="source-cols-list" hidden></ul>
-    </div>
-
-    <!-- ADD/REMOVE BUTTONS -->
-    <div class="col-md-1">
-        <div class="row pt-5"></div>
-
-        <div class="row pt-5 mt-5">
-            <button class="btn btn-success">
-            >>>
-            </button>
-        </div>
-
-        <div class="row pt-2">
-            <button class="btn btn-success">
-            <<<
-            </button>
+                <!-- Modal Buttons -->
+                <div class="modal-footer">
+                    <button class="btn btn-success" type="button" id="modal-ok-button">Okay</button>
+                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Select MENU -->
-    <div class="col">
-        <select class="form-select mb-3" id="user-groups-select">
-            <option selected hidden>USER GROUPS</option>
-            <option value="none" id="user-option-rows"  disabled>ROWS</option>
-            <!-- <option value="one">1</option>
-            <option value="two">2</option>
-            <option value="three">3</option> -->
-            <option value="none" id="user-option-cols" disabled>COLUMNS</option>
-            <!-- <option value="one">1</option>
-            <option value="two">2</option>
-            <option value="three">3</option> -->
-        </select>
-
-        <ul class="list-group" id="user-rows-list"></ul>
-        <ul class="list-group" id="user-cols-list" hidden></ul>
+    <!-- NAVBAR MENUS -->
+    <div class="row">
+        <ul class="nav">
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+                    File
+                </a>
+                <ul class="dropdown-menu shadow-lg">
+                    <li><a href="#" class="dropdown-item">File Action 1</a></li>
+                    <li><a href="#" class="dropdown-item">File Action 2</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a href="#" class="dropdown-item">File Action 3</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+                    Group
+                </a>
+                <ul class="dropdown-menu shadow-lg">
+                    <li><button class="dropdown-item" id="create-group">Create Group</button></li>
+                    <li><button class="dropdown-item" id="delete-group">Delete Group</button></li>
+                    <li><button class="dropdown-item" id="rename-group">Rename Group</button></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><button class="dropdown-item" name="add-selected">Add Selected</button></li>
+                    <li><button class="dropdown-item" name="remove-selected">Remove Selected</button></li>
+                </ul>
+            </li>
+            <li class="navbar-brand ms-auto file-name-display mb-0 pb-0">file_name.xls</li>
+        </ul>
     </div>
 
-</div>
-<script>
-    var blueprint = JSON.parse('{{ blueprint | tojson | safe }}')
-</script>
-<script src="../static/scripts/blueprint.js" type="text/javascript"></script>
+    <hr class="mb-2" style="margin-top: 0%;">
+
+    <div class="row container">
+
+        <!-- Select MENU -->
+        <div class="col">
+            <select class="form-select mb-3" id="source-groups-select">
+                <option value="rows" id="source-option-rows" selected>SOURCE ROWS</option>
+                <option value="cols" id="source-option-cols">SOURCE COLUMNS</option>
+            </select>
+
+            <!-- STATIC LISTS -->
+            <ul class="list-group" id="source-rows-list"></ul>
+            <ul class="list-group" id="source-cols-list" hidden></ul>
+        </div>
+
+        <!-- ADD/REMOVE BUTTONS -->
+        <div class="col-md-1">
+            <div class="row pt-5"></div>
+
+            <div class="row pt-5 mt-5">
+                <button class="btn btn-success" name="add-selected">
+                >>>
+                </button>
+            </div>
+
+            <div class="row pt-2">
+                <button class="btn btn-success" name="remove-selected">
+                <<<
+                </button>
+            </div>
+        </div>
+
+        <!-- GROUPS SELECTION DROPDOWN -->
+        <div class="col">
+            <select class="form-select mb-3" id="user-groups-select">
+                <option selected hidden class="disabled-option">USER GROUPS</option>
+                <option value="none" class="disabled-option" disabled>ROWS</option>
+                <!-- <option value="one">1</option>
+                <option value="two">2</option>
+                <option value="three">3</option> -->
+                <option value="none" class="disabled-option" disabled>COLUMNS</option>
+                <!-- <option value="one">1</option>
+                <option value="two">2</option>
+                <option value="three">3</option> -->
+            </select>
+
+            <!-- USER's LIST -->
+            <ul class="list-group" id="user-list"></ul>
+        </div>
+
+    </div>
 {% endblock %}
