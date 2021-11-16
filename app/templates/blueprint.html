@@ -2,15 +2,18 @@
 
 {% block title %}Blueprint{% endblock %}
 {% block script %}
-    <script>
+    <script defer type="module" src="../static/scripts/blueprint/group-manager.js"></script>
+    <script type="text/javascript">
+        // Blueprint coming from server
         var blueprint = JSON.parse('{{ blueprint | tojson | safe }}')
     </script>
-    <script defer type="module" src="../static/scripts/blueprint/group-manager.js"></script>
-    <script defer src="../static/scripts/blueprint/blueprint.js" type="module"></script>
+    <script defer type="module" src="../static/scripts/blueprint/globals.js"></script>
+    <script defer type="module" src="../static/scripts/blueprint/update.js"></script>
+    <script defer type="module" src="../static/scripts/blueprint/events.js"></script>
 {% endblock %}
 
 {% block main %}
-    <!-- Modal -->
+    <!-- MODAL -->
     <div class="modal" tabindex="-1" id="modal">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -75,7 +78,7 @@
 
         <!-- Select MENU -->
         <div class="col">
-            <select class="form-select mb-3" id="source-groups-select">
+            <select class="form-select mb-3" id="source-list-select">
                 <option value="rows" id="source-option-rows" selected>SOURCE ROWS</option>
                 <option value="cols" id="source-option-cols">SOURCE COLUMNS</option>
             </select>
@@ -104,7 +107,7 @@
 
         <!-- GROUPS SELECTION DROPDOWN -->
         <div class="col">
-            <select class="form-select mb-3" id="user-groups-select">
+            <select class="form-select mb-3" id="user-group-select">
                 <option selected hidden class="disabled-option">USER GROUPS</option>
                 <option value="none" class="disabled-option" disabled>ROWS</option>
                 <!-- <option value="one">1</option>
@@ -116,7 +119,7 @@
                 <option value="three">3</option> -->
             </select>
 
-            <!-- USER's LIST -->
+            <!-- USER'S LIST -->
             <ul class="list-group" id="user-list"></ul>
         </div>
 

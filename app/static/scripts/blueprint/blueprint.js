@@ -11,49 +11,27 @@ var sourceRowsList = document.getElementById("source-rows-list")
 var sourceColsList = document.getElementById("source-cols-list")
 
 // User Lists
-var userRowsList = document.getElementById("user-rows-list")
-var userColsList = document.getElementById("user-Cols-list")
-
-// Modal Window Object
-let modalWindow = new bootstrap.Modal(document.getElementById("modal"))
+var userList = document.getElementById("user-list")
 
 var gm = new GroupManager(blueprint)
 console.log("--- GroupManager ---")
 console.log(gm)
 
 
-// Update List
-function updateList(list, parent) {
+// Modal Window Object
+var modalWindow = new bootstrap.Modal(document.getElementById("modal"));
 
-    // Reset parent
-    while (parent.firstChild) {
-        parent.removeChild(parent.firstChild)
-    }
-
-    // Append to parent
-    for (let i = 0; i < list.length; i++) {
-        let groupName = list[i]
-        let listItem = document.createElement("li")
-        listItem.className = "list-group-item"
-        listItem.name = groupName
-        listItem.textContent = groupName
-        parent.appendChild(listItem)
-    }
+// Change modals title, placeholderText and action type (for the button)
+const modifyModal = function(title, placeholderText, buttonAction) {
+    // Change Title
+    document.getElementById("modal-title").textContent = title;
+    // Clear input field and put place holder text
+    document.getElementById("modal-input").value = "";
+    document.getElementById("modal-input").placeholder = placeholderText;
+    // Assign action attribute to button
+    document.getElementById("modal-ok-button").setAttribute("action", buttonAction);
 }
 
-// Get Selected Option
-function getSelectedValue(element) {
-    return element[element.selectedIndex].value
-}
-
-// Modify Modal
-function modifyModal(title, placeholderText, buttonAction) {
-    document.getElementById("modal-title").textContent = title
-    // Clear input field
-    document.getElementById("modal-input").value = ""
-    document.getElementById("modal-input").placeholder = placeholderText
-    document.getElementById("modal-ok-button").setAttribute("action", buttonAction)
-}
 
 // Assign onclick events
 document.getElementById("create-group").onclick = function() {
@@ -94,28 +72,6 @@ for (let i = 0; i < removeButtons.length; i++) {
     }
 }
 
-
-// Render Source Groups Selection
-sourceGroupSelect.onchange = function() {
-    let  value = getSelectedValue(document.getElementById("source-groups-select"))
-    console.log(value)
-
-    // Render Selected ul Element
-    if (value === "rows") {
-        updateList(gm.sourceRows, sourceRowsList)
-
-        // Hide cols list and display rows list
-        sourceRowsList.hidden = false
-        sourceColsList.hidden = true
-    }
-    if (value === "cols") {
-        updateList(gm.sourceCols, sourceColsList)
-
-        // Hide rows list and display cols list
-        sourceRowsList.hidden = true
-        sourceColsList.hidden = false
-    }
-}
 
 // Assign onclick to modalWindow's 'Okay' button
 document.getElementById("modal-ok-button").onclick = function() {
@@ -182,47 +138,3 @@ if (!init_happened) {
     sourceGroupSelect.onchange()
     init_happened = true
 }
-
-
-
-// console.log("Source: ")
-// console.log(gm.sourceRows)
-// console.log("\n")
-
-// console.log("Create()")
-// gm.createRowGroup("test1")
-// gm.createRowGroup("test2")
-// gm.createRowGroup("test3")
-
-// console.log("User: ")
-// console.log(gm.userRowGroups)
-// console.log("\n")
-
-
-// console.log("Add()")
-// gm.addToRowGroups(["ali", "ahmet", "ibrahim"], "test2")
-
-// console.log("test2: ")
-// console.log(gm.userRowGroups["test2"])
-// console.log("Source: ")
-// console.log(gm.sourceRows)
-// console.log("\n")
-
-// console.log("Remove()")
-// gm.removeFromRowGroup(["ali", "ahmet"], "test2")
-
-// console.log("test2: ")
-// console.log(gm.userRowGroups["test2"])
-// console.log("Source: ")
-// console.log(gm.sourceRows)
-// console.log("\n")
-
-// console.log("Delete()")
-// gm.deleteRowGroup("test")
-// gm.deleteRowGroup("test2")
-
-// console.log("User: ")
-// console.log(gm.userRowGroups)
-// console.log("Source: ")
-// console.log(gm.sourceRows)
-// console.log("\n")
