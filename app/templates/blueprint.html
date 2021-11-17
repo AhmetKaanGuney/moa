@@ -79,14 +79,33 @@
 
         <!-- Select MENU -->
         <div class="col">
-            <select class="form-select mb-3" id="source-list-select">
-                <option value="rows" id="source-option-rows" selected>SOURCE ROWS</option>
-                <option value="cols" id="source-option-cols">SOURCE COLUMNS</option>
-            </select>
 
-            <!-- STATIC LISTS -->
-            <ul class="list-group" id="source-rows-list"></ul>
-            <ul class="list-group" id="source-cols-list" hidden></ul>
+            <!-- ROWS - COLUMNS TABS -->
+            <ul class="nav nav-tabs" id="source-tab">
+                <li class="nav-item">
+                    <button class="nav-link active" id="row-tab" data-bs-toggle="tab" data-bs-target="#source-rows-content" type="button">
+                        <strong>ROWS</strong></button>
+                </li>
+
+                <li class="nav-item">
+                    <button class="nav-link" style="margin-left: 0px;" id="col-tab" data-bs-toggle="tab" data-bs-target="#source-cols-content" type="button">
+                        <strong>COLUMS</strong>
+                    </button>
+                </li>
+            </ul>
+
+            <!-- TAB CONTENT -->
+            <div class="tab-content" id="source-tab-content">
+                <div class="tab-pane show active" id="source-rows-content">
+                    <!-- ROWS LIST -->
+                    <ul class="list-group" id="source-rows-list"></ul>
+                </div>
+                <div class="tab-pane" id="source-cols-content">
+                    <!-- COLS LIST -->
+                    <ul class="list-group" id="source-cols-list"></ul>
+                </div>
+            </div>
+
         </div>
 
         <!-- ADD/REMOVE BUTTONS -->

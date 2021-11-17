@@ -1,5 +1,8 @@
 :root {
-    --primary-green: rgb(30, 124, 52)
+    --primary-green: rgb(30, 124, 52);
+    --light-green: rgb(179, 216, 185);
+    --very-light-green: rgb(220, 243, 224);
+    --dark-green: rgb(60, 112, 72);
 
 }
 
@@ -12,6 +15,7 @@
 .main {
     background-color: white;
 }
+
 
 /* NAVBAR */
 .navbar {
@@ -28,6 +32,7 @@
     color: black;
 }
 
+
 /* BLUEPRINT */
 .list-group {
     overflow: auto;
@@ -35,24 +40,49 @@
 }
 
 .list-group-item:nth-of-type(odd) {
-    background-color: rgb(230, 230, 230);
+    background-color: var(--very-light-green);
+    /* background-color: rgb(230, 230, 230); */
 }
 
+.list-group-item:hover {
+    background-color: rgb(188, 189, 114);
+    transition: background 0.2s ease-in-out;
+}
 
-
-.modal-select {
+#col-tab {
+    border-left: 0px;
+}
+#row-tab, #col-tab {
+    /* background-color: var(--light-green); */
+    color: grey;
+    border-color: var(--light-green);
+    border-bottom: 2px;
     border-radius: 0.3em;
-    border-color: rgb(190, 190, 190);
+    /* margin: 0px 0px 0px; */
+    padding: 6px 36px 6px 12px;
+
+}
+
+#row-tab.active, #col-tab.active {
+    background-color: var(--light-green);
+    color: black;
 }
 
 .special-option {
-    background-color: rgb(210, 231, 214);
+    background-color: var(--light-green);
     font-weight: 500;
 }
 
 .file-name-display {
     font-size: large;
     font-weight: 500;
+}
+
+
+/* MODAL WINDOW */
+.modal-select {
+    border-radius: 0.3em;
+    border-color: rgb(190, 190, 190);
 }
 
 /* UPLOAD */

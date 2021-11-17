@@ -54,3 +54,9 @@ for (let i = 0; i < removeButtons.length; i++) {
         console.log("remove selected()")
     }
 }
+
+/* ADD onclick function to all list items
+    - check the itemType then
+    - do the add remove operation according to it. */
+
+updateElements()

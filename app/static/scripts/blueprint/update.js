@@ -9,7 +9,7 @@ function updateSourceLists() {
     */
 
     // Updates List Element
-    const updateListElement = function(items, parent) {
+    const updateListElement = function(items, parent, itemType) {
         // Reset parent
         while (parent.firstChild) {
             parent.removeChild(parent.firstChild);
@@ -21,32 +21,16 @@ function updateSourceLists() {
             let li = document.createElement("li");
             li.className = "list-group-item";
             li.textContent = itemName;
+            li.setAttribute("item-type", itemType);
             parent.appendChild(li);
         }
     };
 
-    // Get which option is selected ('rows' or 'cols')
-    let selectElement = document.getElementById("source-list-select");
-    let selection = selectElement[selectElement.selectedIndex].value;
-
     let sourceRowsList = document.getElementById("source-rows-list")
     let sourceColsList = document.getElementById("source-cols-list")
 
-    // Render selected option
-    if (selection === "rows") {
-        updateListElement(gm.sourceRows, sourceRowsList);
-
-        // Hide col list and display row list
-        sourceRowsList.hidden = false;
-        sourceColsList.hidden = true;
-    }
-    if (selection === "cols") {
-        updateListElement(gm.sourceCols, sourceColsList);
-
-        // Hide row list and display col list
-        sourceRowsList.hidden = true;
-        sourceColsList.hidden = false;
-    }
+    updateListElement(gm.sourceRows, sourceRowsList, "source-row");
+    updateListElement(gm.sourceCols, sourceColsList, "source-col");
 }
 
 function updateUserList() {
@@ -59,14 +43,19 @@ function updateUserList() {
 
     let groupItems = Array();
     let groupType = selected.getAttribute("group-type");
+
+    // itemType is for identifying when user clicks on list item
+    let itemType = "";
     // get selected groups type
     if (groupType === "row") {
         // if type is row-group
         groupItems = gm.getRowGroup(groupName);
+        itemType = "user-row";
     }
     else if (groupType === "col") {
         // if type is col-group
         groupItems = gm.getColGroup(groupName);
+        itemType = "user-col"
     }
 
     // remove all children of user list
