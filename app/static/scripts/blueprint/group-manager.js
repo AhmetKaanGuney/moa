@@ -68,41 +68,36 @@ class GroupManager {
         delete colGroups[name]
     }
 
-    addToRowGroups(items, group) {
+    addItemToRowGroup(item, group) {
         // console.log(this.userRowGroups["test2"])
-        for (let i = 0; i < items.length; i++) {
-            this.userRowGroups[group].push(items[i])
-            this.remove(items[i], this.sourceRows)
-        }
+        this.userRowGroups[group].push(item)
+        this.remove(item, this.sourceRows)
     }
 
-    addToColGroups(items, group) {
-        for (let i = 0; i < items.length; i++) {
-            this.userColGroups[group].push(items[i])
-            this.remove(items[i], this.sourceCols)
-        }
+    addItemToColGroup(item, group) {
+        this.userColGroups[group].push(item)
+        this.remove(item, this.sourceCols)
     }
 
-    removeFromRowGroup(items, group) {
+    removeItemFromRowGroup(item, group) {
         let g = this.userRowGroups[group]
-
-        for (let i = 0; i < items.length; i++) {
-            this.remove(items[i], g)
-            this.sourceRows.push(items[i])
-        }
+        this.remove(item, g)
+        this.sourceRows.push(item)
     }
 
-    removeFromColGroup(items, group) {
-        return
+    removeItemFromColGroup(item, group) {
+        let g = this.userColGroups[group];
+        this.remove(item, g)
+        this.sourceCols.push(item)
     }
 
-    renameRowGroup(newName, groupName) {
-        this.userRowGroups[newName] = this.getRowGroup(groupName)
+    renameRowGroup(newName, oldName) {
+        this.userRowGroups[newName] = this.getRowGroup(oldName)
         delete this.getRowGroup
     }
 
-    renameColGroup(newName, groupName) {
-        this.userColGroups[newName] = this.getColGroup(groupName)
+    renameColGroup(newName, oldName) {
+        this.userColGroups[newName] = this.getColGroup(oldName)
         delete this.getColGroup
     }
 
