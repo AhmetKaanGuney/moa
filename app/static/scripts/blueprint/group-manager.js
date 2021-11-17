@@ -36,7 +36,7 @@ class GroupManager {
             return null
         }
         else {
-            this.userRowGroups[name] = Array()
+            this.userColGroups[name] = Array()
         }
     }
 

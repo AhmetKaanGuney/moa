@@ -9,6 +9,7 @@
     </script>
     <script defer type="module" src="../static/scripts/blueprint/globals.js"></script>
     <script defer type="module" src="../static/scripts/blueprint/update.js"></script>
+    <script defer type="module" src="../static/scripts/blueprint/modalWindow.js"></script>
     <script defer type="module" src="../static/scripts/blueprint/events.js"></script>
 {% endblock %}
 
@@ -108,15 +109,10 @@
         <!-- GROUPS SELECTION DROPDOWN -->
         <div class="col">
             <select class="form-select mb-3" id="user-group-select">
-                <option selected hidden class="disabled-option">USER GROUPS</option>
-                <option value="none" class="disabled-option" disabled>ROWS</option>
-                <!-- <option value="one">1</option>
-                <option value="two">2</option>
-                <option value="three">3</option> -->
-                <option value="none" class="disabled-option" disabled>COLUMNS</option>
-                <!-- <option value="one">1</option>
-                <option value="two">2</option>
-                <option value="three">3</option> -->
+                <option selected hidden>USER GROUPS</option>
+                <option class="special-option" id="group-select-option-row" disabled>ROWS</option>
+                <hr>
+                <option class="special-option" id="group-select-option-col" disabled>COLUMNS</option>
             </select>
 
             <!-- USER'S LIST -->

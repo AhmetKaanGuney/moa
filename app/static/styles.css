@@ -13,10 +13,20 @@
     background-color: white;
 }
 
+/* NAVBAR */
 .navbar {
     background-color: var(--primary-green);
 }
 
+.nav {
+    background-color: white;
+    border-bottom: 2em;
+    border-color: black;
+}
+
+.nav-link {
+    color: black;
+}
 
 /* BLUEPRINT */
 .list-group {
@@ -28,18 +38,16 @@
     background-color: rgb(230, 230, 230);
 }
 
-#file-upload-form-box {
-    border-radius: 0.5em;
+
+
+.modal-select {
+    border-radius: 0.3em;
+    border-color: rgb(190, 190, 190);
 }
 
-.nav-link {
-    color: black;
-}
-
-.nav {
-    background-color: white;
-    border-bottom: 2em;
-    border-color: black;
+.special-option {
+    background-color: rgb(210, 231, 214);
+    font-weight: 500;
 }
 
 .file-name-display {
@@ -47,9 +55,9 @@
     font-weight: 500;
 }
 
-.modal-select {
-    border-radius: 0.3em;
-    border-color: rgb(190, 190, 190);
+/* UPLOAD */
+#file-upload-form-box {
+    border-radius: 0.5em;
 }
 
 .debug-bg {

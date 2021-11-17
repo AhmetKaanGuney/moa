@@ -1,14 +1,12 @@
-import { gm } from "./globals.js"
+import { gm } from "./globals.js";
 
 function updateSourceLists() {
-    /**
-     * Updates these Elements according to Group Manager object ('gm'):
-     *      - source row and col lists
-     */
-
-    // --------------- //
-    // ---- TOOLS ---- //
-    // --------------- //
+    /*
+     * Updates these source row and column lists according to
+     * gm.sourceRows, gm.sourceCols
+     * gm is GroupManager object constructed with blueprint
+     * that comes from server
+    */
 
     // Updates List Element
     const updateListElement = function(items, parent) {
@@ -30,6 +28,9 @@ function updateSourceLists() {
     // Get which option is selected ('rows' or 'cols')
     let selectElement = document.getElementById("source-list-select");
     let selection = selectElement[selectElement.selectedIndex].value;
+
+    let sourceRowsList = document.getElementById("source-rows-list")
+    let sourceColsList = document.getElementById("source-cols-list")
 
     // Render selected option
     if (selection === "rows") {
@@ -57,7 +58,7 @@ function updateUserList() {
     let groupName = selected.value;
 
     let groupItems = Array();
-    let groupType = selected.getAttribute("group-type")
+    let groupType = selected.getAttribute("group-type");
     // get selected groups type
     if (groupType === "row") {
         // if type is row-group
@@ -90,28 +91,54 @@ function updateUserList() {
 
 function updateGroupSelect() {
 
-    // get all the userRowGroup names
-    let rowGroupNames = Object.keys(gm.userRowGroups)
+    // get all the user group names
+    let rowGroupNames = Object.keys(gm.userRowGroups);
+    let colGroupNames = Object.keys(gm.userColGroups);
 
-    // remove childeren of select except options that
-    //                        has attribute permanent
+    // get select
+    let groupSelect = document.getElementById("user-group-select");
 
-    // TODO ITERATE PROPERLY THROUGH OPTION
-    let groupSelect = document.getElementById("user-group-select")
-    for (let i = 0; i < groupSelect.length; i++) {
-        console.log(groupSelect[i])
+    // clone options that are indicators
+    let rowClone = document.getElementById("group-select-option-row").cloneNode(true);
+    let colClone = document.getElementById("group-select-option-col").cloneNode(true);
+
+    // remove childeren of select
+    while (groupSelect.firstChild) {
+        groupSelect.removeChild(groupSelect.firstChild);
     }
 
-    // generate new options
-    // skip ROW option
-    // append AFTER option ROW
+    // add ROWS option first
+    groupSelect.appendChild(rowClone);
 
-    // get all the userColGroup names
+    // generate new options and append
+    for (let i = 0; i < rowGroupNames.length; i++) {
+        let itemName = rowGroupNames[i];
 
-    // generate new options
-    // append AFTER option COL meaning last
+        let opt = document.createElement("option");
+        opt.value = opt.textContent = itemName;
+        opt.setAttribute("group-type", "row");
 
-    // option.setAttribute("group-type", groupType);
-    return;
+        groupSelect.appendChild(opt);
+    }
+
+    // append COLUMNS option
+    groupSelect.appendChild(colClone);
+
+    // generate new options and append
+    for (let i = 0; i < colGroupNames.length; i++) {
+        let itemName = colGroupNames[i];
+
+        let opt = document.createElement("option");
+        opt.value = opt.textContent = itemName;
+        opt.setAttribute("group-type", "col");
+
+        groupSelect.appendChild(opt);
+    }
 }
 
+export function updateElements() {
+    updateSourceLists()
+    updateUserList()
+
+    updateGroupSelect()
+};
