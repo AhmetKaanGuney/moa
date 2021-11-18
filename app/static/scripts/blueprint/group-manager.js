@@ -93,18 +93,18 @@ class GroupManager {
 
     renameRowGroup(newName, oldName) {
         this.userRowGroups[newName] = this.getRowGroup(oldName)
-        delete this.getRowGroup
+        delete this.userRowGroups[oldName]
     }
 
     renameColGroup(newName, oldName) {
         this.userColGroups[newName] = this.getColGroup(oldName)
-        delete this.getColGroup
+        delete this.userColGroups[oldName]
     }
 
     remove(item, list) {
         for (let i = 0; i < list.length; i++) {
             if (list[i] === item) {
-                list.splice(i, 1)
+                list.splice(i, 1);
             }
         }
     }

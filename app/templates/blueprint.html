@@ -11,6 +11,7 @@
     <script defer type="module" src="../static/scripts/blueprint/update.js"></script>
     <script defer type="module" src="../static/scripts/blueprint/modalWindow.js"></script>
     <script defer type="module" src="../static/scripts/blueprint/events.js"></script>
+    <script defer type="module" src="../static/scripts/blueprint/initialize.js"></script>
 {% endblock %}
 
 {% block main %}
@@ -64,12 +65,9 @@
                     <li><button class="dropdown-item" id="create-group">Create Group</button></li>
                     <li><button class="dropdown-item" id="delete-group">Delete Group</button></li>
                     <li><button class="dropdown-item" id="rename-group">Rename Group</button></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><button class="dropdown-item" name="add-selected">Add Selected</button></li>
-                    <li><button class="dropdown-item" name="remove-selected">Remove Selected</button></li>
                 </ul>
             </li>
-            <li class="navbar-brand ms-auto file-name-display mb-0 pb-0">file_name.xls</li>
+            <li class="navbar-brand ms-auto filename-display mb-0 pb-0" id="filename-display">file_name.xls</li>
         </ul>
     </div>
 
@@ -108,27 +106,10 @@
 
         </div>
 
-        <!-- ADD/REMOVE BUTTONS -->
-        <!-- <div class="col-md-1">
-            <div class="row pt-5"></div>
-
-            <div class="row pt-5 mt-5">
-                <button class="btn btn-success" name="add-selected">
-                >>>
-                </button>
-            </div>
-
-            <div class="row pt-2">
-                <button class="btn btn-success" name="remove-selected">
-                <<<
-                </button>
-            </div>
-        </div> -->
-
         <!-- GROUPS SELECTION DROPDOWN -->
         <div class="col">
             <select class="form-select mb-3" id="user-group-select">
-                <option selected hidden>USER GROUPS</option>
+                <option id="group-select-option-default" selected hidden>USER GROUPS</option>
                 <option class="special-option" id="group-select-option-row" disabled>ROWS</option>
                 <hr>
                 <option class="special-option" id="group-select-option-col" disabled>COLUMNS</option>

@@ -73,9 +73,10 @@
     font-weight: 500;
 }
 
-.file-name-display {
+.filename-display {
     font-size: large;
     font-weight: 500;
+    color: grey;
 }
 
 

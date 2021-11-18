@@ -1,5 +1,5 @@
 import { gm } from "./globals.js";
-import { updateElements } from "./update.js";
+import { updateGroupSelect, updateLists } from "./update.js";
 
 // Modal Window Object
 var modalWindow = new bootstrap.Modal(document.getElementById("modal"));
@@ -16,48 +16,62 @@ const modifyModal = function(title, placeholderText, buttonAction) {
 
     // Assign action attribute to button
     document.getElementById("modal-ok-button").setAttribute("action", buttonAction);
+
+    if (buttonAction === "create") {
+        document.getElementById("modal-group-type-select").hidden = false;
+    } else if (buttonAction === "rename") {
+        document.getElementById("modal-group-type-select").hidden = true;
+    }
 }
 
-
 // Assign onclick to modalWindow's 'Okay' button
+
 document.getElementById("modal-ok-button").onclick = function() {
     let action = document.getElementById("modal-ok-button").getAttribute("action");
     console.log("Action type %s", action);
 
-    // Get selected option element
-    let select = document.getElementById("user-group-select");
-    let selected = select.options[select.selectedIndex];
+    let inputValue = document.getElementById("modal-input").value;
 
+    // CREATE ACTION
     if (action === "create") {
-        let inputValue = document.getElementById("modal-input").value;
+        let groupName = inputValue;
 
+        // Get group type from modal selectbox
+        let modalSelect = document.getElementById("modal-group-type-select");
+        let modalSelectedGroupType = modalSelect.options[modalSelect.selectedIndex].value;
 
-        let groupType = selected.getAttribute("group-type");
+        if (modalSelectedGroupType === "row") {
+            gm.createRowGroup(groupName);
+            updateGroupSelect(groupName, modalSelectedGroupType);
 
-        if (groupType === "row") {
-            gm.createRowGroup(inputValue);
-        }
-
-        else if (groupType === "col") {
-            gm.createColGroup(inputValue);
+        } else if (modalSelectedGroupType === "col") {
+            gm.createColGroup(groupName);
+            updateGroupSelect(groupName, modalSelectedGroupType);
         }
     }
+    // RENAME ACTION
+    else if (action === "rename") {
+        let newName = inputValue;
 
-    if (action === "rename") {
-        let selectedGroupName = selected.value;
+        // Get user group selection from Group Select Dropdbox
+        let sel = document.getElementById("user-group-select");
+        let selectedGroup = sel.options[sel.selectedIndex];
+        let selectedGroupType = selectedGroup.getAttribute("group-type");
+        let selectedGroupName = sel.options[sel.selectedIndex].value;
 
         // inputValue is new group name
-        if (groupType === "row") {
-            gm.renameRowGroup(inputValue, selectedGroupName);
-        }
-        else if (groupType === "col") {
-            gm.renameColGroup(inputValue, selectedGroupName);
+        if (selectedGroupType === "row") {
+            gm.renameRowGroup(newName, selectedGroupName);
+            updateGroupSelect(newName, selectedGroupType);
+
+        } else if (selectedGroupType === "col") {
+            gm.renameColGroup(newName, selectedGroupName);
+            updateGroupSelect(newName, selectedGroupType);
         }
     }
     modalWindow.hide()
-    updateElements()
-
     console.log(gm)
+    updateLists()
 }
 
 

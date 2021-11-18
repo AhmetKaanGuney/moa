@@ -1,6 +1,10 @@
 {% extends "layout.html" %}
 {% block title %}Upload{% endblock %}
 
+{% block script %}
+<script defer type="text/javascript" src="../static/scripts/upload/upload.js"></script>
+{% endblock %}
+
 {% block main %}
 <!-- UPLOAD SECTION -->
 <div class="row pt-5 pb-3">
@@ -27,15 +31,15 @@
     <div class="col border border-1 border text-center" id="file-upload-form-box">
         <form action="/upload.html" method="post" enctype="multipart/form-data"  class="pt-2 pb-3">
             <div>
-                <!-- <label for="file_input" style="font-size: x-large;" class="mb-3">Upload a File (.xls, .xlsx, .csv)</label> -->
-                <input type="file" class="form-control form-control-lg" id="file_input" name="file_input" accept=".xls,.xlsx,.csv,.txt,.json">
+                <!-- <label for="file-input" style="font-size: x-large;" class="mb-3">Upload a File (.xls, .xlsx, .csv)</label> -->
+                <input type="file" class="form-control form-control-lg" id="file-input" name="file-input" accept=".xls,.xlsx,.csv,.txt,.json">
                     <p>
                         <span style="color: red; font-size: larger;">
                         Flash error messages
                         </span>
                     </p>
                 </div>
-            <button type="submit" class="btn btn-outline-success btn-lg">Submit</button>
+            <button type="submit" class="btn btn-outline-success btn-lg" id="submit-button">Submit</button>
         </form>
     </div>
 
