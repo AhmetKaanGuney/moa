@@ -5,30 +5,25 @@ import { updateLists, updateGroupSelect } from "./update.js";
 /* Assign functions to button and call updateElements() on every button click */
 
 // --------------------------- //
-// --------- BUTTONS --------- //
+// ------- FUNCTIONS --------- //
 // --------------------------- //
+function createGroup() {
+    console.log("create group()");
 
-// CREATE GROUP BUTTON
-document.getElementById("create-group").onclick = function() {
-    console.log("create group()")
-
-    modifyModal("Create Group", "Group Name", "create")
-    modalWindow.show()
+    modifyModal("Create Group", "Group Name", "create");
+    modalWindow.show();
     document.getElementById("modal-input").focus();
 }
 
-// RENAME GROUP BUTTON
-document.getElementById("rename-group").onclick = function() {
-    console.log("rename group()")
+function renameGroup() {
+    console.log("rename group()");
 
-    modifyModal("Rename Group", "New Group Name", "rename")
-    modalWindow.show()
+    modifyModal("Rename Group", "New Group Name", "rename");
+    modalWindow.show();
     document.getElementById("modal-input").focus();
-
 }
 
-// DELETE GROUP BUTTON
-document.getElementById("delete-group").onclick = function() {
+function deleteGroup() {
     console.log("delete group");
     // Get selected group
     let select = document.getElementById("user-group-select");
@@ -47,8 +42,41 @@ document.getElementById("delete-group").onclick = function() {
     updateGroupSelect(null, null, true);
     updateLists();
 }
+// --------------------------- //
+// --------- BUTTONS --------- //
+// --------------------------- //
+// CREATE GROUP
+document.getElementById("create-group").onclick = createGroup;
+
+// RENAME GROUP BUTTON
+document.getElementById("rename-group").onclick = function() {renameGroup();};
+
+
+// DELETE GROUP BUTTON
+document.getElementById("delete-group").onclick = function() {deleteGroup();};
 
 // ON GROUP SELECTION CHANGE
 document.getElementById("user-group-select").onchange = function() {
+
+    // Get selected group option
+    let select = document.getElementById("user-group-select");
+    let selectedGroup = select.options[select.selectedIndex];
+
+    if (selectedGroup.hasAttribute("group-type") === false) return;
+
+    let selectedGroupType = selectedGroup.getAttribute("group-type");
+
+    let tabButton = {};
+    if (selectedGroupType === "row") {
+        // tab = ROWS
+        tabButton = document.getElementById("row-tab");
+    } else if (selectedGroupType === "col"){
+        // tab = COLS
+        tabButton = document.getElementById("col-tab");
+    }
+    // toggle tab
+    tabButton.click();
     updateLists();
 }
+
+export { createGroup, deleteGroup, renameGroup }

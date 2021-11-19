@@ -30,7 +30,8 @@
                     <input class="form-control" type="text" id="modal-input">
                     <select class="form-select-sm mt-2 modal-select" id="modal-group-type-select">
                         <option value="row" selected>Row</option>
-                        <option value="col" >Col</option>
+                        <option value="col" >Column</option>
+                        <option value="both" >Both</option>
                     </select>
                 </div>
 
@@ -48,13 +49,12 @@
         <ul class="nav">
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
-                    File
+                    Download
                 </a>
                 <ul class="dropdown-menu shadow-lg">
-                    <li><a href="#" class="dropdown-item">File Action 1</a></li>
-                    <li><a href="#" class="dropdown-item">File Action 2</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a href="#" class="dropdown-item">File Action 3</a></li>
+                    <li><button class="dropdown-item" id="download-xlsx-button">Microsoft Excel (.xlsx)</button></li>
+                    <li><button class="dropdown-item" id="download-xls-button">Microsoft Excel (.xls)</button></li>
+                    <li><button class="dropdown-item" id="download-csv-button">Comma Seperated Values (.csv)</button></li>
                 </ul>
             </li>
             <li class="nav-item dropdown">
@@ -67,11 +67,12 @@
                     <li><button class="dropdown-item" id="rename-group">Rename Group</button></li>
                 </ul>
             </li>
-            <li class="navbar-brand ms-auto filename-display mb-0 pb-0" id="filename-display">file_name.xls</li>
+            <li class="navbar-brand ms-auto filename-display" id="filename-display">file-name.xls</li>
         </ul>
     </div>
 
-    <hr class="mb-2" style="margin-top: 0%;">
+    <!-- HORIZONTAL SEPERATOR -->
+    <hr class="mb-2 seperator-line">
 
     <div class="row container">
 
@@ -79,21 +80,21 @@
         <div class="col">
 
             <!-- ROWS - COLUMNS TABS -->
-            <ul class="nav nav-tabs" id="source-tab">
+            <ul class="nav nav-tabs" id="source-tab"">
                 <li class="nav-item">
                     <button class="nav-link active" id="row-tab" data-bs-toggle="tab" data-bs-target="#source-rows-content" type="button">
-                        <strong>ROWS</strong></button>
+                        ROWS</button>
                 </li>
 
                 <li class="nav-item">
                     <button class="nav-link" style="margin-left: 0px;" id="col-tab" data-bs-toggle="tab" data-bs-target="#source-cols-content" type="button">
-                        <strong>COLUMS</strong>
+                        COLUMS
                     </button>
                 </li>
             </ul>
 
             <!-- TAB CONTENT -->
-            <div class="tab-content" id="source-tab-content">
+            <div class="tab-content shadow" id="source-tab-content">
                 <div class="tab-pane show active" id="source-rows-content">
                     <!-- ROWS LIST -->
                     <ul class="list-group" id="source-rows-list"></ul>
@@ -108,7 +109,7 @@
 
         <!-- GROUPS SELECTION DROPDOWN -->
         <div class="col">
-            <select class="form-select mb-3" id="user-group-select">
+            <select class="form-select shadow-sm" id="user-group-select">
                 <option id="group-select-option-default" selected hidden>USER GROUPS</option>
                 <option class="special-option" id="group-select-option-row" disabled>ROWS</option>
                 <hr>
@@ -116,7 +117,7 @@
             </select>
 
             <!-- USER'S LIST -->
-            <ul class="list-group" id="user-list"></ul>
+            <ul class="list-group list shadow" id="user-list"></ul>
         </div>
 
     </div>

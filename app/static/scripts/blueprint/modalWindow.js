@@ -31,6 +31,7 @@ document.getElementById("modal-ok-button").onclick = function() {
     console.log("Action type %s", action);
 
     let inputValue = document.getElementById("modal-input").value;
+    if (inputValue === "") return;
 
     // CREATE ACTION
     if (action === "create") {
@@ -42,11 +43,16 @@ document.getElementById("modal-ok-button").onclick = function() {
 
         if (modalSelectedGroupType === "row") {
             gm.createRowGroup(groupName);
-            updateGroupSelect(groupName, modalSelectedGroupType);
+            updateGroupSelect(groupName, "row");
 
         } else if (modalSelectedGroupType === "col") {
             gm.createColGroup(groupName);
-            updateGroupSelect(groupName, modalSelectedGroupType);
+            updateGroupSelect(groupName, "col");
+
+        } else if (modalSelectedGroupType === "both") {
+            gm.createRowGroup(groupName);
+            gm.createColGroup(groupName);
+            updateGroupSelect(groupName, "row");
         }
     }
     // RENAME ACTION
@@ -69,9 +75,12 @@ document.getElementById("modal-ok-button").onclick = function() {
             updateGroupSelect(newName, selectedGroupType);
         }
     }
-    modalWindow.hide()
-    console.log(gm)
-    updateLists()
+    modalWindow.hide();
+    console.log(gm);
+
+    // Trigger onchange so that the right tab will automatically gets selected
+    document.getElementById("user-group-select").onchange();
+    updateLists();
 }
 
 

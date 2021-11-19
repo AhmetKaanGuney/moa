@@ -15,6 +15,7 @@
         <nav class="navbar navbar-dark pt-0">
             <div class="container">
                 <a href="/" class="navbar-brand pb-0 mb-0">
+                    <img class="pb-1" src="../static/images/favicon.ico" alt="MOA Logo" height="24px">
                     <span>M</span>
                     <span>O</span>
                     <span>A</span>
@@ -24,8 +25,7 @@
 
         <main class="container main">
             {% block main %}{% endblock %}
-
-            <div class="container mt-5 mb-5 border">
+            <!-- <div class="container mt-5 mb-5 border">
                 <h5>DEBUG</h6>
                 <h6>Session Info</h3>
                 {% block session %}
@@ -33,9 +33,7 @@
                     <p>{{k}} : {{v}}</p>
                     {% endfor %}
                 {% endblock %}
-            </div>
-
+            </div> -->
         </main>
     </body>
-    <footer class="footer"></footer>
 </html>
