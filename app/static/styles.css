@@ -22,12 +22,9 @@
 
     --border-thickness: 0px;
     --border-radius: 0.3em;
-    --border-color: rgba(0, 0, 0, 0.288);
+    --border-color: #002b239f;
 
     --heavy-font: 600;
-}
-html {
-    height: 100%;
 }
 
 .body {
@@ -74,10 +71,9 @@ html {
 /* TAB BUTTONS */
 #row-tab, #col-tab {
     color: rgba(255, 255, 255, 0.788);
-    background-color: #6cafa8;
+    background-color: #86bbb6;
 
-    border-style: solid;
-    border: var(--border-thickness) solid rgba(255, 255, 255, 0.445);
+    border: 1px #003f3471 solid;
 
     font-weight: var(--heavy-font);
 
@@ -113,10 +109,13 @@ html {
 .list-group {
     overflow: auto;
     max-height: 36em;
+    border: 1px var(--border-color) solid;
+    border-top: 0px;
+    box-shadow: 0px 20px 50px 0px rgba(0, 0, 0, 0.418);
 }
 
 .list-group-item {
-    border-color: var(--border-color);
+    border: 1px var(--border-color) solid;
 }
 
 .list-group-item:nth-of-type(odd) {
@@ -158,9 +157,56 @@ html {
 
 /* UPLOAD */
 #file-upload-form-box {
-    border-radius: 0.5em;
+    border: 1px var(--very-light-teal) solid;
+    border-radius: var(--border-radius);
+
+    background-color: rgba(red, green, blue, 0.8);
+    box-shadow: 0px 20px 50px 0px rgba(0, 0, 0, 0.418);
+
 }
 
+#submit-button {
+    background-color: var(--dark-teal);
+    color: white;
+}
+
+#submit-button:hover {
+    background-color: var(--hover-color);
+    color: black;
+}
+
+#submit-button:active {
+    background-color: #A7FFEB;
+    box-shadow: 0 5px rgba(0, 0, 0, 0.329);
+    transform: translateY(4px);
+}
+
+.error-message-box {
+    background-color: #dd2c00b0;
+    border-radius: 0.3em;
+    margin-top: 3px;
+}
+
+.error-message {
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+}
+
+.card-box {
+    background-image: linear-gradient(to top, rgba(38, 166, 153, 0.3), rgba(178, 223, 219, 0.3));
+    color: var(--very-light-teal);
+    border: 1px white solid;
+    border-radius: var(--border-radius);
+    box-shadow: 0px 20px 50px 0px rgba(0, 0, 0, 0.418);
+    height: 100%;
+}
+
+
+.step-title {
+    color: var(--very-light-teal);
+    text-align: center;
+}
 .debug-bg {
     background-color: rgb(199, 126, 126);
 }

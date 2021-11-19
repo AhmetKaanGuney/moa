@@ -2,9 +2,11 @@ import { gm } from "./globals.js";
 import { updateLists } from "./update.js";
 import { createGroup, deleteGroup, renameGroup } from "./events.js";
 
-var initialized = false;
+let initialized = false;
 
 if (initialized == false) {
+    let html = document.getElementById("top-html");
+    html.style = "height: 100%";
 
     updateLists()
 

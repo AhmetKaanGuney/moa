@@ -3,6 +3,7 @@
 
 {% block script %}
 <script defer type="text/javascript" src="../static/scripts/upload/upload.js"></script>
+<!-- <script defer type="text/javascript" src="../static/scripts/upload/initialize.js"></script> -->
 {% endblock %}
 
 {% block main %}
@@ -13,8 +14,7 @@
 
     <!-- MID COLUMN -->
     <div class="col-sm-4">
-        <h1 style="text-align: center;">Do these thing with your matrix.<br>And more...</h1>
-        <!-- <img src="../static/upload_black_24dp.svg" alt=""> -->
+        <h1 style="text-align: center;">Do these things with your matrix.<br>And more...</h1>
     </div>
 
     <!-- RIGHT COLUMN -->
@@ -31,15 +31,17 @@
     <div class="col border border-1 border text-center" id="file-upload-form-box">
         <form action="/upload.html" method="post" enctype="multipart/form-data"  class="pt-2 pb-3">
             <div>
-                <!-- <label for="file-input" style="font-size: x-large;" class="mb-3">Upload a File (.xls, .xlsx, .csv)</label> -->
-                <input type="file" class="form-control form-control-lg" id="file-input" name="file-input" accept=".xls,.xlsx,.csv,.txt,.json">
-                    <p>
-                        <span style="color: red; font-size: larger;">
-                        Flash error messages
-                        </span>
-                    </p>
+                <input type="file" class="form-control form-control-lg" id="file-input" name="file-input" accept=".xls,.xlsx,.csv" style="">
+
+                <!-- Error Box -->
+                    <div hidden class="error-message-box container">
+                        <p class="error-message pb-2 pt-2">
+                            Flash error messages here.
+                        </p>
+                    </div>
+
                 </div>
-            <button type="submit" class="btn btn-outline-success btn-lg" id="submit-button">Submit</button>
+            <button type="submit" class="btn btn-lg mt-2" id="submit-button">Submit</button>
         </form>
     </div>
 
@@ -47,8 +49,13 @@
     <div class="col-sm-2"></div>
 </div>
 
+<!-- MIDDLE TITLE -->
 <div class="container mt-5 mb-5 text-center">
-    <h4>STEP BY STEP</h4>
+    <h2 style="color: white;">How It Works</h2>
+    <!-- Seperator -->
+    <div class="row mb-0 pb-0" style="justify-content: center;">
+        <hr class="seperator-line col-10" style="color: white;">
+    </div>
 </div>
 
 <div class="row">
@@ -56,24 +63,69 @@
     <div class="col-sm-2 "></div>
     <!-- BOX 1 -->
     <div class="col">
-        <div class="container debug-bg">
-            <h5>STEP 1</h5>
-            <img src="../static/upload_black_24dp.svg" alt="" height="150px">
-            <p>Description for step one. It can be a bit long. asdasdşlkaskdşalksdlaksdşlkasşdlkasdlk.</p>
+        <div class="container card-box">
+            <h3 class="step-title">STEP 1</h3>
+
+            <hr class="mt-1 " style="border: 1px white solid;">
+
+            <h5>Upload a File</h5>
+            <!-- <img src="../static/upload_black_24dp.svg" alt="" height="150px"> -->
+            <p>Supported file formats are:</p>
+            <ul class="mt-0 pt-0">
+                <li>Microsoft Excel (.xlsx)</li>
+                <li>Microsoft Excel (.xls)</li>
+                <li>Comma Seperated Values (.csv)</li>
+            </ul>
         </div>
     </div>
+
     <!-- BOX 2 -->
     <div class="col">
-        <div class="container debug-bg-2">
-            <h5>STEP 2</h5>
-            <img src="../static/upload_black_24dp.svg" alt="" height="150px">
-            <p>Description for step one. It can be a bit long. asdasdşlkaskdşalksdlaksdşlkasşdlkasdlk.</p>
+        <div class="container card-box">
+            <h3 class="step-title">STEP 2</h3>
+
+            <hr class="mt-1 " style="border: 1px white solid;">
+
+            <h5>Group Rows and Columns</h5>
+            <!-- <img src="../static/upload_black_24dp.svg" alt="" height="150px"> -->
+            <ul class="mt-0 pt-0">
+                <li>Create groups</li>
+                <li>Give them a names</li>
+                <li>Put your rows and cols <br>in the groups you created</li>
+            </ul>
         </div>
     </div>
     <!-- RIGHT SPACE -->
     <div class="col-sm-2"></div>
 </div>
 
+<div class="row mt-3">
+    <!-- LEFT SPACE -->
+    <div class="col-sm-2 "></div>
+    <!-- BOX 3 -->
+    <div class="col">
+        <div class="container card-box">
+            <h3 class="step-title">STEP 3</h3>
+
+            <hr class="mt-1 " style="border: 1px white solid;">
+
+            <h5>Download</h5>
+            <!-- <img src="../static/upload_black_24dp.svg" alt="" height="150px"> -->
+            <p>
+                After you are done with grouping your matrix, hit the download.
+            </p>
+            <p>You can export the matrix in there file formats :</p>
+            <ul>
+                <li>Microsoft Excel (.xlsx)</li>
+                <li>Microsoft Excel (.xls)</li>
+                <li>Comma Seperated Values (.csv)</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- BOX 4 -->
+    <!-- RIGHT SPACE -->
+    <div class="col-sm-2"></div>
+</div>
+
 {% endblock %}
-
-
