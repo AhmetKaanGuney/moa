@@ -15,11 +15,11 @@ if (initialized == false) {
     // let filename = filepath[filepath.length - 1];
     // document.getElementById("filename-display").textContent = filename;
     let length = gm.sourceRows.length;
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < length; i++) {
         let li = document.createElement("li");
         li.className = "list-group-item";
-        li.textContent = i;
-        // li.style = "color: rgba(0, 0, 0, 0)";
+        li.textContent = "empty";
+        li.style = "color: rgba(0, 0, 0, 0)";
         document.getElementById("user-list").appendChild(li);
     }
 

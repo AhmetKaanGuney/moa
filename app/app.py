@@ -27,7 +27,7 @@ app.config.from_pyfile("config.py")
 
 @app.route("/", methods=["GET"])
 def homepage():
-    return redirect("blueprint.html")
+    return redirect("upload.html")
 
 
 @app.route("/upload.html", methods=["GET", "POST"])

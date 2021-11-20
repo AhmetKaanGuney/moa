@@ -160,10 +160,37 @@
     border: 1px var(--very-light-teal) solid;
     border-radius: var(--border-radius);
 
-    background-color: rgba(red, green, blue, 0.8);
+    background-color: rgba(red, green, blue, 0.5);
     box-shadow: 0px 20px 50px 0px rgba(0, 0, 0, 0.418);
-
 }
+
+.large-font {
+    font-size: larger;
+}
+
+/* .col-r {
+
+} */
+
+.matrix-input-label {
+    padding-top: 5px;
+    margin: 0px;
+    color: white;
+    text-shadow: 0px 2px var(--very-dark-teal);
+    float: left;
+    font-size: larger;
+    font-weight: var(--heavy-font);
+    max-width: 6em;
+}
+
+.matrix-input {
+    max-width: 4.5em;
+    font-size: medium;
+    font-weight: var(--heavy-font);
+    text-transform: uppercase;
+}
+
+
 
 #submit-button {
     background-color: var(--dark-teal);
@@ -184,7 +211,8 @@
 .error-message-box {
     background-color: #dd2c00b0;
     border-radius: 0.3em;
-    margin-top: 3px;
+    margin: 10px 0px 0px 0px;
+    padding: 0px 0px;
 }
 
 .error-message {

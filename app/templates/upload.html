@@ -3,7 +3,6 @@
 
 {% block script %}
 <script defer type="text/javascript" src="../static/scripts/upload/upload.js"></script>
-<!-- <script defer type="text/javascript" src="../static/scripts/upload/initialize.js"></script> -->
 {% endblock %}
 
 {% block main %}
@@ -31,17 +30,35 @@
     <div class="col border border-1 border text-center" id="file-upload-form-box">
         <form action="/upload.html" method="post" enctype="multipart/form-data"  class="pt-2 pb-3">
             <div>
-                <input type="file" class="form-control form-control-lg" id="file-input" name="file-input" accept=".xls,.xlsx,.csv" style="">
+                <!-- File Input -->
+                <input type="file" class="form-control form-control-lg" id="file-input" name="file-input" accept=".xls,.xlsx,.csv">
+                <div class="row mt-3 justify-content-center">
+                    <!-- First Row -->
+                    <label for="first-row" class="col form-label matrix-input-label">First Row:</label>
+                    <input id="first-row" class="col form-control matrix-input" type="number" min=0>
+                    <!-- Last Row -->
+                    <label for="last-row" class="col form-label matrix-input-label">Last Row:</label>
+                    <input id="last-row" class="col form-control matrix-input" type="number" min=0>
+                </div>
+                <div class="row mt-3 justify-content-center">
+                    <!-- First Col -->
+                    <label for="first-col" class="col form-label matrix-input-label">First Col:</label>
+                    <input id="first-col" class="col form-control matrix-input" type="text" min=0>
+                    <!-- Last Col -->
+                    <label for="last-col" class="col form-label matrix-input-label">Last Col:</label>
+                    <input id="last-col" class="col form-control matrix-input" type="text" min=0>
+                </div>
+
 
                 <!-- Error Box -->
-                    <div hidden class="error-message-box container">
+                    <div hidden class="error-message-box">
                         <p class="error-message pb-2 pt-2">
                             Flash error messages here.
                         </p>
                     </div>
+            </div>
 
-                </div>
-            <button type="submit" class="btn btn-lg mt-2" id="submit-button">Submit</button>
+            <button type="submit" class="btn btn-lg mt-3 justify-content-center" id="submit-button">Submit</button>
         </form>
     </div>
 
@@ -69,7 +86,6 @@
             <hr class="mt-1 " style="border: 1px white solid;">
 
             <h5>Upload a File</h5>
-            <!-- <img src="../static/upload_black_24dp.svg" alt="" height="150px"> -->
             <p>Supported file formats are:</p>
             <ul class="mt-0 pt-0">
                 <li>Microsoft Excel (.xlsx)</li>
@@ -121,6 +137,21 @@
                 <li>Comma Seperated Values (.csv)</li>
             </ul>
         </div>
+    </div>
+
+    <!-- BOX 4 -->
+        <div class="col">
+        <div class="container card-box">
+            <h3 class="step-title">STEP 4</h3>
+
+            <hr class="mt-1 " style="border: 1px white solid;">
+
+            <h5>Enter matrix coordinates</h5>
+            <!-- <img src="../static/upload_black_24dp.svg" alt="" height="150px"> -->
+            <p>
+                Enter matrix coordinates.
+            </p>
+           </div>
     </div>
 
     <!-- BOX 4 -->
