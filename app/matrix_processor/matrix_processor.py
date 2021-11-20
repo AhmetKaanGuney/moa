@@ -4,10 +4,8 @@ import json
 import sqlite3
 
 from .converters import XlsFile, json_to_matrix
-from .matrix import matrix_coordinates
+from .matrix import coordinates
 from .group_manager import GroupManager
-
-CWD = os.getcwd()
 
 # How this program works :
 # There are 2 stages:
@@ -38,85 +36,69 @@ CWD = os.getcwd()
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! #
 # !!! ALWAYS HANDLE JSON AS UTF-8 !!! #
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! #
+CWD = os.getcwd()
 
 database = f"{CWD}/db/matricies.db"
 fallback_database = "./db/matricies.db"
-
-# get source file and matrix coordinates from client
-coordinates = matrix_coordinates((2, 6), ("b", "f"))
-source_file = f"{CWD}/matrix_processor/test/input_files/5-5.xls"
-
-user_id = 0
-action = ""
-
-
-# Entry Point
-def main(action: str, user_id: int):
-    """Handles action for specific user"""
-    print("--- MATRIX_PROCESSOR ---")
-    print(f"CWD: {CWD}\n")
-
-    if action == "file_to_blueprint":
-        blueprint = file_to_blueprint(source_file, coordinates, user_id)
-        # return blueprint json to client
-        print("TODO -> return blueprint to client")
-        print(blueprint)
-        return blueprint
-
-    if action == "blueprint_to_file":
-        with open(f"{CWD}/../test/input_files/blueprint.json", encoding="utf-8") as f:
-            blueprint = json.load(f)
-        target_format = "xls"
-        user_matrix = get_user_matrix_from_db(user_id)
-        processed_matrix = blueprint_to_matrix(blueprint, user_matrix)
-        f = convert_matrix_to_target_format(processed_matrix, target_format)
-        print("TODO -> send file to client")
-
-    print("--- END ---\n")
 
 
 # --------------------------- #
 #     FILE TO BLUEPRINT       #
 # --------------------------- #
-def file_to_blueprint(source_file, coordinates, user_id):
+def file_to_blueprint(file_stream, matrix_coordinates, session_id):
     # check file type
     # convert file to Matrix() object
-    source_matrix = XlsFile(source_file, coordinates).parse()
-
+    source_matrix = XlsFile(matrix_coordinates, file_stream=file_stream).parse()
+    if source_matrix == "ERROR":
+        return "ERROR"
     # convert Matrix() object to json format
     rows = source_matrix.rows
     cols = source_matrix.cols
     matrix = {"rows": rows, "cols": cols}
-    blueprint = json.dumps(matrix, indent=4)
 
-    # store Matrix() in db with an id specific to user
-    try:
-        conn = sqlite3.connect(database)
-    except OperationalError:
-        conn = sqlite3.connect(fallback_database)
-    cur = conn.cursor()
-    cur.execute(
-        "INSERT INTO matricies (user_id, matrix) VALUES (?, ?)",
-        (user_id, blueprint),
-    )
-    conn.commit()
-    cur.close()
-    conn.close()
+    # # store Matrix() in db with an id specific to user
+    # try:
+    #     conn = sqlite3.connect(database)
+    # except OperationalError:
+    #     conn = sqlite3.connect(fallback_database)
+    # cur = conn.cursor()
 
+
+    # conn.commit()
+    # cur.close()
+    # conn.close()
+    row_names = [k for k in rows]
+    col_names = [k for k in cols]
+    matrix_for_json = {
+        "source": {
+            "rows": row_names,
+            "cols": col_names},
+        "user": {
+            "rowGroups": [],
+            "colGroups": []
+        }}
+    blueprint = json.dumps(matrix_for_json, indent=4)
     return blueprint
 
 
 # --------------------------- #
 #     BLUEPRINT TO FILE       #
 # --------------------------- #
-def get_user_matrix_from_db(user_id):
+def blueprint_to_file(blueprint, file_format, session_id):
+    user_matrix = get_user_matrix_from_db(session_id)
+    processed_matrix = blueprint_to_matrix(blueprint, user_matrix)
+    f = convert_matrix_to_target_format(processed_matrix, file_format)
+    print("TODO -> send file to client")
+
+
+def get_user_matrix_from_db(session_id):
     try:
         conn = sqlite3.connect(database)
     except OperationalError:
         conn = sqlite3.connect(fallback_database)
 
     cur = conn.cursor()
-    cur.execute("SELECT matrix FROM matricies WHERE user_id=?", (user_id,))
+    cur.execute("SELECT matrix FROM matricies WHERE session_id=?", (session_id,))
     user_matrix = cur.fetchone()[0]
     cur.close()
     conn.close()
@@ -144,4 +126,15 @@ def convert_matrix_to_target_format(processed_matrix, target_format):
 
 
 if __name__ == "__main__":
-    main(action, user_id)
+    # get source file and matrix coordinates from client
+    source_file = f"{CWD}/matrix_processor/test/input_files/5-5.xls"
+    coordinates = coordinates((2, 6), ("b", "f"))
+
+    session_id = 0
+
+    print("--- matrix_processor.py ---")
+    print("--- test mode ---")
+    print("file_to_blueprint()")
+    new_blueprint = file_to_blueprint(source_file, coordinates, session_id)
+    print("blueprint_to_file()")
+    blueprint_to_file(new_blueprint, "xls", session_id)

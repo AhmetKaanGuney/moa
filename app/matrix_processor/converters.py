@@ -25,11 +25,9 @@ class XlsFile:
     parsing.
     Sheet index: is for which sheet to read from in the excel"""
 
-    def __init__(self, file_path: str, matrix_coords: dict, sheet_index=0):
+    def __init__(self, matrix_coords: dict, file_path="", file_stream=b"", sheet_index=0):
         self.file_path = file_path
-        self.name = file_path.split("/")[-1].split(".")[0]
-        # example: self.name = C:/folder1/folder2/file_path.extension
-        # >>> returns 'file_path'
+        self.file_stream = file_stream
         self.coordinates = matrix_coords
         self.sheet_index = sheet_index
 
@@ -57,9 +55,12 @@ class XlsFile:
     def parse(self):
         """- parses rows then cols
         - returns Matrix() object"""
-        workbook = xlrd.open_workbook(
-            self.file_path, encoding_override=ENCODING, on_demand=True
-        )
+        if self.file_path:
+            workbook = xlrd.open_workbook(
+                self.file_path, encoding_override=ENCODING, on_demand=True
+            )
+        elif self.file_stream:
+            workbook = xlrd.open_workbook(file_contents=self.file_stream ,encoding_override=ENCODING, on_demand=True)
         worksheet = workbook.sheet_by_index(self.sheet_index)
 
         rows = self._parse_rows(worksheet)

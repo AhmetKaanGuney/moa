@@ -4,7 +4,7 @@ import os
 import unittest
 
 from converters import XlsFile
-from matrix import Matrix, matrix_coordinates
+from matrix import Matrix, coordinates
 
 
 ENCODING = "utf-8"
@@ -32,7 +32,7 @@ MATRIX = Matrix(rows={
 class TestXlsFile(unittest.TestCase):
 
     def setUp(self):
-        matrix_coords = matrix_coordinates((2, 6), ("B", "F"))
+        matrix_coords = coordinates((2, 6), ("B", "F"))
         self.xf = XlsFile(INPUT_PATH, matrix_coords)
         self.workbook = xlrd.open_workbook(INPUT_PATH,
                                            encoding_override=ENCODING,

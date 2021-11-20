@@ -2,7 +2,7 @@
 {% block title %}Upload{% endblock %}
 
 {% block script %}
-<script defer type="text/javascript" src="../static/scripts/upload/upload.js"></script>
+<script defer type="text/javascript" src="../static/scripts/index/upload.js"></script>
 {% endblock %}
 
 {% block main %}
@@ -28,25 +28,25 @@
     <!-- MID COLUMN -->
     <!-- UPLOAD FORM -->
     <div class="col border border-1 border text-center" id="file-upload-form-box">
-        <form action="/upload.html" method="post" enctype="multipart/form-data"  class="pt-2 pb-3">
+        <form action="/" method="post" enctype="multipart/form-data"  class="pt-2 pb-3">
             <div>
                 <!-- File Input -->
                 <input type="file" class="form-control form-control-lg" id="file-input" name="file-input" accept=".xls,.xlsx,.csv">
                 <div class="row mt-3 justify-content-center">
                     <!-- First Row -->
                     <label for="first-row" class="col form-label matrix-input-label">First Row:</label>
-                    <input id="first-row" class="col form-control matrix-input" type="number" min=0>
+                    <input id="first-row" name="first-row" class="col form-control matrix-input" type="number" min=0>
                     <!-- Last Row -->
                     <label for="last-row" class="col form-label matrix-input-label">Last Row:</label>
-                    <input id="last-row" class="col form-control matrix-input" type="number" min=0>
+                    <input id="last-row" name="last-row" class="col form-control matrix-input" type="number" min=0>
                 </div>
                 <div class="row mt-3 justify-content-center">
                     <!-- First Col -->
                     <label for="first-col" class="col form-label matrix-input-label">First Col:</label>
-                    <input id="first-col" class="col form-control matrix-input" type="text" min=0>
+                    <input id="first-col" name="first-col" class="col form-control matrix-input" type="text" min=0>
                     <!-- Last Col -->
                     <label for="last-col" class="col form-label matrix-input-label">Last Col:</label>
-                    <input id="last-col" class="col form-control matrix-input" type="text" min=0>
+                    <input id="last-col" name="last-col" class="col form-control matrix-input" type="text" min=0>
                 </div>
 
 

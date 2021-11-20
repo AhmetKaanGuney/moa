@@ -36,6 +36,7 @@
     background-image: linear-gradient(to top, var(--main-bg-dark), var(--main-bg-light));
     height: calc(100% - 49px);
     padding-bottom: 1em;
+    box-shadow: 0px 0px 50px 20px rgba(0, 0, 0, 0.3);
 }
 
 /* NAVBAR */

@@ -10,93 +10,99 @@ from flask import (
     send_from_directory,
 )
 import flask
+from matrix_processor import notification as n
 
 from session_id import SessionID
-from matrix_processor import matrix_processor
+from matrix_processor import matrix_processor as mp
+from matrix_processor import matrix
 
 CWD = os.getcwd()
-# import matrix_processor
 
 app = Flask("app")
 app.config.from_pyfile("config.py")
 
 # TODO sessions
 # TODO name downloads files with user cookie
-# TODO on upload page get matrix coordinates
+# TODO on index page get matrix coordinates
 
-
-@app.route("/", methods=["GET"])
-def homepage():
-    return redirect("upload.html")
-
-
-@app.route("/upload.html", methods=["GET", "POST"])
-def upload():
+@app.route("/", methods=["GET", "POST"])
+def index():
     if request.method == "GET":
         session["id"] = SessionID.generate()
         print(f"{session.items()=}")
-        return render_template("upload.html", session=session)
+        return render_template("index.html", session=session)
 
     if request.method == "POST":
-        print("uplodad file")
-        print("REQUEST FILE: ", request.files)
+        print("Form Data: ")
+        # ------------------------- #
+        # CHECK USER and USER INPUT #
+        # ------------------------- #
 
         # Do client have an id attached to them
         if "id" in session:
             session_id = session["id"]
         else:
+            #!error
             return 404
 
-        # Upload file
+        # Check form data
+        matrix_input = {
+            "rows": (int(request.form["first-row"]), int(request.form["last-row"])),
+            "cols": (request.form["first-col"], request.form["last-col"])
+            }
+
+        for k in matrix_input:
+            print(f"{k}: {matrix_input[k]}")
+            if matrix_input[k][0] == "" or matrix_input[k][1] == "":
+                #!error
+                return "bad request!", 404
+
+        print("checking filename...")
         # check if the post request has the file part
-        if "file_input" not in request.files:
+        if "file-input" not in request.files:
             return redirect(request.url)
 
         # Check if any file is selected
-        f = request.files["file_input"]
+        f = request.files["file-input"]
         if f.filename == "":
-            flash("No file selcted.")
             return redirect(request.url)
 
         if f and allowed_file(f.filename):
-            print("filename is allowed")
+            print("filename is allowed...")
+            matrix_coords = matrix.coordinates(matrix_input["rows"], matrix_input["cols"])
 
-            # TODO blueprint = matrix_processor.main(
-            #                  request="file_to_blueprint", user_id=user_id)
+            # temp_filename = app.config["DOWNLOAD_FOLDER"] + f"/{session_id}"
+            file_stream = f.stream.read()
+            source_blueprint = mp.file_to_blueprint(file_stream, matrix_coords, session_id)
+
+            if source_blueprint == "ERROR":
+                #!error
+                return n.Notification.error_message, 400
+            print(source_blueprint)
+            bp = flask.json.loads(source_blueprint)
 
             # Get file stream
-            binary_data = f.stream.readlines()
-            data = []
-            # Convert binary string to string
-            for line in binary_data:
-                data.append(line.decode("utf-8"))
+            # binary_data = f.stream.readlines()
+            # data = []
+            # # Convert binary string to string
+            # for line in binary_data:
+            #     data.append(line.decode("utf-8"))
 
             # TODO Delete old files at /downloads
 
-            # Write to file
-            temp_filename = app.config["DOWNLOAD_FOLDER"] + f"/{session_id}" + ".txt"
-            # TODO
-            with open(temp_filename, "w", encoding="utf-8") as temp_f:
-                for line in data:
-                    temp_f.write(line)
-
             # Render blueprint page
-            print("TODO -> return upload.html instead of download.html")
-            return render_template("download.html", data=data, session=session)
+            return render_template("blueprint.html", blueprint=bp)
 
         else:
             return redirect(request.url)
 
 
 # Handle download request
-@app.route("/download_file")
+@app.route("/debug.html")
 def download_file():
     if "id" not in session:
         return "No session detected."
-    name = session["id"]
-    ext = ".txt"
-    filename = str(name) + ext
-    return send_from_directory(app.config["DOWNLOAD_FOLDER"], filename)
+    return send_from_directory(app.config["DOWNLOAD_FOLDER"])
 
 
 @app.route("/blueprint.html", methods=["GET", "POST"])
@@ -104,10 +110,11 @@ def blueprint():
     if request.method == "GET":
         # TODO
         # source_blueprint = matrix_processor.main("file_to_blueprint", 0)
-        temp_path = f"{CWD}/matrix_processor/test/input_files/source_blueprint.json"
-        with open(temp_path, encoding="utf-8") as f:
-            source_blueprint = flask.json.load(f)
-        return render_template("blueprint.html", blueprint=source_blueprint)
+        # temp_path = f"{CWD}/matrix_processor/test/input_files/source_blueprint.json"
+        # with open(temp_path, encoding="utf-8") as f:
+        #     source_blueprint = flask.json.load(f)
+        # return render_template("blueprint.html", blueprint=source_blueprint)
+        return "TODO"
 
 
 def allowed_file(filename):
@@ -124,6 +131,7 @@ def read_txt_file(file):
         for line in f.readlines():
             data += line
     return data
+
 
 if __name__ == "__main__":
     app.run()
