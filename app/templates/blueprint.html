@@ -2,14 +2,15 @@
 
 {% block title %}Blueprint{% endblock %}
 {% block script %}
-    <script defer type="module" src="../static/scripts/blueprint/groupManager.js"></script>
-    <script type="text/javascript">
-        // Blueprint coming from server
-        var blueprint = JSON.parse('{{ blueprint | tojson | safe }}')
+<script type="text/javascript">
+    // Blueprint coming from server
+    var blueprint = JSON.parse('{{ blueprint | tojson | safe }}')
     </script>
     <script defer type="module" src="../static/scripts/blueprint/globals.js"></script>
+    <script defer type="module" src="../static/scripts/blueprint/errors.js"></script>
+    <script defer type="module" src="../static/scripts/blueprint/group-manager.js"></script>
+    <script defer type="module" src="../static/scripts/blueprint/modal-window.js"></script>
     <script defer type="module" src="../static/scripts/blueprint/update.js"></script>
-    <script defer type="module" src="../static/scripts/blueprint/modalWindow.js"></script>
     <script defer type="module" src="../static/scripts/blueprint/events.js"></script>
     <script defer type="module" src="../static/scripts/blueprint/initialize.js"></script>
 {% endblock %}
@@ -82,6 +83,10 @@
         </p>
     </div>
     {% endif %}
+
+    <div class="error-message-box" id="error-message-box" hidden>
+        <p class="error-message pb-2 pt-2" id="error-message"></p>
+    </div>
 
     <div class="row container">
 

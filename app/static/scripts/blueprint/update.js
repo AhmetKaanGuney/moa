@@ -107,7 +107,6 @@ function updateUserList() {
         while (userList.firstChild) {
             userList.removeChild(userList.firstChild);
         }
-        console.warn("WARNING! --> Selected Group Option: " + selected.id);
         return;
     }
 

@@ -5,8 +5,7 @@ import sqlite3
 
 from .converters import XlsFile, json_to_matrix, matrix_to_json
 from .matrix import coordinates
-from .errors import Error
-
+from .group_manager import GroupManager
 # How this program works :
 # There are 2 stages:
 # 1. File to Blueprint

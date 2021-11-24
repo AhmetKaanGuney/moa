@@ -119,9 +119,8 @@ class XlsFile:
                     )
                     row_vals.append(value_of_each_column)
 
-                    rows[row_name] = row_vals
-                    empty_row_index += 1
-
+                rows[row_name] = row_vals
+                empty_row_index += 1
             else:
                 raise EmptyError(
                     f"{self.get_order(empty_row_index)} row is empty!"
@@ -159,8 +158,8 @@ class XlsFile:
                         worksheet, rowx=each_row, start_colx=each_col
                     )
                     col_vals.append(value_of_each_row)
-                    empty_col_index += 1
 
+                empty_col_index += 1
                 cols[col_name] = col_vals
             else:
                 raise EmptyError(
@@ -178,7 +177,7 @@ class XlsFile:
         name = row_vals.pop(0)  # remove brackets from value
         if name in self.row_names:
             raise DuplicationError(
-                f"Duplication detected in row names: '{name}'."
+                f"Duplication of '{name}' detected in row names."
                 f"Make sure that all row names are unique."
             )
         else:
@@ -194,7 +193,7 @@ class XlsFile:
         name = col_vals.pop(0)  # remove brackets from value
         if name in self.col_names:
             raise DuplicationError(
-                f"Duplication detected in column names: '{name}'."
+                f"Duplication of '{name}' detected in column names."
                 f"Make sure that all column names are unique."
             )
         else:
@@ -213,8 +212,8 @@ class XlsFile:
         if type(value) == int or float or None:
             return value
         else:
-            raise NaNError(f"Cell ({rowx}, {start_colx}) is not a number value.\
-            Make sure that all cells contain a number value.")
+            raise NaNError(f"Cell ({rowx}, {start_colx}) does not contain number value."
+            "Make sure that all cells contain a number value.")
 
     @staticmethod
     def _pop_col_val(worksheet, colx, start_rowx):
@@ -224,11 +223,11 @@ class XlsFile:
             colx=colx, start_rowx=start_rowx    # list has only 1 item in it
         )
         value = col_vals.pop(0)  # remove brackets from value
-        if type(value) == int or float or None:
+        if type(value) in (int, float, None):
             return value
         else:
-            raise NaNError(f"Cell ({start_rowx}, {colx}) is not a number value.\
-            Make sure that all cells contain a number value.")
+            raise NaNError(f"Cell ({start_rowx}, {colx}) does not contain number value."
+            "Make sure that all cells contain a number value.")
 
     # ----------------------- #
     #         WRITER          #

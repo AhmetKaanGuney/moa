@@ -1,9 +1,9 @@
 import { gm } from "./globals.js";
-import { modalWindow, modifyModal } from "./modalWindow.js";
+import { showErrorMessage } from "./errors.js";
+import { modalWindow, modifyModal } from "./modal-window.js";
 import { updateLists, updateGroupSelect } from "./update.js";
 
 /* Assign functions to button and call updateElements() on every button click */
-
 // --------------------------- //
 // ------- FUNCTIONS --------- //
 // --------------------------- //
@@ -22,9 +22,14 @@ function postBlueprint(blueprint, fileFormat) {
         try {
             const response_data = await response.json();
             console.log("response data: ", response_data);
-            let url = response_data["download_url"];
-            downloadFile(url);
-
+            if (response_data["status"] === "OK") {
+                let url = response_data["download_url"];
+                downloadFile(url);
+            } else {
+                console.log("ERROR detected")
+                let errorMessage = response_data["error"];
+                showErrorMessage(errorMessage);
+            }
         } catch(error) {
             console.warn(error);
         }

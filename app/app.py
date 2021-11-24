@@ -131,7 +131,10 @@ def blueprint():
 
         print("Writing Blueprint to File...")
         # write bluprint to file
-        mp.write_blueprint_to_file(blueprint, file_format, session["id"], file_path=path)
+        try:
+            mp.write_blueprint_to_file(blueprint, file_format, session["id"], file_path=path)
+        except Error:
+            return make_response({"status": "ERROR", "error": Error.message})
 
         # Create a url for written file
         url = url_for("download", filename=filename)
