@@ -5,7 +5,7 @@ import sqlite3
 
 from .converters import XlsFile, json_to_matrix, matrix_to_json
 from .matrix import coordinates
-from .group_manager import GroupManager
+from .errors import Error
 
 # How this program works :
 # There are 2 stages:
@@ -49,8 +49,8 @@ def get_blueprint_from_file(file_stream, matrix_coordinates, session_id):
     # check file type
     # convert file to Matrix() object
     source_matrix = XlsFile(matrix_coordinates, file_stream=file_stream).parse()
-    if source_matrix == "ERROR":
-        return "ERROR"
+    if source_matrix == None:
+        return None
 
     # convert Matrix() object to json format
     matrix_for_db = matrix_to_json(source_matrix)

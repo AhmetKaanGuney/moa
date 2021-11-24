@@ -1,6 +1,6 @@
 import copy
 from .matrix import Matrix
-from .notification import Notification
+from .errors import  EmptyError, Error, DuplicationError
 
 
 class GroupManager:
@@ -57,9 +57,8 @@ class GroupManager:
             try:
                 self.source_rows.remove(r)
             except KeyError:
-                print(f"'{r}'", "key not in source_rows")
-                print("self.source_rows: ")
-                print(self.source_rows)
+                Error.set_message(f"'{r}'", "key not in source_rows")
+                raise KeyError
 
     def add_cols_to_group(self, cols: list, group: str):
         """1. adds cols to the group
@@ -70,9 +69,8 @@ class GroupManager:
             try:
                 self.source_cols.remove(c)
             except KeyError:
-                print(f"'{r}'", "key not in source_cols")
-                print("self.source_cols: ")
-                print(self.source_cols)
+                Error.set_message(f"'{c}'", "key not in source_cols")
+                raise KeyError
 
     def remove_rows_from_group(self, rows: str, group: str):
         """- remove rows from the group
@@ -97,9 +95,7 @@ class GroupManager:
     def create_row_group(self, name):
         """Creates a new key in the user_row_group. Raises error if name already exists."""
         if name in self.user_row_groups.keys():
-            return Notification.raise_error(
-                message="Cannot create duplicate rows names."
-            )
+            raise DuplicationError("Cannot create duplicate row names.")
         else:
             self.user_row_groups[name] = []
             return self.user_row_groups
@@ -107,9 +103,7 @@ class GroupManager:
     def create_col_group(self, name):
         """Creates a new key in the user_col_group. Raises error if name already exists."""
         if name in self.user_col_groups.keys():
-            return Notification.raise_error(
-                message="Cannot create duplicate column names."
-            )
+            raise DuplicationError("Cannot create duplicate column names.")
         else:
             self.user_col_groups[name] = []
             return self.user_col_groups
@@ -127,9 +121,8 @@ class GroupManager:
             del self.user_row_groups[name]
             return self.user_row_groups
         else:
-            return Notification.raise_error(
-                message=f" >>> Cannot Delete Row : '{name}' doesn't exist."
-            )
+            Error.set_message(f"Cannot Delete Row : '{name}' doesn't exist.")
+            raise KeyError
 
     def del_col_group(self, name):
         """1. copies col names inside the col group back to source cols.
@@ -144,9 +137,8 @@ class GroupManager:
             del self.user_col_groups[name]
             return self.user_col_groups
         else:
-            return Notification.raise_error(
-                message=f" >>> Cannot Delete Col : '{name}' doesn't exist."
-            )
+            Error.set_message(f"Cannot Delete Column : '{name}' doesn't exist.")
+            raise KeyError
 
     # -------------------- #
     #    RENAME METHODS    #
@@ -203,10 +195,7 @@ class GroupManager:
             rows_to_be_summed = row_groups[group]
 
             if len(rows_to_be_summed) < 1:
-                Notification.raise_warning(
-                    f" WARNING! Empty row group detected: '{group}'."
-                )
-                return "ERROR"
+                raise EmptyError(f"Empty row group detected: '{group}'.")
             else:
                 summed_rows[group] = matrix.sum_rows(rows_to_be_summed)
 
@@ -237,10 +226,7 @@ class GroupManager:
             cols_to_be_summed = col_groups[group]
 
             if len(cols_to_be_summed) < 1:
-                Notification.raise_warning(
-                    f" WARNING! Empty row group detected: '{group}'."
-                )
-                return "ERROR"
+                raise EmptyError(f"Empty column group detected: '{group}'.")
             else:
                 summed_cols[group] = matrix.sum_cols(cols_to_be_summed)
 

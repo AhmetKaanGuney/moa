@@ -74,6 +74,15 @@
     <!-- HORIZONTAL SEPERATOR -->
     <hr class="mb-2 seperator-line">
 
+    <!-- ERROR BOX -->
+    {% if error %}
+    <div class="error-message-box">
+        <p class="error-message pb-2 pt-2">
+            <strong>Error:</strong> {{ error }}
+        </p>
+    </div>
+    {% endif %}
+
     <div class="row container">
 
         <!-- Select MENU -->

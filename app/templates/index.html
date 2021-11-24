@@ -51,11 +51,13 @@
 
 
                 <!-- Error Box -->
-                    <div hidden class="error-message-box">
+                {% if error %}
+                    <div class="error-message-box">
                         <p class="error-message pb-2 pt-2">
-                            Flash error messages here.
+                            <strong>Error:</strong> {{ error }}
                         </p>
                     </div>
+                {% endif %}
             </div>
 
             <button type="submit" class="btn btn-lg mt-3 justify-content-center" id="submit-button">Submit</button>

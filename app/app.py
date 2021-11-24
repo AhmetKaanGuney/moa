@@ -16,7 +16,7 @@ from flask import (
 
 from session_id import SessionID
 from matrix_processor import matrix_processor as mp
-from matrix_processor import notification as n
+from matrix_processor.errors import Error
 from matrix_processor import matrix
 
 CWD = os.getcwd()
@@ -27,9 +27,10 @@ app.config.from_pyfile("config.py")
 
 @app.route("/", methods=["GET", "POST"])
 def index():
+    error = None
     if request.method == "GET":
         session["id"] = SessionID.generate()
-        return render_template("index.html", session=session)
+        return render_template("index.html")
 
     if request.method == "POST":
         print("Getting Form...")
@@ -43,33 +44,34 @@ def index():
         if "id" in session:
             session_id = session["id"]
         else:
-            #!error
-            abort(404)
+            error = "No ID detected!"
+            return render_template("index.html", error=error)
 
+        print("Checking Form...")
         # Check form data
+        for i in (request.form["first-row"], request.form["last-row"],
+                  request.form["first-col"], request.form["last-col"]):
+                if i == "":
+                    error = "All fields must be filled."
+                    return render_template("index.html", error=error)
+
+        # Assigning input data
         matrix_input = {
             "rows": (int(request.form["first-row"]), int(request.form["last-row"])),
             "cols": (request.form["first-col"], request.form["last-col"]),
         }
 
-        print("Checking Form...")
-
-        for k in matrix_input:
-            print("Matrix Form: ")
-            print(f"{k}: {matrix_input[k]}")
-            if matrix_input[k][0] == "" or matrix_input[k][1] == "":
-                #!error
-                abort(404)
-
         print("Checking Filename...")
         # check if the post request has the file part
         if "file-input" not in request.files:
-            return redirect(request.url)
+            error = "All fields must be filled."
+            return render_template("index.html", error=error)
 
         # Check if any file is selected
         f = request.files["file-input"]
         if f.filename == "":
-            return redirect(request.url)
+            error = "Invalid name for file."
+            return render_template("index.html", error=error)
 
         if f:
             print("File is Valid...")
@@ -80,28 +82,33 @@ def index():
             print("Converting File to Blueprint...")
             # Get file stream
             file_stream = f.stream.read()
-            source_blueprint = mp.get_blueprint_from_file(
-                file_stream, matrix_coords, session_id
-            )
+            try:
+                source_blueprint = mp.get_blueprint_from_file(
+                    file_stream, matrix_coords, session_id
+                )
+            except Exception as e:
+                error = e
+                return render_template("index.html", error=error)
 
-            if source_blueprint == "ERROR":
-                #!error
-                return n.Notification.error_message, 400
+            if source_blueprint == None:
+                error = Error.message
+                return render_template("index.html", error=error)
 
             bp = json.loads(source_blueprint)
 
-            # TODO Delete old files at /downloads
+            # TODO Delete old files at /downloads,
             print("Returning Bleuprint...")
-
             # Render blueprint page
             return render_template("blueprint.html", blueprint=bp)
 
         else:
-            return redirect(request.url)
+            error = "Invalid file."
+            return render_template("index.html", error=error)
 
 
 @app.route("/blueprint.html", methods=["POST"])
 def blueprint():
+    error = None
     if request.method == "POST":
         # Check input
         data = request.get_json()
@@ -110,13 +117,14 @@ def blueprint():
         try:
             # Get blueprint
             blueprint = data["blueprint"]
-
             # Get file format
             file_format = data["fileFormat"]
-            if file_format not in ("xlsx", "xls", "csv"):
-                abort(404)
         except KeyError:
-            abort(404)
+            return "Something went wrong", 404
+
+        if file_format not in ("xlsx", "xls", "csv"):
+            error = "Invalid file format."
+            return render_template("blueprint.html", error=error)
 
         filename = generate_filename(session["id"], file_format)
         path = app.config["DOWNLOAD_FOLDER"] + filename
@@ -136,10 +144,12 @@ def blueprint():
 # Handle download request
 @app.route("/download/<filename>")
 def download(filename):
+    error = None
 
     print("Checking ID...")
     if "id" not in session:
-        return "No session detected."
+        error = "No ID detected!"
+        return render_template("index.html", error=error)
 
     print(f"Checking if '{filename}' exists...")
     directory = app.config["DOWNLOAD_FOLDER"]
@@ -149,8 +159,8 @@ def download(filename):
         print(f"Sending '{filename}' from Directory...")
         return send_from_directory(directory, filename)
     else:
-        print("Couldn't find file!")
-        abort(404)
+        error = "No such file exists."
+        return render_template("blueprint.html", error=error)
 
 
 def read_txt_file(file):

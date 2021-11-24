@@ -1,11 +1,14 @@
 """Format convertors"""
+import os
+from typing import final
+
 import xlrd
 import xlwt
 import json
 # import openpyxl
 
 from .matrix import Matrix
-from .notification import Notification
+from .errors import DuplicationError, EmptyError, Error, NaNError
 
 ENCODING = "UTF-8"
 
@@ -66,18 +69,23 @@ class XlsFile:
                 self.file_path, encoding_override=ENCODING, on_demand=True
             )
         elif self.file_stream:
-            workbook = xlrd.open_workbook(file_contents=self.file_stream ,encoding_override=ENCODING, on_demand=True)
+            try:
+                workbook = xlrd.open_workbook(file_contents=self.file_stream ,encoding_override=ENCODING, on_demand=True)
+            except Exception:
+                Error.set_message("An error occured while reading the file.\nThe file might corrupted or you might have entered wrong coordinates for the matrix.")
+                return None
         worksheet = workbook.sheet_by_index(self.sheet_index)
 
-        rows = self._parse_rows(worksheet)
-        if rows == "ERROR":
+        try:
+            rows = self._parse_rows(worksheet)
+            cols = self._parse_cols(worksheet)
+        except Error:
             self.dump_workbook(workbook)
-            return "ERROR"
-
-        cols = self._parse_cols(worksheet)
-        if cols == "ERROR":
+            return None
+        except IndexError:
+            Error.set_message("Invalid matrix coordinates.")
             self.dump_workbook(workbook)
-            return "ERROR"
+            return None
 
         self.dump_workbook(workbook)
         return Matrix(rows=rows, cols=cols)
@@ -109,22 +117,16 @@ class XlsFile:
                     value_of_each_column = self._pop_col_val(
                         worksheet, colx=each_col, start_rowx=each_row
                     )
-                    # check value
-                    if value_of_each_column == "ERROR":
-                        return Notification.raise_error(
-                            message=f"Cell has invalid value. Make sure all cell have ...!"
-                        )
                     row_vals.append(value_of_each_column)
 
-                rows[row_name] = row_vals
-                empty_row_index += 1
+                    rows[row_name] = row_vals
+                    empty_row_index += 1
+
             else:
-                error_message = (
+                raise EmptyError(
                     f"{self.get_order(empty_row_index)} row is empty!"
                     f"Make sure there are no gaps between rows."
                 )
-                return Notification.raise_error(error_message)
-
         return rows
 
     def _parse_cols(self, worksheet):
@@ -156,22 +158,15 @@ class XlsFile:
                     value_of_each_row = self._pop_row_val(
                         worksheet, rowx=each_row, start_colx=each_col
                     )
-                    # check value
-                    if value_of_each_row == "ERROR":
-                        return Notification.raise_error(
-                            message="Invalid value in cell."
-                        )
                     col_vals.append(value_of_each_row)
                     empty_col_index += 1
 
                 cols[col_name] = col_vals
             else:
-                error_message = (
+                raise EmptyError(
                     f"{self.get_order(empty_col_index)} column is empty! "
                     f"Make sure there are no gaps between columns."
                 )
-                return Notification.raise_error(error_message)
-
         return cols
 
     def _pop_row_name(self, worksheet, rowx, start_colx):
@@ -182,9 +177,10 @@ class XlsFile:
         )  # list has only 1 item in it
         name = row_vals.pop(0)  # remove brackets from value
         if name in self.row_names:
-            error_message = f"Duplication detected in row names: '{name}'."
-            f"Make sure that all row names are unique."
-            return Notification.raise_error(error_message)
+            raise DuplicationError(
+                f"Duplication detected in row names: '{name}'."
+                f"Make sure that all row names are unique."
+            )
         else:
             self.row_names.append(name)
             return name
@@ -196,13 +192,11 @@ class XlsFile:
             colx=colx, start_rowx=start_rowx
         )  # list has only 1 item in it
         name = col_vals.pop(0)  # remove brackets from value
-        if name is self.row_names:
-            error_message = (
+        if name in self.col_names:
+            raise DuplicationError(
                 f"Duplication detected in column names: '{name}'."
-                f"Make sure\
-                that all column names are unique."
+                f"Make sure that all column names are unique."
             )
-            return Notification.raise_error(error_message)
         else:
             self.col_names.append(name)
             return name
@@ -212,35 +206,29 @@ class XlsFile:
         """Checks the type of the value inside the cell. Raises error if value is NaN.
         - returns: the value of cell"""
         row_vals = worksheet.row_values(
-            rowx=rowx, start_colx=start_colx
-        )  # list has only 1 item in it
+            rowx=rowx, start_colx=start_colx    # list has only 1 item in it
+        )
         value = row_vals.pop(0)  # remove brackets from value
         # type check
         if type(value) == int or float or None:
             return value
         else:
-            error_message = (
-                f"Cell ({rowx}, {start_colx}) is not a number value."
-                f"Make sure that all cells contain a number value."
-            )
-            return Notification.raise_error(error_message)
+            raise NaNError(f"Cell ({rowx}, {start_colx}) is not a number value.\
+            Make sure that all cells contain a number value.")
 
     @staticmethod
     def _pop_col_val(worksheet, colx, start_rowx):
         """Checks the type of the value inside the cell. Raises error if value is NaN.
         - returns: the value of cell"""
         col_vals = worksheet.col_values(
-            colx=colx, start_rowx=start_rowx
-        )  # list has only 1 item in it
+            colx=colx, start_rowx=start_rowx    # list has only 1 item in it
+        )
         value = col_vals.pop(0)  # remove brackets from value
         if type(value) == int or float or None:
             return value
         else:
-            error_message = (
-                f"Cell ({start_rowx}, {colx}) is not a number value. "
-                f"Make sure that all cells contain a number value."
-            )
-            return Notification.raise_error(error_message)
+            raise NaNError(f"Cell ({start_rowx}, {colx}) is not a number value.\
+            Make sure that all cells contain a number value.")
 
     # ----------------------- #
     #         WRITER          #
