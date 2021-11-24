@@ -17,6 +17,12 @@ def json_to_matrix(json_string):
     return Matrix(rows=rows, cols=cols)
 
 
+def matrix_to_json(matrix: Matrix):
+    rows = matrix.rows
+    cols = matrix.cols
+    return json.dumps({"rows": rows, "cols": cols})
+
+
 class XlsFile:
     """This class is for reading and writing XLS files.
     It takes file_path's path, the coordinates and sheet_index of the

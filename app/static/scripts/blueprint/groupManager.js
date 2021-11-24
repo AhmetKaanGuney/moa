@@ -19,6 +19,24 @@ class GroupManager {
         return this.userColGroups[groupName]
     }
 
+    getBlueprint() {
+        let blueprint = {
+            "rows" :{},
+            "cols" :{},
+        };
+
+        // Add user rows
+        for (let row in this.userRowGroups) {
+            blueprint.rows[row] = this.userRowGroups[row];
+        }
+
+        // add user cols
+        for (let col in this.userColGroups) {
+            blueprint.cols[col] = this.userColGroups[col];
+        }
+        return blueprint;
+    }
+
     createRowGroup(name) {
         // Check if name is alredy in use
         if (name in this.userRowGroups) {
@@ -108,6 +126,7 @@ class GroupManager {
             }
         }
     }
+
 }
 
 export {GroupManager}

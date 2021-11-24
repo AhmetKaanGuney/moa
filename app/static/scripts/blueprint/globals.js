@@ -1,4 +1,4 @@
-import { GroupManager } from "./group-manager.js"
+import { GroupManager } from "./groupManager.js"
 
 var gm = new GroupManager(blueprint);
 

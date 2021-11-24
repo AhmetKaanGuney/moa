@@ -3,7 +3,7 @@ from sqlite3.dbapi2 import OperationalError
 import json
 import sqlite3
 
-from .converters import XlsFile, json_to_matrix
+from .converters import XlsFile, json_to_matrix, matrix_to_json
 from .matrix import coordinates
 from .group_manager import GroupManager
 
@@ -45,38 +45,39 @@ fallback_database = "./db/matricies.db"
 # --------------------------- #
 #     FILE TO BLUEPRINT       #
 # --------------------------- #
-def file_to_blueprint(file_stream, matrix_coordinates, session_id):
+def get_blueprint_from_file(file_stream, matrix_coordinates, session_id):
     # check file type
     # convert file to Matrix() object
     source_matrix = XlsFile(matrix_coordinates, file_stream=file_stream).parse()
     if source_matrix == "ERROR":
         return "ERROR"
+
     # convert Matrix() object to json format
-    rows = source_matrix.rows
-    cols = source_matrix.cols
-    matrix = {"rows": rows, "cols": cols}
+    matrix_for_db = matrix_to_json(source_matrix)
 
-    # # store Matrix() in db with an id specific to user
-    # try:
-    #     conn = sqlite3.connect(database)
-    # except OperationalError:
-    #     conn = sqlite3.connect(fallback_database)
-    # cur = conn.cursor()
+    try:
+        conn = sqlite3.connect(database)
+    except OperationalError:
+        conn = sqlite3.connect(fallback_database)
 
+    cur = conn.cursor()
 
-    # conn.commit()
-    # cur.close()
-    # conn.close()
-    row_names = [k for k in rows]
-    col_names = [k for k in cols]
+    # store Matrix() in db with an id specific to session
+    cur.execute(
+        "REPLACE INTO matricies(session_id, matrix) VALUES(?, ?)",
+        (session_id, matrix_for_db),
+    )
+
+    conn.commit()
+    cur.close()
+    conn.close()
+
+    row_names = [k for k in source_matrix.rows]
+    col_names = [k for k in source_matrix.cols]
     matrix_for_json = {
-        "source": {
-            "rows": row_names,
-            "cols": col_names},
-        "user": {
-            "rowGroups": [],
-            "colGroups": []
-        }}
+        "source": {"rows": row_names, "cols": col_names},
+        "user": {"rowGroups": [], "colGroups": []},
+    }
     blueprint = json.dumps(matrix_for_json, indent=4)
     return blueprint
 
@@ -84,11 +85,15 @@ def file_to_blueprint(file_stream, matrix_coordinates, session_id):
 # --------------------------- #
 #     BLUEPRINT TO FILE       #
 # --------------------------- #
-def blueprint_to_file(blueprint, file_format, session_id):
+def write_blueprint_to_file(blueprint, file_format, session_id, file_path):
+    # Get matrix from db
     user_matrix = get_user_matrix_from_db(session_id)
+    # Process matrix
     processed_matrix = blueprint_to_matrix(blueprint, user_matrix)
-    f = convert_matrix_to_target_format(processed_matrix, file_format)
-    print("TODO -> send file to client")
+    # Write to file
+    print(f"write_matrix_to_file() -> format = {file_format}")
+
+    write_matrix_to_file(processed_matrix, file_format, file_path)
 
 
 def get_user_matrix_from_db(session_id):
@@ -98,6 +103,7 @@ def get_user_matrix_from_db(session_id):
         conn = sqlite3.connect(fallback_database)
 
     cur = conn.cursor()
+    # Get user matrix
     cur.execute("SELECT matrix FROM matricies WHERE session_id=?", (session_id,))
     user_matrix = cur.fetchone()[0]
     cur.close()
@@ -117,12 +123,11 @@ def blueprint_to_matrix(blueprint: str, matrix: str):
     return processed_matrix
 
 
-def convert_matrix_to_target_format(processed_matrix, target_format):
+def write_matrix_to_file(processed_matrix, target_format, file_path):
     if target_format == "xls":
-        print("TODO -> convert_matrix_to_target_format()")
-        print("processed_matrix:")
-        print(processed_matrix.rows)
-        print(processed_matrix.cols)
+        XlsFile.write(file_path, processed_matrix)
+    else:
+        print(f"WARNING!!!:\n\tFile Format: {target_format} not supported yet.")
 
 
 if __name__ == "__main__":
@@ -135,6 +140,6 @@ if __name__ == "__main__":
     print("--- matrix_processor.py ---")
     print("--- test mode ---")
     print("file_to_blueprint()")
-    new_blueprint = file_to_blueprint(source_file, coordinates, session_id)
+    new_blueprint = get_blueprint_from_file(source_file, coordinates, session_id)
     print("blueprint_to_file()")
-    blueprint_to_file(new_blueprint, "xls", session_id)
+    write_blueprint_to_file(new_blueprint, "xls", session_id)

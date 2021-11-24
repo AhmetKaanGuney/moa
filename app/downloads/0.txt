@@ -1,8 +1,0 @@
-(1) Bu dosya başka bir programda da açık olabilir. Eğer öyleyse, aynı
-    dosyanın iki ayrı örneğiyle karşılaşmamak için değişiklik yaparken
-    lütfen dikkatli olun. Ya programdan çıkın ya da dikkatli ilerleyin.
-(2) Bu dosya düzenleme oturumu çöktü.
-    Durum buysa, ":recover" veya "vim -r D:/VsCodeProjects/moa/.git/COMMIT_EDITMSG"
-    yapıp değişiklikleri kurtarın (ek bilgi için ":help recovery").
-    Eğer bunu yaptıysanız, bu iletiyi bir daha görmemek için "D:/VsCodeProjects/moa/.git/.COMMIT_EDITMSG.swp"
-    takas dosyasını silin.
