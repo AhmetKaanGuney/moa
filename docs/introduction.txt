@@ -1,6 +1,6 @@
 WHAT IS MOA?
 
-MOA (Matrix Operations Application) is a simple tool for editing your matrices.
+MOA (Matrix Operations Application) is a simple tool for editing your matrix.
 
 HOW IT WORKS?
 
@@ -22,31 +22,15 @@ HOW IT WORKS?
 - Create row or column groups.
     - A window will pop-up when you click 'Create Group' from the Group menu.
     - You can select which type of group you want to create:
-        - Row, Column and Both.
-        - Selecting both will create a row and a column group with the same name.
+        - Row, Column or Both.
+        - Selecting 'Both' will create a row and a column group, with the same name.
 
 - Add rows to the row groups and add columns to the column groups.
     - Just click on the name you want to add.
-    - If you want to remove a name from the group just click on it.
+    - If you want to remove a name from a group just click on it.
 
-- Go to the Download menu and select a format.
+- After you are done go to the Download menu and select a format.
     - You should see the download prompt from your browser.
     - Hit Save.
 
 - That's it! Enjoy your new matrix.
-
-
-
-Difference between CSV- MS and Mac:
-
-The difference between [them] is if you have certain
-special characters in text fields; for example,
-an accented (foreign language) character.
-If you export as Windows CSV, those fields are encoded
-using the Windows-1252 code page. DOS encoding usually
-uses code page 437, which maps characters used in old
-pre-Windows PCs. If you export as one and then import
-with a tool that expects the other, most things will
-look fine but you'll get unexpected results if, for example,
-you know someone with an umlaut (or other foreign character)
-in their name.
