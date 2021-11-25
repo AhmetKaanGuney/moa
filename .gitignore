@@ -1,5 +1,6 @@
 .vscode
 venv
+logs/
 app/__pycache__/
 app/test/__pycache__/
 app/matrix_processor/__pycache__/
