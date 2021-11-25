@@ -92,20 +92,14 @@ function deleteGroup() {
 // --------------------------- //
 // DOWNLOAD MENU BUTTONS
 // Dowload xlsx
-document.getElementById("download-xlsx-button").onclick = function() {
+document.getElementById("export-xlsx-button").onclick = function() {
     let blueprint = gm.getBlueprint();
     postBlueprint(blueprint, "xlsx");
 }
 // Download xls
-document.getElementById("download-xls-button").onclick = function() {
+document.getElementById("export-xls-button").onclick = function() {
     let blueprint = gm.getBlueprint();
     postBlueprint(blueprint, "xls");
-}
-
-// Download csv
-document.getElementById("download-csv-button").onclick = function() {
-    let blueprint = gm.getBlueprint();
-    postBlueprint(blueprint, "csv");
 }
 
 

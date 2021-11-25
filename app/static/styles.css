@@ -243,14 +243,28 @@ h2 {
     border: 1px white solid;
     border-radius: var(--border-radius);
     box-shadow: 0px 20px 50px 0px rgba(0, 0, 0, 0.418);
-    height: 100%;
 }
 
+.paragraph {
+    font-size: large;
+    margin: 0px;
+    padding-left: 3rem;
+}
 
-.step-title {
+.light-color {
     color: var(--very-light-teal);
-    text-align: center;
 }
+
+#app-description {
+    font-size: larger;
+    max-width: 56rem;
+}
+
+.preserve-white-space {
+    white-space: pre-line;
+}
+
+
 .debug-bg {
     background-color: rgb(199, 126, 126);
 }

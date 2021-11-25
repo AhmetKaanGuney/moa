@@ -2,35 +2,50 @@ WHAT IS MOA?
 
 MOA (Matrix Operations Application) is a simple tool for editing your matrix.
 
+It's designed for people who want to group their excel matricies quickly and
+easly. If you have a matrix at the size of 10x10, of course you can do it by hand.
+But what if you had a matrix size of 64x64. Then things would get really slow and tedious.
+So MOA was created and it is at the use of those who need it.
+
+
 HOW IT WORKS?
+
+This is a quick summary of the program you can checkout
+the !!!-How To Use?-!!! page for extended explanation with images.
+
+- Choose a file. (Supported formats: '.xls', '.xlsx')
 
 - Enter the coordinates of your matrix in your document:
     - First Row: the number of the first row
     - Last Row: the number of the last row
     - First Col: the letter of the first column
     - Last Col: the letter of the last column
-    Note: If you have empty rows or columns inside
-        your matrix (not the document) you will get an error.
+Note: If you have empty rows or columns inside
+your matrix (not the document) you will get an error.
 
-- Upload your file. (Supported formats: '.xls', '.xlsx', '.csv')
+- Hit the 'Submit' button.
 
 - You will be redirected to a new page with two lists side by side:
-    - On the left side you have row and column names that was in your matrix.
-    - On the right side you have row and column names that's in the group you
-        have selected. Which you haven't yet. That's why it's empty.
+    - On the left side you have row and column names that was in
+      your matrix.
+    - On the right side you have row and column names that's in the
+      group you have selected. Which you haven't yet. That's why
+      it's empty.
 
 - Create row or column groups.
-    - A window will pop-up when you click 'Create Group' from the Group menu.
-    - You can select which type of group you want to create:
-        - Row, Column or Both.
-        - Selecting 'Both' will create a row and a column group, with the same name.
+- A window will pop-up when you click 'Create Group' from the
+  Group menu.
+- You can select which type of group you want to create:
+    - Row, Column or Both.
+    - Selecting 'Both' will create a row and a column group,
+      with the same name.
 
 - Add rows to the row groups and add columns to the column groups.
-    - Just click on the name you want to add.
-    - If you want to remove a name from a group just click on it.
+- Just click on the name you want to add.
+- If you want to remove a name from a group just click on it.
 
-- After you are done go to the Download menu and select a format.
-    - You should see the download prompt from your browser.
-    - Hit Save.
+- After you are done go to the Export menu and select a format.
+- You should see the download prompt from your browser.
+- Hit Save.
 
 - That's it! Enjoy your new matrix.

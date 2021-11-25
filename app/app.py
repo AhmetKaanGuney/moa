@@ -166,6 +166,11 @@ def download(filename):
         return render_template("blueprint.html", error=error)
 
 
+@app.route("/how-to-use.html", methods=["GET"])
+def how_to_use():
+    if request.method == "GET":
+        return render_template("how-to-use.html")
+
 def read_txt_file(file):
     data = ""
     with open(file, "rb", encoding="utf-8") as f:

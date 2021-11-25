@@ -11,7 +11,7 @@
     <script defer type="module" src="../static/scripts/blueprint/group-manager.js"></script>
     <script defer type="module" src="../static/scripts/blueprint/modal-window.js"></script>
     <script defer type="module" src="../static/scripts/blueprint/update.js"></script>
-    <script defer type="module" src="../static/scripts/blueprint/events.js"></script>
+    <script defer type="module" src="../static/scripts/blueprint/button-events.js"></script>
     <script defer type="module" src="../static/scripts/blueprint/initialize.js"></script>
 {% endblock %}
 
@@ -50,12 +50,11 @@
         <ul class="nav">
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
-                    Download
+                    Export
                 </a>
                 <ul class="dropdown-menu shadow-lg">
-                    <li><button class="dropdown-item" id="download-xlsx-button">Microsoft Excel (.xlsx)</button></li>
-                    <li><button class="dropdown-item" id="download-xls-button">Microsoft Excel (.xls)</button></li>
-                    <li><button class="dropdown-item" id="download-csv-button">Comma Seperated Values (.csv)</button></li>
+                    <li><button class="dropdown-item" id="export-xlsx-button">Microsoft Excel (.xlsx)</button></li>
+                    <li><button class="dropdown-item" id="export-xls-button">Microsoft Excel (.xls)</button></li>
                 </ul>
             </li>
             <li class="nav-item dropdown">

@@ -13,7 +13,8 @@
 
     <!-- MID COLUMN -->
     <div class="col-sm-4">
-        <h1 style="text-align: center;">Do these things with your matrix.<br>And more...</h1>
+        <h1 style="text-align: center;">Edit your matrix with ease.
+            <!-- <br>And more...</h1> -->
     </div>
 
     <!-- RIGHT COLUMN -->
@@ -69,8 +70,8 @@
 </div>
 
 <!-- MIDDLE TITLE -->
-<div class="container mt-5 mb-5 text-center">
-    <h2>How It Works</h2>
+<div class="container mt-5 mb-3 text-center">
+    <h2>What is MOA?</h2>
     <!-- Seperator -->
     <div class="row mb-0 pb-0" style="justify-content: center;">
         <hr class="seperator-line col-10" style="color: white;">
@@ -78,87 +79,78 @@
 </div>
 
 <div class="row">
+    <div class="col">
+        <h4 class="light-color text-center">
+            MOA (Matrix Operations Application) is a simple tool for editing your matrix.
+        </h4>
+    </div>
+</div>
+<div class="row justify-content-center mb-2">
+    <p class="light-color text-center" id="app-description">
+        It's designed for people who want to group their excel matricies quickly and
+        easly. If you have a matrix at the size of 10x10, of course you can do it by hand.
+        But what if you had a matrix size of 64x64. Then things would get really slow and tedious.
+        So MOA was created and it is at the use of those who need it.
+    </p>
+</div>
+
+
+
+<div class="row mt-4">
     <!-- LEFT SPACE -->
-    <div class="col-sm-2 "></div>
+    <div class="col-sm-2"></div>
+
     <!-- BOX 1 -->
     <div class="col">
-        <div class="container card-box">
-            <h3 class="step-title">STEP 1</h3>
+        <div class="container card-box justify-content-center">
 
-            <hr class="mt-1 " style="border: 1px white solid;">
+            <h3 class="light-color text-center mb-2 mt-3">
+                How It Works?
+            </h3>
 
-            <h5>Upload a File</h5>
-            <p>Supported file formats are:</p>
-            <ul class="mt-0 pt-0">
-                <li>Microsoft Excel (.xlsx)</li>
-                <li>Microsoft Excel (.xls)</li>
-                <li>Comma Seperated Values (.csv)</li>
-            </ul>
+            <!-- Seperator -->
+            <hr class="seperator-line m-1 p-0" style="color: white;">
+            <pre class="pt-3"><p class="light-color paragraph justify-content-center">This is a quick summary of the program you can checkout
+the <a href="/how-to-use.html">How To Use?</a> page for extended explanation with images.
+
+- Choose a file. (Supported formats: '.xls', '.xlsx')
+
+- Enter the coordinates of your matrix in your document:
+    - First Row: the number of the first row
+    - Last Row: the number of the last row
+    - First Col: the letter of the first column
+    - Last Col: the letter of the last column
+Note: If you have empty rows or columns inside
+your matrix (not the document) you will get an error.
+
+- Hit the 'Submit' button.
+
+- You will be redirected to a new page with two lists side by side:
+    - On the left side you have row and column names that was in
+      your matrix.
+    - On the right side you have row and column names that's in the
+      group you have selected. Which you haven't yet. That's why
+      it's empty.
+
+- Create row or column groups.
+- A window will pop-up when you click 'Create Group' from the
+  Group menu.
+- You can select which type of group you want to create:
+    - Row, Column or Both.
+    - Selecting 'Both' will create a row and a column group,
+      with the same name.
+
+- Add rows to the row groups and add columns to the column groups.
+- Just click on the name you want to add.
+- If you want to remove a name from a group just click on it.
+
+- After you are done go to the Export menu and select a format.
+- You should see the download prompt from your browser.
+- Hit Save.
+
+- That's it! Enjoy your new matrix.</p></pre>
         </div>
     </div>
 
-    <!-- BOX 2 -->
-    <div class="col">
-        <div class="container card-box">
-            <h3 class="step-title">STEP 2</h3>
-
-            <hr class="mt-1 " style="border: 1px white solid;">
-
-            <h5>Group Rows and Columns</h5>
-            <!-- <img src="../static/upload_black_24dp.svg" alt="" height="150px"> -->
-            <ul class="mt-0 pt-0">
-                <li>Create groups</li>
-                <li>Give them a names</li>
-                <li>Put your rows and cols <br>in the groups you created</li>
-            </ul>
-        </div>
-    </div>
-    <!-- RIGHT SPACE -->
     <div class="col-sm-2"></div>
-</div>
-
-<div class="row mt-3">
-    <!-- LEFT SPACE -->
-    <div class="col-sm-2 "></div>
-    <!-- BOX 3 -->
-    <div class="col">
-        <div class="container card-box">
-            <h3 class="step-title">STEP 3</h3>
-
-            <hr class="mt-1 " style="border: 1px white solid;">
-
-            <h5>Download</h5>
-            <!-- <img src="../static/upload_black_24dp.svg" alt="" height="150px"> -->
-            <p>
-                After you are done with grouping your matrix, hit the download.
-            </p>
-            <p>You can export the matrix in there file formats :</p>
-            <ul>
-                <li>Microsoft Excel (.xlsx)</li>
-                <li>Microsoft Excel (.xls)</li>
-                <li>Comma Seperated Values (.csv)</li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- BOX 4 -->
-        <div class="col">
-        <div class="container card-box">
-            <h3 class="step-title">STEP 4</h3>
-
-            <hr class="mt-1 " style="border: 1px white solid;">
-
-            <h5>Enter matrix coordinates</h5>
-            <!-- <img src="../static/upload_black_24dp.svg" alt="" height="150px"> -->
-            <p>
-                Enter matrix coordinates.
-            </p>
-           </div>
-    </div>
-
-    <!-- BOX 4 -->
-    <!-- RIGHT SPACE -->
-    <div class="col-sm-2"></div>
-</div>
-
-{% endblock %}
+    {% endblock %}

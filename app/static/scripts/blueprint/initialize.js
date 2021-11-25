@@ -1,6 +1,6 @@
 import { gm } from "./globals.js";
 import { updateLists } from "./update.js";
-import { createGroup, deleteGroup, renameGroup } from "./events.js";
+import { createGroup, deleteGroup, renameGroup } from "./button-events.js";
 
 let initialized = false;
 
