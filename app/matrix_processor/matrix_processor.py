@@ -37,8 +37,11 @@ from .group_manager import GroupManager
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! #
 CWD = os.getcwd()
 
-database = f"{CWD}/db/matricies.db"
-fallback_database = "./db/matricies.db"
+with open("../env.json") as f:
+    ENV = json.load(f)
+
+database = ENV["DB_PATH"]
+fallback_database = f"{CWD}/db/matricies.db"
 
 
 # --------------------------- #
