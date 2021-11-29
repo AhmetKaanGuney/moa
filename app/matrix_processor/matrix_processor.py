@@ -41,8 +41,6 @@ with open("../env.json") as f:
     ENV = json.load(f)
 
 database = ENV["DB_PATH"]
-fallback_database = f"{CWD}/db/matricies.db"
-
 
 # --------------------------- #
 #     FILE TO BLUEPRINT       #
@@ -57,11 +55,7 @@ def get_blueprint_from_file(file_stream, matrix_coordinates, session_id):
     # convert Matrix() object to json format
     matrix_for_db = matrix_to_json(source_matrix)
 
-    try:
-        conn = sqlite3.connect(database)
-    except OperationalError:
-        conn = sqlite3.connect(fallback_database)
-
+    conn = sqlite3.connect(database)
     cur = conn.cursor()
 
     # store Matrix() in db with an id specific to session
