@@ -1,14 +1,13 @@
 import os
+import time
+import secrets
 
 from flask import (
-    abort,
     Flask,
-    flash,
     json,
     make_response,
     render_template,
     request,
-    redirect,
     session,
     send_from_directory,
     url_for,
@@ -49,11 +48,15 @@ def index():
 
         print("Checking Form...")
         # Check form data
-        for i in (request.form["first-row"], request.form["last-row"],
-                  request.form["first-col"], request.form["last-col"]):
-                if i == "":
-                    error = "All fields must be filled."
-                    return render_template("index.html", error=error)
+        for i in (
+            request.form["first-row"],
+            request.form["last-row"],
+            request.form["first-col"],
+            request.form["last-col"],
+        ):
+            if i == "":
+                error = "All fields must be filled."
+                return render_template("index.html", error=error)
 
         # Assigning input data
         matrix_input = {
@@ -96,7 +99,9 @@ def index():
 
             bp = json.loads(source_blueprint)
 
-            # TODO Delete old files at /downloads,
+            # Delete at DOWNLOADS_FOLRDER
+            delete_old_files()
+
             print("Returning Bleuprint...")
             # Render blueprint page
             return render_template("blueprint.html", blueprint=bp)
@@ -118,21 +123,23 @@ def blueprint():
             # Get blueprint
             blueprint = data["blueprint"]
             # Get file format
-            file_format = data["fileFormat"]
+            extension = data["fileFormat"]
         except KeyError:
             return "Something went wrong", 404
 
-        if file_format not in ("xlsx", "xls", "csv"):
+        if extension not in ("xlsx", "xls", "csv"):
             error = "Invalid file format."
             return render_template("blueprint.html", error=error)
 
-        filename = generate_filename(session["id"], file_format)
+        filename = generate_filename(extension)
         path = app.config["DOWNLOAD_FOLDER"] + filename
 
         print("Writing Blueprint to File...")
         # write bluprint to file
         try:
-            mp.write_blueprint_to_file(blueprint, file_format, session["id"], file_path=path)
+            mp.write_blueprint_to_file(
+                blueprint, extension, session["id"], file_path=path
+            )
         except Error:
             return make_response({"status": "ERROR", "error": Error.message})
 
@@ -171,6 +178,7 @@ def how_to_use():
     if request.method == "GET":
         return render_template("how-to-use.html")
 
+
 def read_txt_file(file):
     data = ""
     with open(file, "rb", encoding="utf-8") as f:
@@ -178,8 +186,21 @@ def read_txt_file(file):
             data += line
     return data
 
-def generate_filename(session_id, extension):
-    return str(session_id) + "." + extension
+
+def generate_filename(extension):
+    filename = secrets.token_hex(4)
+    return filename + "." + extension
+
+
+def delete_old_files():
+    download_folder = app.config["DOWNLOAD_FOLDER"]
+    for i in os.listdir(download_folder):
+        file_path = download_folder + i
+        # in seconds
+        time_passed = time.time() - os.path.getmtime(file_path)
+        one_hour = 3600
+        if time_passed > one_hour:
+            os.remove(file_path)
 
 
 if __name__ == "__main__":

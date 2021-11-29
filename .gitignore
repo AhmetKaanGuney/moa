@@ -6,6 +6,8 @@ app/test/__pycache__/
 app/matrix_processor/__pycache__/
 app/downloads/
 app/config.py
+app/matrix_processor/test/
+app/db/
 test/output_files
 remote.txt
 setup.ps1
