@@ -6,151 +6,161 @@
 {% endblock %}
 
 {% block main %}
-<!-- UPLOAD SECTION -->
-<div class="row pt-5 pb-3">
-    <!-- LEFT COLUMN -->
-    <div class="col-sm-4"></div>
+<main class="container main">
+        <!-- UPLOAD SECTION -->
+    <div class="row pt-5 pb-3">
+        <!-- LEFT COLUMN -->
+        <div class="col-sm-4"></div>
 
-    <!-- MID COLUMN -->
-    <div class="col-sm-4">
-        <h1 style="text-align: center;">Edit your matrix with ease.
-            <!-- <br>And more...</h1> -->
+        <!-- MID COLUMN -->
+        <div class="col-sm-4">
+            <h1 style="text-align: center;">Edit your matrix with ease.
+                <!-- <br>And more...</h1> -->
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="col-sm-4"></div>
     </div>
 
-    <!-- RIGHT COLUMN -->
-    <div class="col-sm-4"></div>
-</div>
 
+    <div class="row">
+        <!-- LEFT COLUMN -->
+        <div class="col-sm-2"></div>
 
-<div class="row">
-    <!-- LEFT COLUMN -->
-    <div class="col-sm-2"></div>
-
-    <!-- MID COLUMN -->
-    <!-- UPLOAD FORM -->
-    <div class="col border border-1 border text-center" id="file-upload-form-box">
-        <form action="/" method="post" enctype="multipart/form-data"  class="pt-2 pb-3">
-            <div>
-                <!-- File Input -->
-                <input type="file" class="form-control form-control-lg mt-4" id="file-input" name="file-input" accept=".xls,.xlsx,.csv">
-                <div class="row mt-3 justify-content-center">
-                    <!-- First Row -->
-                    <label for="first-row" class="col form-label matrix-input-label">First Row:</label>
-                    <input id="first-row" name="first-row" class="col form-control matrix-input" type="number" min=0>
-                    <!-- Last Row -->
-                    <label for="last-row" class="col form-label matrix-input-label">Last Row:</label>
-                    <input id="last-row" name="last-row" class="col form-control matrix-input" type="number" min=0>
-                </div>
-                <div class="row mt-3 justify-content-center">
-                    <!-- First Col -->
-                    <label for="first-col" class="col form-label matrix-input-label">First Col:</label>
-                    <input id="first-col" name="first-col" class="col form-control matrix-input" type="text" min=0>
-                    <!-- Last Col -->
-                    <label for="last-col" class="col form-label matrix-input-label">Last Col:</label>
-                    <input id="last-col" name="last-col" class="col form-control matrix-input" type="text" min=0>
-                </div>
-
-
-                <!-- Error Box -->
-                {% if error %}
-                    <div class="error-message-box">
-                        <p class="error-message pb-2 pt-2">
-                            <strong>Error:</strong> {{ error }}
-                        </p>
+        <!-- MID COLUMN -->
+        <!-- UPLOAD FORM -->
+        <div class="col border border-1 border text-center" id="file-upload-form-box">
+            <form action="/" method="post" enctype="multipart/form-data"  class="pt-2 pb-3">
+                <div>
+                    <!-- File Input -->
+                    <input type="file" class="form-control form-control-lg mt-4" id="file-input" name="file-input" accept=".xls,.xlsx,.csv">
+                    <div class="row mt-3 justify-content-center">
+                        <!-- First Row -->
+                        <label for="first-row" class="col form-label matrix-input-label">First Row:</label>
+                        <input id="first-row" name="first-row" class="col form-control matrix-input" type="number" min=0>
+                        <!-- Last Row -->
+                        <label for="last-row" class="col form-label matrix-input-label">Last Row:</label>
+                        <input id="last-row" name="last-row" class="col form-control matrix-input" type="number" min=0>
                     </div>
-                {% endif %}
-            </div>
+                    <div class="row mt-3 justify-content-center">
+                        <!-- First Col -->
+                        <label for="first-col" class="col form-label matrix-input-label">First Col:</label>
+                        <input id="first-col" name="first-col" class="col form-control matrix-input" type="text" min=0>
+                        <!-- Last Col -->
+                        <label for="last-col" class="col form-label matrix-input-label">Last Col:</label>
+                        <input id="last-col" name="last-col" class="col form-control matrix-input" type="text" min=0>
+                    </div>
 
-            <button type="submit" class="btn btn-lg mt-3 justify-content-center" id="submit-button">Submit</button>
-        </form>
+
+                    <!-- Error Box -->
+                    {% if error %}
+                        <div class="error-message-box">
+                            <p class="error-message pb-2 pt-2">
+                                <strong>Error:</strong> {{ error }}
+                            </p>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="btn btn-lg mt-3 justify-content-center" id="submit-button">Submit</button>
+            </form>
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="col-sm-2"></div>
     </div>
 
-    <!-- RIGHT COLUMN -->
-    <div class="col-sm-2"></div>
-</div>
-
-<!-- MIDDLE TITLE -->
-<div class="container mt-5 mb-3 text-center">
-    <h2>What is MOA?</h2>
-    <!-- Seperator -->
-    <div class="row mb-0 pb-0" style="justify-content: center;">
-        <hr class="seperator-line col-10" style="color: white;">
-    </div>
-</div>
-
-<div class="row">
-    <div class="col">
-        <h4 class="light-color text-center">
-            MOA (Matrix Operations Application) is a simple tool for editing your matrix.
-        </h4>
-    </div>
-</div>
-<div class="row justify-content-center mb-2">
-    <p class="light-color text-center" id="app-description">
-        It's designed for people who want to group their excel matricies quickly and
-        easly. If you have a matrix at the size of 10x10, of course you can do it by hand.
-        But what if you had a matrix size of 64x64. Then things would get really slow and tedious.
-        So MOA was created and it is at the use of those who need it.
-    </p>
-</div>
-
-
-
-<div class="row mt-4">
-    <!-- LEFT SPACE -->
-    <div class="col-sm-2"></div>
-
-    <!-- BOX 1 -->
-    <div class="col">
-        <div class="container card-box justify-content-center">
-
-            <h3 class="light-color text-center mb-2 mt-3">
-                How It Works?
-            </h3>
-
-            <!-- Seperator -->
-            <hr class="seperator-line m-1 p-0" style="color: white;">
-            <pre class="pt-3"><p class="light-color paragraph justify-content-center">This is a quick summary of the program you can checkout
-the <a href="/how-to-use.html">How To Use?</a> page for extended explanation with images.
-
-- Choose a file. (Supported formats: '.xls', '.xlsx')
-
-- Enter the coordinates of your matrix in your document:
-    - First Row: the number of the first row
-    - Last Row: the number of the last row
-    - First Col: the letter of the first column
-    - Last Col: the letter of the last column
-Note: If you have empty rows or columns inside
-your matrix (not the document) you will get an error.
-
-- Hit the 'Submit' button.
-
-- You will be redirected to a new page with two lists side by side:
-    - On the left side you have row and column names that was in
-      your matrix.
-    - On the right side you have row and column names that's in the
-      group you have selected. Which you haven't yet. That's why
-      it's empty.
-
-- Create row or column groups.
-- A window will pop-up when you click 'Create Group' from the
-  Group menu.
-- You can select which type of group you want to create:
-    - Row, Column or Both.
-    - Selecting 'Both' will create a row and a column group,
-      with the same name.
-
-- Add rows to the row groups and add columns to the column groups.
-- Just click on the name you want to add.
-- If you want to remove a name from a group just click on it.
-
-- After you are done go to the Export menu and select a format.
-- You should see the download prompt from your browser.
-- Hit Save.
-
-- That's it! Enjoy your new matrix.</p></pre>
+    <!-- MIDDLE TITLE -->
+    <div class="container mt-5 mb-3 text-center">
+        <h2>What is MOA?</h2>
+        <!-- Seperator -->
+        <div class="row mb-0 pb-0" style="justify-content: center;">
+            <hr class="seperator-line col-10" style="color: white;">
         </div>
     </div>
 
-    <div class="col-sm-2"></div>
+    <div class="row">
+        <div class="col">
+            <h5 class="light-color text-center">
+                MOA (Matrix Operations Application) is a simple tool for editing your matrix.
+            </h5>
+        </div>
+    </div>
+    <div class="row justify-content-center mb-2">
+        <p class="light-color text-center" id="app-description">
+            It's designed for people who want to group their Excel matricies quickly and
+            easly. If you have a matrix at the size of 10x10, of course you can do it by hand.
+            But what if you had a matrix at the size of 64x64 or even 100x100. Then things would
+            get really slow and tedious. So MOA was created and it is at the use of those who need it.
+        </p>
+    </div>
+
+
+
+    <div class="row mt-4">
+        <!-- LEFT SPACE -->
+        <div class="col-sm-1"></div>
+
+        <!-- BOX 1 -->
+        <div class="col-lg">
+            <div class="container justify-content-center">
+
+                <h3 class="light-color text-center mb-2 mt-3">
+                    How It Works?
+                </h3>
+
+                <!-- Seperator -->
+                <hr class="seperator-line p-0" style="color: white;">
+
+                <div class="light-color large-font p-4">
+                    <i>
+                        This is a quick summary of the program you can checkout
+                        the <a href="/how-to-use.html" id="link">How To Use?</a> page for
+                        extended explanation with images.
+                    </i>
+                    <br>
+                    <br>
+                    <ol class="light-color">
+                        <li class="high">Choose a file. (Supported formats: '.xls', '.xlsx')</li>
+
+                        <li>
+                            Enter the coordinates of your matrix in the document.
+                            <br>
+                            <i>
+                                Note: If you have empty rows or columns inside
+                                your matrix (not the document) you will get an error.
+                            </i>
+                        </li>
+
+                        <li class="high">Hit the 'Submit' button.</li>
+
+                        <li>You will be redirected to a new page with two lists side by side:
+                            <ul>
+                                <li>
+                                    On the left side you have row and column names that was in
+                                    your matrix.
+                                </li>
+                                <li>
+                                    On the right side you have row and column names that's in the
+                                    group you have selected. Which you haven't yet, that's why
+                                    it's empty.
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="high">From there you can create, delete and rename row and column groups.</li>
+                        <li class="high">If you want to create an item just click on it.</li>
+                        <li class="high">After you are done go to the 'Export' menu and select a format.</li>
+                        <li class="high">You should see the download prompt from your browser.</li>
+                        <li class="high">Hit Save.</li>
+                        <li class="high">That's it! Enjoy your new matrix.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-1"></div>
+    </div>
+
     {% endblock %}
+</main>

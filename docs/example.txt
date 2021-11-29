@@ -27,5 +27,3 @@ vegetables we do it like so.
 
 Now we export the finall matrix the final matrix:
 - Show final matrix.
-
-

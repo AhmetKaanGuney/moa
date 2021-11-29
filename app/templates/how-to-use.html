@@ -3,90 +3,242 @@
 {% block title %}How To Use{% endblock %}
 
 {% block main %}
-Let's go through an example together.
-Here we see a matrix about food purchases.
-Each cell represents how much an individual has
-bought a certein type of food.
+<main class="container main-how-to-use">
+    <p hidden>
+        - Create MEN group
+        - Add Ross and Joes
+        - Create WOMEN group
+        - Add Monica and Rachel
+        - Show men-woman-food matrix.
 
-Let's assume that we don't want to know the amount of
-food bought for each individual. But we want to know, as a
-group how much men and women has bought a certein
-type of food.
+        If we export this you can see that all the cells
+        are summed together automatically.
 
-- Create MEN group
-- Add Ross and Joes
-- Create WOMEN group
-- Add Monica and Rachel
-- Show men-woman-food matrix.
+        And if we want to group foods together as fruits and
+        vegetables we do it like so.
 
-If we export this you can see that all the cells
-are summed together automatically.
+        - Create FRUITS group
+        - Add apple and orange
+        - Create VEGETABLES group
+        - Add potato and onion
 
-And if we want to group foods together as fruits and
-vegetables we do it like so.
+        Now we export the finall matrix the final matrix:
+        - Show final matrix.
+        </p>
 
-- Create FRUITS group
-- Add apple and orange
-- Create VEGETABLES group
-- Add potato and onion
+        <h4 class="segment-title mb-0 pb-2">Let's go through an example together</h4>
+        <hr class="seperator-white mt-1">
+        <div class="row">
+            <!-- SPACE -->
+            <div class="col-sm"></div>
 
-Now we export the finall matrix the final matrix:
-- Show final matrix.
-<br>
+            <!-- TEXT -->
+            <div class="col-sm-4 text-area">
+                <p>
+                    Here we see a matrix about food purchases.
+                    Each cell represents how much a person has
+                    bought a certain type of food. <br>
+                    Let's assume that we don't want to know the amount of
+                    food bought for each individual. But we want to know, as a
+                    group how much men and women has bought a certain
+                    type of food.
+                </p>
+            </div>
 
-Here's our matrix.
-<br>
-<img src="../static/images/how-to-use/matrix.png">
-<br>
+            <!-- IMAGE -->
+            <div class="col">
+                <img src="../static/images/how-to-use/matrix.png" class="mt-4" height="220">
+            </div>
 
-How to enter Coordinates
-<br>
-<img src="../static/images/how-to-use/matrix-coordinates.png">
-<br>
+            <!-- SPACE -->
+            <div class="col-sm"></div>
+        </div>
 
-Submit like this.
-<br>
-<img src="../static/images/how-to-use/submit.png">
-<br>
+        <hr class="seperator-white">
 
-Lets group men
-<br>
-<img src="../static/images/how-to-use/men-group.png">
-<br>
+        <h4 class="segment-title">Let's upload our matrix to the application</h4>
+        <div class="row">
+            <!-- SPACE -->
+            <div class="col-sm"></div>
 
-GIF FOR CREATE MEN
-<img src="../static/gifs/create-men.gif">
+            <!-- IMAGE -->
+            <div class="col">
+                <img src="../static/images/how-to-use/submit.png" height="220">
+            </div>
 
-GIF FOR ADD/REMOVE
-<img src="../static/gifs/add-remove.gif">
+            <!-- SPACE -->
+            <div class="col-sm"></div>
+        </div>
 
-RESULT
-<br>
-<img src="../static/images/how-to-use/resluts/men-result.png">
-<br>
+        <div class="row mt-3">
+            <!-- SPACE -->
+            <div class="col-sm"></div>
 
-Lets group women
-<br>
-<img src="../static/images/how-to-use/women-group.png">
-<br>
+            <!-- IMAGE -->
+            <div class="col">
+                <img src="../static/images/how-to-use/matrix-coordinates.png" height="220" style="padding-right: 8em;">
+            </div>
 
-RESULT
-<br>
-<img src="../static/images/how-to-use/resluts/men-women-result.png">
-<br>
+            <!-- SPACE -->
+            <div class="col-sm"></div>
+        </div>
 
-Let's group fruit and vegetables too.
-<img src="../static/gifs/fruits-vegetables.gif">
+        <hr class="seperator-white">
 
-FINAL RESULT
-<br>
-<img src="../static/images/how-to-use/resluts/final-result.png">
-<br>
+        <h4 class="segment-title">Let's create a group named 'MEN'</h4>
+        <div class="row">
+            <!-- SPACE -->
+            <div class="col-sm"></div>
 
-<!-- CASE PARAGRAPH -->
+            <!-- IMAGE -->
+            <div class="col" style="padding-right: 5em;">
+                <img src="../static/images/how-to-use/men-group.png" height="220">
+            </div>
 
-<!-- TEXT -->
-<!-- IMAGE -->
-<!-- GIF -->
+            <!-- SPACE -->
+            <div class="col-sm"></div>
+        </div>
 
+
+        <div class="row mt-3">
+            <!-- SPACE -->
+            <div class="col-sm"></div>
+
+            <!-- IMAGE -->
+            <div class="col">
+                <img src="../static/gifs/create-men.gif" class="shadow" height="220">
+            </div>
+
+            <!-- SPACE -->
+            <div class="col-sm"></div>
+        </div>
+
+        <hr class="seperator-white">
+
+        <h4 class="segment-title">Just click on an item to add/remove</h4>
+        <div class="row">
+            <!-- SPACE -->
+            <div class="col-sm"></div>
+
+            <!-- IMAGE -->
+            <div class="col">
+                <img src="../static/gifs/add-remove.gif" class="shadow" height="220">
+            </div>
+
+            <!-- SPACE -->
+            <div class="col-sm"></div>
+        </div>
+
+
+        <hr class="seperator-white">
+
+        <h4 class="segment-title">Now let's add Ross and Joey to 'MEN'</h4>
+        <div class="row">
+            <!-- SPACE -->
+            <div class="col-sm"></div>
+
+            <!-- IMAGE -->
+            <div class="col">
+                <img src="../static/gifs/add-men.gif" class="shadow" height="220">
+            </div>
+
+            <!-- SPACE -->
+            <div class="col-sm"></div>
+        </div>
+
+        <hr class="seperator-white">
+
+        <h4 class="segment-title">If we export at this point the result would look like this</h4>
+        <div class="row">
+            <!-- SPACE -->
+            <div class="col-sm"></div>
+
+            <!-- IMAGE -->
+            <div class="col">
+                <img src="../static/images/how-to-use/resluts/men-result.png">
+            </div>
+
+            <!-- SPACE -->
+            <div class="col-sm"></div>
+        </div>
+
+        <hr class="seperator-white">
+
+        <h4 class="segment-title">But let's continue and create a 'WOMEN' group</h4>
+        <div class="row">
+            <!-- SPACE -->
+            <div class="col-sm"></div>
+
+            <!-- IMAGE -->
+            <div class="col" style="padding-right: 5em;">
+                <img src="../static/images/how-to-use/women-group.png"  height="220">
+            </div>
+
+            <!-- SPACE -->
+            <div class="col-sm"></div>
+        </div>
+
+        <div class="row mt-4">
+            <!-- SPACE -->
+            <div class="col-sm"></div>
+
+            <!-- IMAGE -->
+            <div class="col">
+                <img src="../static/gifs/women-create-add.gif" class="shadow" height="220">
+            </div>
+
+            <!-- SPACE -->
+            <div class="col-sm"></div>
+        </div>
+
+        <hr class="seperator-white">
+
+        <h4 class="segment-title">At this this point we can see that all the cells<br>have been automatically summed together.</h4>
+        <div class="row">
+            <!-- SPACE -->
+            <div class="col-sm"></div>
+
+            <!-- IMAGE -->
+            <div class="col">
+                <img src="../static/images/how-to-use/resluts/men-women-result.png" width="780">
+            </div>
+
+            <!-- SPACE -->
+            <div class="col-sm"></div>
+        </div>
+
+
+        <hr class="seperator-white">
+
+        <h4 class="segment-title">And if we want to seperate foods into <br>'FRUITS' and 'VEGETABLES'<br>we can do it like so</h4>
+        <div class="row">
+            <!-- SPACE -->
+            <div class="col-sm"></div>
+
+            <!-- IMAGE -->
+            <div class="col">
+                <img src="../static/gifs/fruits-vegetables.gif" class="shadow" height="220">
+            </div>
+
+            <!-- SPACE -->
+            <div class="col-sm"></div>
+        </div>
+
+
+        <hr class="seperator-white">
+
+        <h4 class="segment-title">Now if we export the final result will look like this</h4>
+        <div class="row mb-5">
+            <!-- SPACE -->
+            <div class="col-sm"></div>
+
+            <!-- IMAGE -->
+            <div class="col">
+                <img src="../static/images/how-to-use/resluts/final-result.png" height="200">
+            </div>
+
+            <!-- SPACE -->
+            <div class="col-sm"></div>
+        </div>
+</main>
 {% endblock %}

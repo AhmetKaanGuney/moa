@@ -39,6 +39,13 @@ h2 {
     color: var(--very-light-teal);
 }
 
+#link {
+    color: rgb(0, 231, 212);
+}
+#link:hover {
+    color: rgb(132, 255, 239);
+}
+
 .body {
     background-image: linear-gradient(to top, var(--body-bg-dark), var(--body-bg-light));
     height: 100%;
@@ -48,6 +55,15 @@ h2 {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 
     background-image: linear-gradient(to top, var(--main-bg-dark), var(--main-bg-light));
+    height: calc(100% - 49px);
+    padding-bottom: 1em;
+    box-shadow: 0px 0px 50px 20px rgba(0, 0, 0, 0.3);
+}
+
+.main-how-to-use {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: var(--light-teal);
+    /* background-image: linear-gradient(to top, var(--medium-teal), var(--light-teal)); */
     height: calc(100% - 49px);
     padding-bottom: 1em;
     box-shadow: 0px 0px 50px 20px rgba(0, 0, 0, 0.3);
@@ -246,9 +262,13 @@ h2 {
 }
 
 .paragraph {
-    font-size: large;
-    margin: 0px;
-    padding-left: 3rem;
+    font-size: larger;
+    /* margin: 0px; */
+    /* padding-left: 3rem; */
+}
+
+.high {
+    line-height: 2;
 }
 
 .light-color {
@@ -271,4 +291,23 @@ h2 {
 
 .debug-bg-2 {
     background-color: rgb(126, 155, 199);
+}
+
+
+/* HOW TO USE */
+
+.text-area {
+    font-size: larger;
+    max-width: 18em;
+}
+
+.seperator-white {
+    color: white;
+    min-height: 3px;
+    box-shadow: 0px 1px 15px black;
+}
+
+.segment-title {
+    padding: 1rem 0em;
+    text-align: center;
 }
