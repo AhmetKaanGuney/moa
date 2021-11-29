@@ -3,6 +3,7 @@ venv/
 env.json
 setup.ps1
 app/__pycache__/
+app/config.py
 app/db/
 app/downloads/
 app/matrix_processor/__pycache__/
