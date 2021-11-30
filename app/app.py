@@ -83,11 +83,13 @@ def index():
             )
 
             print("Converting File to Blueprint...")
+            # Get file format
+            file_format = f.filename.split('.')[1]
             # Get file stream
             file_stream = f.stream.read()
             try:
                 source_blueprint = mp.get_blueprint_from_file(
-                    file_stream, matrix_coords, session_id
+                    file_stream, file_format, matrix_coords, session_id
                 )
             except Exception as e:
                 error = e
@@ -123,22 +125,22 @@ def blueprint():
             # Get blueprint
             blueprint = data["blueprint"]
             # Get file format
-            extension = data["fileFormat"]
+            file_format = data["fileFormat"]
         except KeyError:
             return "Something went wrong", 404
 
-        if extension not in ("xlsx", "xls", "csv"):
+        if file_format not in ("xlsx", "xls"):
             error = "Invalid file format."
             return render_template("blueprint.html", error=error)
 
-        filename = generate_filename(extension)
+        filename = generate_filename(file_format)
         path = app.config["DOWNLOAD_FOLDER"] + filename
 
         print("Writing Blueprint to File...")
         # write bluprint to file
         try:
             mp.write_blueprint_to_file(
-                blueprint, extension, session["id"], file_path=path
+                blueprint, file_format, session["id"], file_path=path
             )
         except Error:
             return make_response({"status": "ERROR", "error": Error.message})

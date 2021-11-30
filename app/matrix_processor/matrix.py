@@ -1,6 +1,9 @@
 # -----------------------  #
 #         MATRIX           #
 # -----------------------  #
+from xlrd.formula import rownamerel
+
+
 class Matrix:
     """This class is for holding raw matrix data in the form of two dictionaries. One for row and one for columns.\n
     Every Matrix() object has these attributes:
@@ -13,6 +16,23 @@ class Matrix:
         self.rows = rows
         self.cols = cols
 
+    def __repr__(self) -> str:
+        row_str = "Rows: {\n\t"
+        for r in self.get_rows():
+            row_str += f"'{r:<15}':["
+            for i in self.get_row(r):
+                row_str += f"{i},"
+            row_str += "]\n\t"
+        row_str += "},"
+
+        col_str = "Cols: {\n\t"
+        for c in self.get_cols():
+            col_str += f"'{c:<15}':["
+            for i in self.get_col(c):
+                col_str += f"{i},"
+            col_str += "]\n\t"
+        col_str += "}"
+        return row_str + "\n" + col_str
     # ----------------- #
     #    GET METHODS    #
     # ----------------- #

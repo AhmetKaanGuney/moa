@@ -1,14 +1,17 @@
 """Format convertors"""
-import os
-from typing import final
+import json
 
+import pandas as pd
 import xlrd
 import xlwt
-import json
-# import openpyxl
 
 from .matrix import Matrix
 from .errors import DuplicationError, EmptyError, Error, NaNError
+
+# For Tesing import these
+# import matrix
+# from errors import DuplicationError, EmptyError, Error, NaNError
+# from matrix import Matrix
 
 ENCODING = "UTF-8"
 
@@ -26,6 +29,29 @@ def matrix_to_json(matrix: Matrix):
     return json.dumps({"rows": rows, "cols": cols})
 
 
+def get_order(num):
+    """Returns number in string with order attached"""
+    div = num
+    n = 0
+    while div > 1:
+        div = round(div / 10)
+        n += 1
+
+    remainder = num % 10
+    s_num = str(num)
+    last_two_digits = num % 100
+    if 10 < last_two_digits < 20:
+        return s_num + "th"
+    if remainder == 1:
+        return s_num + "st"
+    if remainder == 2:
+        return s_num + "nd"
+    if remainder == 3:
+        return s_num + "rd"
+    # else
+    return s_num + "th"
+
+
 class XlsFile:
     """This class is for reading and writing XLS files.
     It takes file_path's path, the coordinates and sheet_index of the
@@ -34,7 +60,9 @@ class XlsFile:
     parsing.
     Sheet index: is for which sheet to read from in the excel"""
 
-    def __init__(self, matrix_coords: dict, file_path="", file_stream=b"", sheet_index=0):
+    def __init__(
+        self, matrix_coords: dict, file_path="", file_stream=b"", sheet_index=0
+    ):
         self.file_path = file_path
         self.file_stream = file_stream
         self.coordinates = matrix_coords
@@ -70,9 +98,15 @@ class XlsFile:
             )
         elif self.file_stream:
             try:
-                workbook = xlrd.open_workbook(file_contents=self.file_stream ,encoding_override=ENCODING, on_demand=True)
+                workbook = xlrd.open_workbook(
+                    file_contents=self.file_stream,
+                    encoding_override=ENCODING,
+                    on_demand=True,
+                )
             except Exception:
-                Error.set_message("An error occured while reading the file.\nThe file might corrupted or you might have entered wrong coordinates for the matrix.")
+                Error.set_message(
+                    "An error occured while reading the file.\nThe file might corrupted or you might have entered wrong coordinates for the matrix."
+                )
                 return None
         worksheet = workbook.sheet_by_index(self.sheet_index)
 
@@ -123,7 +157,7 @@ class XlsFile:
                 empty_row_index += 1
             else:
                 raise EmptyError(
-                    f"{self.get_order(empty_row_index)} row is empty!"
+                    f"{get_order(empty_row_index)} row is empty!"
                     f"Make sure there are no gaps between rows."
                 )
         return rows
@@ -163,7 +197,7 @@ class XlsFile:
                 cols[col_name] = col_vals
             else:
                 raise EmptyError(
-                    f"{self.get_order(empty_col_index)} column is empty! "
+                    f"{get_order(empty_col_index)} column is empty! "
                     f"Make sure there are no gaps between columns."
                 )
         return cols
@@ -205,29 +239,33 @@ class XlsFile:
         """Checks the type of the value inside the cell. Raises error if value is NaN.
         - returns: the value of cell"""
         row_vals = worksheet.row_values(
-            rowx=rowx, start_colx=start_colx    # list has only 1 item in it
+            rowx=rowx, start_colx=start_colx  # list has only 1 item in it
         )
         value = row_vals.pop(0)  # remove brackets from value
         # type check
         if type(value) == int or float or None:
             return value
         else:
-            raise NaNError(f"Cell ({rowx}, {start_colx}) does not contain number value."
-            "Make sure that all cells contain a number value.")
+            raise NaNError(
+                f"Cell ({rowx}, {start_colx}) does not contain number value."
+                "Make sure that all cells contain a number value."
+            )
 
     @staticmethod
     def _pop_col_val(worksheet, colx, start_rowx):
         """Checks the type of the value inside the cell. Raises error if value is NaN.
         - returns: the value of cell"""
         col_vals = worksheet.col_values(
-            colx=colx, start_rowx=start_rowx    # list has only 1 item in it
+            colx=colx, start_rowx=start_rowx  # list has only 1 item in it
         )
         value = col_vals.pop(0)  # remove brackets from value
         if type(value) in (int, float, None):
             return value
         else:
-            raise NaNError(f"Cell ({start_rowx}, {colx}) does not contain number value."
-            "Make sure that all cells contain a number value.")
+            raise NaNError(
+                f"Cell ({start_rowx}, {colx}) does not contain number value."
+                "Make sure that all cells contain a number value."
+            )
 
     # ----------------------- #
     #         WRITER          #
@@ -271,25 +309,165 @@ class XlsFile:
         workbook.release_resources()
         del workbook
 
-    @staticmethod
-    def get_order(num):
-        """Returns number in string with order attached"""
-        div = num
-        n = 0
-        while div > 1:
-            div = round(div / 10)
-            n += 1
 
-        remainder = num % 10
-        s_num = str(num)
-        last_two_digits = num % 100
-        if 10 < last_two_digits < 20:
-            return s_num + "th"
-        if remainder == 1:
-            return s_num + "st"
-        if remainder == 2:
-            return s_num + "nd"
-        if remainder == 3:
-            return s_num + "rd"
-        # else
-        return s_num + "th"
+class XlsxFile:
+    def __init__(self, matrix_coords: dict, file_path="", file_stream="b"):
+        self.file_path = file_path
+        self.file_stream = file_stream
+        self.coordinates = matrix_coords
+
+        self.first_row, self.last_row = (
+            matrix_coords["first_row"],
+            matrix_coords["last_row"],
+        )
+        self.first_col, self.last_col = (
+            matrix_coords["first_col"],
+            matrix_coords["last_col"],
+        )
+
+    # ----------------------- #
+    #         PARSER          #
+    # ----------------------- #
+    def parse(self) -> Matrix:
+        "returns: Matrix() object"
+        if self.file_path:
+            df = pd.read_excel(
+                self.file_path,
+                index_col=0,
+                usecols=list(range(self.first_col - 1, self.last_col + 1)),
+                skiprows=self.first_row - 1,
+            )
+        elif self.file_stream:
+            print("!!! WARNING !!!")
+            print("XlsxFile Parsing file_stream...")
+            df = pd.read_excel(
+                self.file_stream,
+                index_col=0,
+                usecols=list(range(self.first_col - 1, self.last_col + 1)),
+                skiprows=self.first_row - 1,
+            )
+        # Autofill empty cells with 0
+        df.fillna(0, inplace=True, axis=0)
+
+        rows = {}
+        cols = {}
+
+        # Generate rows
+        for i, r in enumerate(df.index):
+            row_vals = list(df.loc[r])
+            rows[r] = row_vals
+
+        # Generate cols
+        for i, c in enumerate(df):
+            col_vals = list(df[c])
+            cols[c] = col_vals
+
+        # print("Rows: ", list(rows.keys()))
+        # print("Cols: ", list(cols.keys()))
+        print(list(df.index.duplicated()))
+        # Check for name values
+        for i, duplicating in enumerate(list(df.index.duplicated())):
+            if duplicating == True:
+                raise DuplicationError(
+                        f"Duplication of '{df.index[i]}' detected in row names."
+                        f"Make sure that all column names are unique."
+                )
+
+        self.check_names(rows.keys(), "row")
+        self.check_names(cols.keys(), "column")
+
+        # Check for values
+        for i, r in enumerate(rows):
+            self.check_values(rows[r], i, "row")
+
+        for i, c in enumerate(cols):
+            self.check_values(cols[c], i, "column")
+
+        # return Matrix() object
+        return Matrix(rows, cols)
+
+    # ----------------------- #
+    #         WRITER          #
+    # ----------------------- #
+    @staticmethod
+    def write(file_path: str, processed_matrix: Matrix):
+        print("WRITE XLSX todo")
+        index_names = processed_matrix.get_rows()
+        data = processed_matrix.cols
+        df = pd.DataFrame(data=data, index=index_names)
+
+        pd.DataFrame.to_excel(df, excel_writer=file_path)
+
+
+    @staticmethod
+    def check_names(names, row_or_col):
+        print(f"Checking for {row_or_col} names...")
+        found = []
+        for i, name in enumerate(names):
+            name = str(name)
+            # Check if name is 'nan'
+            if name in ("nan", "0"):
+                raise EmptyError(
+                    f"{get_order(i + 1)} {row_or_col} is empty!"
+                    f"Make sure there are no gaps between {row_or_col}s."
+                )
+            # Check if name is "Unnamed"
+            if "Unnamed: " in name:
+                raise EmptyError(
+                    f"{get_order(i + 1)} {row_or_col} is empty!"
+                    f"Make sure there are no gaps between {row_or_col}s."
+                )
+            # Check if name has a duplicate
+            if name in found:
+                simple_name = name.split(".")[0]
+                raise DuplicationError(
+                    f"Duplication of '{simple_name}' detected in {row_or_col} names."
+                    f"Make sure that all column names are unique."
+                )
+            else:
+                found.append(name)
+                found.append(name + ".1")
+
+    @staticmethod
+    def check_values(values, index, row_or_col):
+        print(f"Checking {row_or_col} values...")
+        for i, v in enumerate(values):
+            # print(f"{v}", type(v))
+            if type(v) is str:
+                if row_or_col == "row":
+                    coordinate = f"{index + 1}, {i + 1}"
+                else:
+                    coordinate = f"{i + 1}, {index + 1}"
+                raise NaNError(
+                    f"Cell at ({coordinate}) does not contain number value."
+                    "Make sure that all cells contain a number value."
+                )
+
+
+if __name__ == "__main__":
+    print("--- TESTING converters.py ---")
+    # TEST
+    # mc = matrix.coordinates(rows=(2, 7), cols=("b", "g"))
+    # mc = matrix.coordinates(rows=(11, 16), cols=("f", "k"))
+    # f = XlsxFile(mc, "./test/input_files/xlsx/5-5.xlsx")
+    # f = XlsxFile(mc, "./test/input_files/xlsx/5-5_row_name_duplication.xlsx")
+    # f = XlsxFile(mc, "./test/input_files/xlsx/5-5_col_name_duplication.xlsx")
+    # f = XlsxFile(mc, "./test/input_files/xlsx/5-5_empty_cell.xlsx")
+    # f = XlsxFile(mc, "./test/input_files/xlsx/5-5_empty_col.xlsx")
+    # f = XlsxFile(mc, "./test/input_files/xlsx/5-5_empty_row.xlsx")
+    # f = XlsxFile(mc, "./test/input_files/xlsx/5-5_nan_cell.xlsx")
+    # result_matrix = f.parse()
+    # print(result_matrix)
+    # processed_matrix = Matrix(rows={
+    #         "ali": [10.0, 0.0, 5.0, 8.0, 1.0],
+    #         "esma": [0.0, 12.0, 9.0, 3.0, 4.0],
+    #         "ahmet": [5.0, 7.0, 6.0, 0.0, 11.0],
+    #         "ibrahim": [14.0, 3.0, 8.0, 7.0, 0.0],
+    #         "derya": [2.0, 5.0, 9.0, 0.0, 5.0]},
+    #         cols={
+    #         "elma": [10.0, 0.0, 5.0, 14.0, 2.0],
+    #         "ıspanak": [0.0, 12.0, 7.0, 3.0, 5.0],
+    #         "armut": [5.0, 9.0, 6.0, 8.0, 9.0],
+    #         "fasulye": [8.0, 3.0, 0.0, 7.0, 0.0],
+    #         "muz": [1.0, 4.0, 11.0, 0.0, 5.0]})
+    # XlsxFile.write("./TEST.xlsx", processed_matrix)

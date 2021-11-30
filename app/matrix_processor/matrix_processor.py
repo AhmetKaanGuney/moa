@@ -3,9 +3,10 @@ from sqlite3.dbapi2 import OperationalError
 import json
 import sqlite3
 
-from .converters import XlsFile, json_to_matrix, matrix_to_json
+from .converters import XlsFile, XlsxFile, json_to_matrix, matrix_to_json
 from .matrix import coordinates
 from .group_manager import GroupManager
+
 # How this program works :
 # There are 2 stages:
 # 1. File to Blueprint
@@ -45,11 +46,15 @@ database = ENV["DB_PATH"]
 # --------------------------- #
 #     FILE TO BLUEPRINT       #
 # --------------------------- #
-def get_blueprint_from_file(file_stream, matrix_coordinates, session_id):
+def get_blueprint_from_file(file_stream, file_format, matrix_coordinates, session_id):
     # check file type
     # convert file to Matrix() object
-    source_matrix = XlsFile(matrix_coordinates, file_stream=file_stream).parse()
-    if source_matrix == None:
+    if file_format == "xls":
+        source_matrix = XlsFile(matrix_coordinates, file_stream=file_stream).parse()
+    elif file_format == "xlsx":
+        source_matrix = XlsxFile(matrix_coordinates, file_stream=file_stream).parse()
+
+    if source_matrix is None:
         return None
 
     # convert Matrix() object to json format
@@ -93,11 +98,7 @@ def write_blueprint_to_file(blueprint, file_format, session_id, file_path):
 
 
 def get_user_matrix_from_db(session_id):
-    try:
-        conn = sqlite3.connect(database)
-    except OperationalError:
-        conn = sqlite3.connect(fallback_database)
-
+    conn = sqlite3.connect(database)
     cur = conn.cursor()
     # Get user matrix
     cur.execute("SELECT matrix FROM matricies WHERE session_id=?", (session_id,))
@@ -122,8 +123,8 @@ def blueprint_to_matrix(blueprint: str, matrix: str):
 def write_matrix_to_file(processed_matrix, target_format, file_path):
     if target_format == "xls":
         XlsFile.write(file_path, processed_matrix)
-    else:
-        print(f"WARNING!!!:\n\tFile Format: {target_format} not supported yet.")
+    elif target_format == "xlsx":
+        XlsxFile.write(file_path, processed_matrix)
 
 
 if __name__ == "__main__":
