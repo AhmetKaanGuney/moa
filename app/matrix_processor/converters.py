@@ -338,8 +338,6 @@ class XlsxFile:
                 skiprows=self.first_row - 1,
             )
         elif self.file_stream:
-            print("!!! WARNING !!!")
-            print("XlsxFile Parsing file_stream...")
             df = pd.read_excel(
                 self.file_stream,
                 index_col=0,
@@ -362,9 +360,6 @@ class XlsxFile:
             col_vals = list(df[c])
             cols[c] = col_vals
 
-        # print("Rows: ", list(rows.keys()))
-        # print("Cols: ", list(cols.keys()))
-        print(list(df.index.duplicated()))
         # Check for name values
         for i, duplicating in enumerate(list(df.index.duplicated())):
             if duplicating == True:
@@ -391,7 +386,6 @@ class XlsxFile:
     # ----------------------- #
     @staticmethod
     def write(file_path: str, processed_matrix: Matrix):
-        print("WRITE XLSX todo")
         index_names = processed_matrix.get_rows()
         data = processed_matrix.cols
         df = pd.DataFrame(data=data, index=index_names)
@@ -401,7 +395,6 @@ class XlsxFile:
 
     @staticmethod
     def check_names(names, row_or_col):
-        print(f"Checking for {row_or_col} names...")
         found = []
         for i, name in enumerate(names):
             name = str(name)
@@ -430,7 +423,6 @@ class XlsxFile:
 
     @staticmethod
     def check_values(values, index, row_or_col):
-        print(f"Checking {row_or_col} values...")
         for i, v in enumerate(values):
             # print(f"{v}", type(v))
             if type(v) is str:
