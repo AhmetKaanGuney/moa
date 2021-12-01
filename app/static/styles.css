@@ -91,6 +91,10 @@ h2 {
 
 
 /* BLUEPRINT */
+.shortcut {
+    color: rgb(173, 173, 173)
+}
+
 .dropdown-menu {
     padding: 0px 0px 0px 0px;
 }
