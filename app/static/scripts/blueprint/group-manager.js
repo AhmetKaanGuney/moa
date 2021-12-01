@@ -24,15 +24,23 @@ class GroupManager {
             "rows" :{},
             "cols" :{},
         };
-
         // Add user rows
         for (let row in this.userRowGroups) {
             blueprint.rows[row] = this.userRowGroups[row];
         }
-
+        // Add remaining rows as single groups
+        for (let i = 0; i < this.sourceRows.length; i++) {
+            let row = this.sourceRows[i];
+            blueprint.rows[row] = [row];
+        }
         // add user cols
         for (let col in this.userColGroups) {
             blueprint.cols[col] = this.userColGroups[col];
+        }
+        // Add remaining cols as single groups
+        for (let i = 0; i < this.sourceCols.length; i++) {
+            let col = this.sourceCols[i];
+            blueprint.cols[col] = [col];
         }
         return blueprint;
     }

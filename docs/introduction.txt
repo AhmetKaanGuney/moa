@@ -3,7 +3,7 @@ WHAT IS MOA?
 MOA (Matrix Operations Application) is a simple tool for editing your matrix.
 
 It's designed for people who want to group their excel matricies quickly and
-easly. If you have a matrix at the size of 10x10, of course you can do it by hand.
+easily. If you have a matrix at the size of 10x10, of course you can do it by hand.
 But what if you had a matrix size of 64x64. Then things would get really slow and tedious.
 So MOA was created and it is at the use of those who need it.
 

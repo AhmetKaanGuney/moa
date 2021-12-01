@@ -114,7 +114,8 @@ def blueprint_to_matrix(blueprint: str, matrix: str):
 
     # initialize GroupManager with source matrix
     gm = GroupManager(source_matrix)
-
+    print("Blueprint: ")
+    print(blueprint)
     # create groups according to blueprint
     processed_matrix = gm.build_with(blueprint)
     return processed_matrix
