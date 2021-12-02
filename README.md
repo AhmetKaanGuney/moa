@@ -8,6 +8,8 @@ easily. If you have a matrix at the size of 10x10, of course you can do it by ha
 But what if you had a matrix size of 64x64. Then things would get really slow and tedious.
 So MOA was created and it is at the use of those who need it.
 
+**Made with Python Version: 3.9.4**
+
 Explaining Modules:
 
 MOA exists of two parts. Inside the **moa/app** you can see a directory
@@ -15,7 +17,8 @@ called *matrix_processor*.
 That is the part that handles matricies and file conversions. The rest of the files and folders inside **moa/app** is for the web app part.
 
 *Note: If you want to see an overview of how the program works, first
-checkout **moa/app/app.py** then look at **moa/app/matrix_processor/matrix_processor.py**.*
+checkout **moa/app/app.py** then look at **moa/app/matrix_processor/matrix_processor.py**.  Also if you want to run the app create a venv
+inside 'moa' directory and install requirements.*
 
 **--- Explaining Modules ---** <br>
 Matrix Processor ( moa/app/matrix_processor ): <br>
