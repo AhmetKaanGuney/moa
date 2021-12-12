@@ -1,5 +1,4 @@
 # MOA
-#### Video Demo:  <URL https://youtu.be/yMC2BDnNM80>
 #### Description:
 MOA (Matrix Operations Application) is a simple web app for editing your Excel matrix.
 
