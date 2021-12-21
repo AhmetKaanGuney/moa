@@ -181,6 +181,12 @@ def how_to_use():
         return render_template("how-to-use.html")
 
 
+@app.route("/how-to-format.html", methods=["GET"])
+def how_to_format():
+    if request.method == "GET":
+        return render_template("how-to-format.html")
+
+
 def read_txt_file(file):
     data = ""
     with open(file, "rb", encoding="utf-8") as f:

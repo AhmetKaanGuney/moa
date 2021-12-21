@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block title %}Upload{% endblock %}
+{% block title %}Home{% endblock %}
 
 {% block script %}
 <script defer type="text/javascript" src="../static/scripts/index/upload.js"></script>
@@ -15,7 +15,6 @@
         <!-- MID COLUMN -->
         <div class="col-sm-4">
             <h1 style="text-align: center;">Edit your matrix with ease.
-                <!-- <br>And more...</h1> -->
         </div>
 
         <!-- RIGHT COLUMN -->
@@ -33,7 +32,8 @@
             <form action="/" method="post" enctype="multipart/form-data" autocomplete="off" class="pt-2 pb-3">
                 <div>
                     <!-- File Input -->
-                    <input type="file" class="form-control form-control-lg mt-4" id="file-input" name="file-input" accept=".xls,.xlsx,.csv">
+                    <label for="file-input" class="form-label file-input-label">Choose an Excel file.</label>
+                    <input type="file" class="form-control form-control-lg mt-4" id="file-input" name="file-input" accept=".xls,.xlsx">
                     <div class="row mt-3 justify-content-center">
                         <!-- First Row -->
                         <label for="first-row" class="col form-label matrix-input-label">First Row:</label>
@@ -115,7 +115,7 @@
                 <div class="light-color large-font p-4">
                     <i>
                         This is a quick summary of the program you can checkout
-                        the <a href="/how-to-use.html" id="link">How To Use?</a> page for
+                        the <a href="/how-to-use.html" id="link">How To Use</a> and <a href="/how-to-format.html" id="link">How To Format</a> pages for
                         extended explanation with images.
                     </i>
                     <br>
@@ -128,7 +128,7 @@
                             <br>
                             <i>
                                 Note: If you have empty rows or columns inside
-                                your matrix (not the document) you will get an error.
+                                your matrix coordinates you will get an error.
                             </i>
                         </li>
 
@@ -149,7 +149,7 @@
                         </li>
 
                         <li class="high">From there you can create, delete and rename row and column groups.</li>
-                        <li class="high">If you want to create an item just click on it.</li>
+                        <li class="high">You can add and remove items by just clicking on them.</li>
                         <li class="high">After you are done go to the 'Export' menu and select a format.</li>
                         <li class="high">You should see the download prompt from your browser.</li>
                         <li class="high">Hit Save.</li>

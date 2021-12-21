@@ -11,29 +11,37 @@
         <title>{% block title %}{% endblock %} - MOA</title>
         {% block script %}{% endblock %}
     </head>
-    <body class="body flex-column">
-        <nav class="navbar navbar-dark pt-0 pb-1">
+    <body class="body">
+        <nav class="navbar navbar-expand-lg">
             <div class="container">
-                <a href="/" class="navbar-brand pb-0 mb-0 mt-0 pt-1">
-                    <img class="pb-1 mb-0 mt-0" src="../static/images/favicon.ico" alt="MOA Logo" height="32px">
-                    <span>M</span>
-                    <span>O</span>
-                    <span>A</span>
-                </a>
+                <div class="nav-item">
+                    <a href="/" class="navbar-brand pb-0 mb-0 mt-0 pt-1">
+                        <img class="pb-1 mb-0 mt-0" src="../static/images/favicon.ico" alt="MOA Logo" height="32px">
+                        <span>M</span>
+                        <span>O</span>
+                        <span>A</span>
+                    </a>
+                </div>
+
+                <div>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a href="./how-to-use.html" class="nav-link">How to Use</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="./how-to-format.html" class="nav-link">How to Format</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="https://github.com/AhmetKaanGuney/moa" class="nav-link">Github</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
-
         {% block main %}
         {% endblock %}
-            <!-- <div class="container mt-5 mb-5 border">
-                <h5>DEBUG</h6>
-                <h6>Session Info</h3>
-                {% block session %}
-                    {% for k, v in session.items() %}
-                    <p>{{k}} : {{v}}</p>
-                    {% endfor %}
-                {% endblock %}
-            </div> -->
-        </main>
+        <span style="color: rgba(255, 255, 255, 0.692);">
+            © 2021 Ahmet Kaan Güney
+        </span>
     </body>
 </html>

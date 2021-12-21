@@ -31,6 +31,7 @@ h1 {
     text-align: center;
     color: white;
     text-shadow: 0px 0px var(--very-very-dark-teal);
+    font-weight: 700;
 }
 
 h2 {
@@ -62,7 +63,7 @@ h2 {
 
 .main-how-to-use {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    background-color: var(--light-teal);
+    background-color: #b2dfdb91;
     /* background-image: linear-gradient(to top, var(--medium-teal), var(--light-teal)); */
     height: calc(100% - 49px);
     padding-bottom: 1em;
@@ -77,6 +78,7 @@ h2 {
 .navbar-brand {
     font-size: 24px;
     font-weight: 600;
+    color: white;
 }
 
 .nav {
@@ -86,9 +88,26 @@ h2 {
 }
 
 .nav-link {
-    color: black;
+    padding: 0;
+    margin-bottom: 0px;
+    color: rgba(255, 255, 255, 0.897);
+    font-size: 20px;
+    font-weight: 500;
+    text-decoration: none;
+}
+.nav-link:hover {
+    color: var(--hover-color);
 }
 
+.navbar-brand:hover {
+    color: var(--hover-color);
+}
+
+.navbar-col {
+    margin: 0;
+    padding-right: 0;
+    justify-content: end;
+}
 
 /* BLUEPRINT */
 .shortcut {
@@ -217,6 +236,14 @@ h2 {
     max-width: 10rem;
 }
 
+.file-input-label {
+    color: white;
+    text-shadow: 0px 0px var(--very-dark-teal);
+    float: left;
+    font-size: 24px;
+    font-weight: var(--heavy-font);
+}
+
 .matrix-input {
     max-width: 4.5rem;
     font-size: medium;
@@ -314,4 +341,15 @@ h2 {
 .segment-title {
     padding: 1rem 0em;
     text-align: center;
+}
+
+#example-link {
+    margin: 0;
+    padding: 0;
+    font-size: larger;
+    color: rgb(0, 144, 211);
+}
+
+#example-link:hover {
+    color: rgb(102, 191, 243);
 }

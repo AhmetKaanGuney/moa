@@ -8,7 +8,7 @@ class SessionID:
     @classmethod
     def generate(cls) -> int:
         """increments id and and returns it"""
-        if cls._id < 10000:
+        if cls._id < 500:
             cls._id += 1
             id = cls._id
             return id
