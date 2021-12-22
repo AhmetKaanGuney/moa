@@ -35,21 +35,9 @@ h1 {
 }
 
 h2 {
-    margin-top: 6rem;
+    /* margin-top: 3rem; */
     text-align: center;
     color: var(--very-light-teal);
-}
-
-#link {
-    color: rgb(0, 231, 212);
-}
-#link:hover {
-    color: rgb(132, 255, 239);
-}
-
-.body {
-    background-image: linear-gradient(to top, var(--body-bg-dark), var(--body-bg-light));
-    height: 100%;
 }
 
 .main {
@@ -61,63 +49,182 @@ h2 {
     box-shadow: 0px 0px 50px 20px rgba(0, 0, 0, 0.3);
 }
 
-.main-how-to-use {
+.main-how-to {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    background-color: #b2dfdb91;
+    background-color: #8cbebac2;
     /* background-image: linear-gradient(to top, var(--medium-teal), var(--light-teal)); */
     height: calc(100% - 49px);
     padding-bottom: 1em;
     box-shadow: 0px 0px 50px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* NAVBAR */
+.body {
+    background-image: linear-gradient(to top, var(--body-bg-dark), var(--body-bg-light));
+    height: 100%;
+}
+
+/* ========================================= */
+/*                  NAVBAR                   */
+/* ========================================= */
 .navbar {
     background-color: var(--primary-teal);
 }
-
 .navbar-brand {
     font-size: 24px;
     font-weight: 600;
     color: white;
 }
-
 .nav {
     border-bottom: 2em;
     font-size: large;
     font-weight: var(--heavy-font);
 }
-
+.pad-right {
+    padding-right: 8px;
+}
 .nav-link {
     padding: 0;
     margin-bottom: 0px;
     color: rgba(255, 255, 255, 0.897);
-    font-size: 20px;
-    font-weight: 500;
+    font-size: large;
+    font-weight: 400;
     text-decoration: none;
 }
 .nav-link:hover {
     color: var(--hover-color);
 }
-
+.nav-link:visited {
+    color: rgba(255, 255, 255, 0.897);
+}
 .navbar-brand:hover {
     color: var(--hover-color);
 }
-
 .navbar-col {
     margin: 0;
     padding-right: 0;
     justify-content: end;
 }
 
-/* BLUEPRINT */
-.shortcut {
-    color: rgb(173, 173, 173)
+
+/* ========================================= */
+/*                  HOMEPAGE                 */
+/* ========================================= */
+.card-box {
+    background-image: linear-gradient(to top, rgba(38, 166, 153, 0.3), rgba(178, 223, 219, 0.3));
+    color: var(--very-light-teal);
+    border: 1px white solid;
+    border-radius: var(--border-radius);
+    box-shadow: 0px 20px 50px 0px rgba(0, 0, 0, 0.418);
+}
+#file-upload-form-box {
+    border: 1px var(--very-light-teal) solid;
+    border-radius: var(--border-radius);
+
+    background-color: rgba(red, green, blue, 0.5);
+    box-shadow: 0px 20px 50px 0px rgba(0, 0, 0, 0.418);
+}
+.file-input-label {
+    color: white;
+    text-shadow: 0px 0px var(--very-dark-teal);
+    float: left;
+    font-size: 24px;
+    font-weight: var(--heavy-font);
+}
+.matrix-input-label {
+    padding-top: 5px;
+    margin: 0px;
+    color: white;
+    text-shadow: 0px 0px var(--very-dark-teal);
+    float: left;
+    font-size: 24px;
+    font-weight: var(--heavy-font);
+    max-width: 10rem;
+}
+.matrix-input {
+    max-width: 4.5rem;
+    font-size: medium;
+    font-weight: var(--heavy-font);
+    text-transform: uppercase;
+}
+#submit-button, #modal-ok-button {
+    background-color: var(--dark-teal);
+    color: white;
+}
+#submit-button:hover, #modal-ok-button:hover    {
+    background-color: var(--hover-color);
+    color: black;
+}
+#submit-button:active {
+    background-color: #A7FFEB;
+    box-shadow: 0 5px rgba(0, 0, 0, 0.329);
+    transform: translateY(4px);
+}
+.error-message-box {
+    background-color: #dd2c00b0;
+    border-radius: 0.3em;
+    margin: 10px 0px 0px 0px;
+    padding: 0px 0px;
+}
+.error-message {
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+}
+#error-message {
+    padding-left: 1em;
 }
 
+/* Text Styles */
+.large-font {
+    font-size: larger;
+}
+.high {
+    line-height: 2;
+}
+.inline-link {
+    color: rgb(0, 231, 212);
+}
+.inline-link:hover {
+    color: rgb(132, 255, 239);
+}
+.light-color {
+    color: var(--very-light-teal);
+}
+.paragraph {
+    font-size: larger;
+}
+#app-description {
+    font-size: larger;
+    max-width: 56rem;
+}
+
+
+/* ========================================= */
+/*                 BLUEPRINT                 */
+/* ========================================= */
+
+/* MENU BUTTONS */
 .dropdown-menu {
     padding: 0px 0px 0px 0px;
 }
-
+.menu-link {
+    margin-left: 2em;
+    font-size: 20px;
+    text-decoration: none;
+    color: var(--very-very-dark-teal);
+}
+.menu-link:hover {
+    color: rgb(0, 0, 0);
+}
+.shortcut {
+    color: rgb(173, 173, 173)
+}
+.filename-display {
+    padding-top: 10px;
+    font-size: large;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.863);
+}
 .seperator-line {
     margin-top: 0px;
     margin-bottom: 0px;
@@ -134,12 +241,10 @@ h2 {
 
     padding: 0.375rem 2.25rem 0.375rem 0.75rem;
 }
-
 #row-tab.active, #col-tab.active {
     background-color: var(--dark-medium-teal);
     color: white;
 }
-
 #row-tab {
     border-right: 0px;
 }
@@ -147,209 +252,87 @@ h2 {
     border-left: 0px;
 }
 
+/* GROUP's SELECT */
 #source-cols-list, #source-rows-list {
     margin-top: 10px;
 }
-
 #user-group-select {
     margin-top: 0px;
     padding-bottom: 3px;
     background-color: var(--very-light-teal);
+    font-weight: var(--heavy-font);
+    font-size: 18px;
+}
+.special-option {
+    background-color: var(--light-teal);
+    font-weight: 500;
 }
 
+/* LIST */
 #user-list {
     margin-top: 10px;
 }
-
 .list-group {
-    /* font-family: 'Courier New', Courier, monospace; */
     overflow: auto;
     max-height: 36em;
     border: 1px var(--border-color) solid;
     border-top: 0px;
     box-shadow: 0px 20px 50px 0px rgba(0, 0, 0, 0.418);
 }
-
 .list-group-item {
     border: 1px var(--border-color) solid;
 }
-
 .list-group-item:nth-of-type(odd) {
     background-color: var(--light-medium-teal);
 }
-
 .list-group-item:nth-of-type(even) {
     background-color: var(--light-teal);
 }
-
 .list-group-item:hover {
     background-color: var(--hover-color);
     transition: background 0.2s ease-in-out;
 }
 
-#user-group-select {
-    font-weight: var(--heavy-font);
-    font-size: 18px;
-}
-
-.special-option {
-    background-color: var(--light-teal);
-    font-weight: 500;
-}
-
-.filename-display {
-    padding-top: 10px;
-    font-size: large;
-    font-weight: 500;
-    color: rgba(0, 0, 0, 0.863);
-}
-
-
-/* MODAL WINDOW */
+/* MODAL WINDOW FOR GROUP CREATION*/
 .modal-select {
     border-radius: 0.3em;
     border-color: var(--border-color);
 }
-
-/* HOMEPAGE */
-#file-upload-form-box {
-    border: 1px var(--very-light-teal) solid;
-    border-radius: var(--border-radius);
-
-    background-color: rgba(red, green, blue, 0.5);
-    box-shadow: 0px 20px 50px 0px rgba(0, 0, 0, 0.418);
-}
-
-.large-font {
-    font-size: larger;
-}
-
-
-.matrix-input-label {
-    padding-top: 5px;
-    margin: 0px;
-    color: white;
-    text-shadow: 0px 0px var(--very-dark-teal);
-    float: left;
-    font-size: 24px;
-    font-weight: var(--heavy-font);
-    max-width: 10rem;
-}
-
-.file-input-label {
-    color: white;
-    text-shadow: 0px 0px var(--very-dark-teal);
-    float: left;
-    font-size: 24px;
-    font-weight: var(--heavy-font);
-}
-
-.matrix-input {
-    max-width: 4.5rem;
-    font-size: medium;
-    font-weight: var(--heavy-font);
-    text-transform: uppercase;
-}
-
-#submit-button, #modal-ok-button {
-    background-color: var(--dark-teal);
-    color: white;
-}
-
-#submit-button:hover, #modal-ok-button:hover    {
-    background-color: var(--hover-color);
-    color: black;
-}
-
-#submit-button:active {
-    background-color: #A7FFEB;
-    box-shadow: 0 5px rgba(0, 0, 0, 0.329);
-    transform: translateY(4px);
-}
-
-.error-message-box {
-    background-color: #dd2c00b0;
-    border-radius: 0.3em;
-    margin: 10px 0px 0px 0px;
-    padding: 0px 0px;
-}
-
-.error-message {
-    font-size: 18px;
-    font-weight: 600;
-    color: white;
-}
-
-#error-message {
-    padding-left: 1em;
-}
-
-.card-box {
-    background-image: linear-gradient(to top, rgba(38, 166, 153, 0.3), rgba(178, 223, 219, 0.3));
-    color: var(--very-light-teal);
-    border: 1px white solid;
-    border-radius: var(--border-radius);
-    box-shadow: 0px 20px 50px 0px rgba(0, 0, 0, 0.418);
-}
-
-.paragraph {
-    font-size: larger;
-    /* margin: 0px; */
-    /* padding-left: 3rem; */
-}
-
-.high {
-    line-height: 2;
-}
-
-.light-color {
-    color: var(--very-light-teal);
-}
-
-#app-description {
-    font-size: larger;
-    max-width: 56rem;
-}
-
 .preserve-white-space {
     white-space: pre-line;
 }
 
+/* ========================================= */
+/*                HOW TO USE                 */
+/* ========================================= */
+.segment-title {
+    padding: 1rem 0em;
+    text-align: center;
+}
+.text-area {
+    font-size: larger;
+    max-width: 18em;
+}
+.seperator-white {
+    color: white;
+    min-height: 3px;
+    box-shadow: 0px 1px 15px black;
+}
+#example-link {
+    margin: 0;
+    padding: 0;
+    font-size: larger;
+    color: rgb(26, 109, 148);
+}
+#example-link:hover {
+    color: rgb(73, 155, 202);
+}
 
+/* FOR DEBUG */
 .debug-bg {
     background-color: rgb(199, 126, 126);
 }
 
 .debug-bg-2 {
     background-color: rgb(126, 155, 199);
-}
-
-
-/* HOW TO USE */
-
-.text-area {
-    font-size: larger;
-    max-width: 18em;
-}
-
-.seperator-white {
-    color: white;
-    min-height: 3px;
-    box-shadow: 0px 1px 15px black;
-}
-
-.segment-title {
-    padding: 1rem 0em;
-    text-align: center;
-}
-
-#example-link {
-    margin: 0;
-    padding: 0;
-    font-size: larger;
-    color: rgb(0, 144, 211);
-}
-
-#example-link:hover {
-    color: rgb(102, 191, 243);
 }

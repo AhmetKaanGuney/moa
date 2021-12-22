@@ -1,3 +1,4 @@
+"""Author: Ahmet Kaan Güney"""
 import os
 import time
 import secrets
@@ -84,7 +85,7 @@ def index():
 
             print("Converting File to Blueprint...")
             # Get file format
-            file_format = f.filename.split('.')[1]
+            file_format = f.filename.split(".")[1]
             # Get file stream
             file_stream = f.stream.read()
             try:
